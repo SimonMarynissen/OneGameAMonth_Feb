@@ -1,4 +1,4 @@
-import engine/Entity
+import vamos/Entity
 
 // Used for shared behaviour in entities
 

@@ -1,6 +1,9 @@
-Main: class extends Engine {
+import vamos/Engine
+import states/MenuState
 
-	init: func {
-		super(400, 600, 60)
-	}
+main: func (argc:Int, arcv:CString*) {
+	
+	engine := Engine new(600, 600, 60)
+	engine caption = "One Game a Month"
+	engine start(MenuState new())
 }

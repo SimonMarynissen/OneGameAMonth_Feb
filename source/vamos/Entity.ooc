@@ -1,5 +1,5 @@
 import structs/ArrayList
-import engine/Component
+import vamos/Component
 
 Entity: class {
 	
