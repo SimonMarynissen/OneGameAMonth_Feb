@@ -17,10 +17,10 @@ StateManager: class {
 		}
 	}
 	
-	init: func (=state)
+	init: func (=state) {}
+	init: func ~withoutState
 	
 	update: func (dt:Double) {
 		state update(dt)
 	}
-	
 }
