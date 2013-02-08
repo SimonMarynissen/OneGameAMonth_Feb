@@ -1,7 +1,7 @@
 use sdl2
 import sdl2/[Core, Event]
 import structs/ArrayList
-import util/Signal
+import vamos/Signal
 
 Input: class {
 	

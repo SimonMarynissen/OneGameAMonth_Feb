@@ -1,4 +1,4 @@
-import engine/State
+import vamos/State
 
 StateManager: class {
 	

@@ -1,6 +1,5 @@
 import structs/ArrayList
-import util/Signal
-import engine/Entity
+import vamos/[Signal, Entity]
 
 // Contains and updates entites
 
