@@ -2,7 +2,7 @@ import engine/Entity
 
 // Used for shared behaviour in entities
 
-Component: class {
+Component: abstract class {
 	
 	name: String
 	entity: Entity
