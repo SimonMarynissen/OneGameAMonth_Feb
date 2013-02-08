@@ -6,9 +6,11 @@ Component: class {
 	
 	name: String
 	entity: Entity
+	active: Bool
 	
 	init: func (=name)
 	
+	reset: func
 	added: func
 	removed: func
 	
