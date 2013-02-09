@@ -1,0 +1,5 @@
+F, J, T or Y followed by small letters should be moved 1 pixel closer
+small letter followed by T or Y should also be moved 1 pixel closer
+
+small letters in front of T, Y: a, b, c, e, g, h, k, m, n, o, p, r, s, u, v, w, x, y, z
+small letters after F, J, T or Y: a, c, d, e, g, m, n, o, q, r, s, u, v, w, x, y, z
