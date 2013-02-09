@@ -45,16 +45,10 @@ Engine: class {
 	}
 	
 	update: func () {
-		starttime := SDL GetTicks()
-		
 		Input update()
 		stateManager update(1.0/frameRate)
 		//stateRenderer draw()
-		
-		endtime := SDL GetTicks()
-		diff := endtime - starttime
-		
-		SDL delay(1000/frameRate - diff)
+		SDL delay(1000/frameRate)
 	}
 	
 	cleanup: func () {
