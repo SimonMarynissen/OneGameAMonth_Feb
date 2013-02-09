@@ -6,4 +6,9 @@ MenuState: class extends State {
 		
 	}
 	
+	update: func (dt:Double) {
+		super()
+		"updating! %f" printfln(dt)
+	}
+	
 }

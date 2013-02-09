@@ -1,6 +1,7 @@
 use sdl2
 import sdl2/Core
-import vamos/[State, StateManager, Input]
+import vamos/[Input, State, StateManager]
+import vamos/display/StateRenderer
 
 Engine: class {
 	
@@ -9,18 +10,26 @@ Engine: class {
 	width, height: Int
 	caption := "Untitled Vamos Game"
 	
-	frameRate:Double = 60
+	frameRate := 60.0
 	
 	window: SdlWindow
 	renderer: SdlRenderer
 	
-	stateManager := StateManager new()
-
-	init: func (=width, =height, =frameRate) {
-		
+	stateManager: StateManager
+	stateRenderer: StateRenderer
+	
+	state: State {
+		get { stateManager state }
+		set (s) {
+			stateManager state = s
+			stateRenderer state = s
+		}
 	}
 	
-	start: func (state: State) {
+	init: func (=width, =height, =frameRate)
+	
+	
+	start: func (startState:State) {
 		
 		SDL init(SDL_INIT_EVERYTHING)
 		
@@ -32,9 +41,10 @@ Engine: class {
 		
 		renderer = SDL createRenderer(window, -1, SDL_RENDERER_ACCELERATED)
 		
-		stateManager state = state
+		stateManager = StateManager new(startState)
+		stateRenderer = StateRenderer new(renderer, startState)
 		
-		running := true
+		running = true
 		Input onQuit add(|| running = false)
 		
 		while (running) {
@@ -47,7 +57,7 @@ Engine: class {
 	update: func () {
 		Input update()
 		stateManager update(1.0/frameRate)
-		//stateRenderer draw()
+		stateRenderer draw()
 		SDL delay(1000/frameRate)
 	}
 	

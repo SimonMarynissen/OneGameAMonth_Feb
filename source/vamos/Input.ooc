@@ -5,12 +5,12 @@ import vamos/Signal
 
 Input: class {
 	
-	onMouseMove: static Signal<SdlMouseMotionEvent> = Signal<SdlMouseMotionEvent> new()
-	onMouseDown: static Signal<SdlMouseButtonEvent> = Signal<SdlMouseButtonEvent> new()
-	onMouseUp: static Signal<SdlMouseButtonEvent> = Signal<SdlMouseButtonEvent> new()
-	onKeyDown: static Signal<Int> = Signal<Int> new()
-	onKeyUp: static Signal<Int> = Signal<Int> new()
-	onQuit: static VoidSignal = VoidSignal new()
+	onMouseMove := static Signal<SdlMouseMotionEvent> new()
+	onMouseDown := static Signal<SdlMouseButtonEvent> new()
+	onMouseUp := static Signal<SdlMouseButtonEvent> new()
+	onKeyDown := static Signal<Int> new()
+	onKeyUp := static Signal<Int> new()
+	onQuit := static VoidSignal new()
 	
 	mouseX, mouseY: static Int
 	mouseHeld: static Bool

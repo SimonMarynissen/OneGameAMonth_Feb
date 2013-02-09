@@ -7,43 +7,48 @@ import structs/ArrayList
 */
 
 Signal: class <T> {
-	_listeners := ArrayList<Func(T)> new()
+	_listeners := ArrayList<ArgListener<T>> new()
 	
 	add: func (f:Func(T)) -> Int {
-		_listeners add(f)
+		_listeners add(ArgListener<T> new(f))
 		return _listeners size-1
 	}
 	
-	remove: func (f:Func(T)) {
-		_listeners remove(f)
-	}
-	
-	remove: func~byIndex (i:Int) {
+	remove: func (i:Int) {
 		_listeners removeAt(i)
 	}
 	
-	dispatch: func (event:T) {
-		for (f in _listeners) f(event)
+	dispatch: func (param:T) {
+		for (l in _listeners) l call(param)
 	}
 }
 
+ArgListener: class <T> {
+	f: Func(T)
+	init: func(=f)
+	call: func(param:T) { f(param) }
+}
+
+
 VoidSignal: class {
-	_listeners := ArrayList<Func> new()
+	_listeners := ArrayList<VoidListener> new()
 	
 	add: func (f:Func) -> Int {
-		_listeners add(f)
+		_listeners add(VoidListener new(f))
 		return _listeners size-1
 	}
 	
-	remove: func (f:Func) {
-		_listeners remove(f)
-	}
-	
-	remove: func~byIndex (i:Int) {
+	remove: func (i:Int) {
 		_listeners removeAt(i)
 	}
 	
 	dispatch: func {
-		for (f in _listeners) f()
+		for (l in _listeners) l call()
 	}
+}
+
+VoidListener: class {
+	f: Func
+	init: func(=f)
+	call: func { f() }
 }
