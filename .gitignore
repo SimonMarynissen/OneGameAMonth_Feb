@@ -1,5 +1,7 @@
 *.sublime-project
 *.sublime-workspace
+*.exe
+*.dll
 bin/*
 rock_tmp/*
 .libs/*
