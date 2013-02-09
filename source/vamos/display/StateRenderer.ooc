@@ -41,7 +41,7 @@ StateRenderer: class {
 	// }
 	
 	draw: func {
-		SDL setRenderDrawColor(renderer, 0, 0, 0, 255)
+		SDL setRenderDrawColor(renderer, 0x20, 0x20, 0x20, 255)
 		SDL renderClear(renderer)
 		SDL renderPresent(renderer)
 	}
