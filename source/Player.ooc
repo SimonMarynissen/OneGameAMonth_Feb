@@ -1,19 +1,20 @@
 use sdl2
 import sdl2/Event
 
-import Ship
+import ShipGraphic
 import vamos/Entity
 import vamos/graphics/Image
+import vamos/masks/Hitbox
 import vamos/Input
 
 Player: class extends Entity {
 	
-	img : Ship
 	init: func (=x, =y) {
+		mask = Hitbox new(32, 32)
 		
-		img = Ship new(1)
-		img scale = 2
-		graphic = img
+		image := ShipGraphic new(1)
+		image scale = 2
+		graphic = image
 	}
 	
 	update: func(dt:Double) {

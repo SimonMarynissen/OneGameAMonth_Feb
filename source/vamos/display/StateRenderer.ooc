@@ -13,25 +13,29 @@ import vamos/AssetCache
 StateRenderer: class {
 	
 	state: State
-	renderer: SdlRenderer
+	target: SdlRenderer
 	
 	camX, camY:Double
 	
-	tex:SdlTexture
-	
-	init: func (=renderer, =state)
+	init: func (=target, =state)
 	
 	drawData: inline func(data:ImageData, sourceRect, destRect:SdlRect*) {
-		SDL renderCopy(renderer, data texture, sourceRect, destRect)
+		SDL renderCopy(target, data texture, sourceRect, destRect)
 	}
 	
-	drawDataEx: inline func (data:ImageData, sourceRect, destRect:SdlRect*, angle:const Double, center:const SdlPoint*, flip:const Int) {
-		SDL renderCopyEx(renderer, data texture, sourceRect, destRect, angle, center, flip)
+	drawData: inline func~ex (data:ImageData, sourceRect, destRect:SdlRect*, angle:const Double, center:const SdlPoint*, flip:const Int) {
+		SDL renderCopyEx(target, data texture, sourceRect, destRect, angle, center, flip)
 	}
+	
+	fillRect: func (rect:SdlRect*, r,g,b,a:UInt8) {
+		SDL setRenderDrawColor(target, r,g,b,a)
+		SDL renderFillRect(target, rect)
+	}
+	
 	
 	draw: func {
-		SDL setRenderDrawColor(renderer, 0x20, 0x20, 0x20, 255)
-		SDL renderClear(renderer)
+		SDL setRenderDrawColor(target, 0x20, 0x20, 0x20, 255)
+		SDL renderClear(target)
 		
 		for (e in state entities) {
 			graphic := e graphic
@@ -40,7 +44,7 @@ StateRenderer: class {
 			}
 		}
 		
-		SDL renderPresent(renderer)
+		SDL renderPresent(target)
 	}
 	
 }

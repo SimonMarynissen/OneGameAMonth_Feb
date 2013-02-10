@@ -1,5 +1,5 @@
 import structs/ArrayList
-import vamos/[Component, Graphic]
+import vamos/[Component, Graphic, Mask]
 
 Entity: class {
 	
@@ -7,7 +7,14 @@ Entity: class {
 	y := 0.0
 	
 	graphic: Graphic
-	//mask: Mask
+	
+	mask: Mask {
+		set (v) {
+			mask = v
+			mask entity = this
+		}
+		get { mask }
+	}
 	
 	components := ArrayList<Component> new()
 	
