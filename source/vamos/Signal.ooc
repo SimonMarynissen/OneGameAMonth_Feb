@@ -9,13 +9,14 @@ import structs/ArrayList
 Signal: class <T> {
 	_listeners := ArrayList<ArgListener<T>> new()
 	
-	add: func (f:Func(T)) -> Int {
-		_listeners add(ArgListener<T> new(f))
-		return _listeners size-1
+	add: func (f:Func(T)) -> ArgListener {
+		l := ArgListener<T> new(f)
+		_listeners add(l)
+		return l
 	}
 	
-	remove: func (i:Int) {
-		_listeners removeAt(i)
+	remove: func (l:ArgListener) {
+		_listeners remove(l)
 	}
 	
 	dispatch: func (param:T) {
@@ -33,13 +34,14 @@ ArgListener: class <T> {
 VoidSignal: class {
 	_listeners := ArrayList<VoidListener> new()
 	
-	add: func (f:Func) -> Int {
-		_listeners add(VoidListener new(f))
-		return _listeners size-1
+	add: func (f:Func) -> VoidListener {
+		l := VoidListener new(f)
+		_listeners add(l)
+		return l
 	}
 	
-	remove: func (i:Int) {
-		_listeners removeAt(i)
+	remove: func (l:VoidListener) {
+		_listeners remove(l)
 	}
 	
 	dispatch: func {
