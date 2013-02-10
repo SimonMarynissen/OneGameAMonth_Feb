@@ -10,24 +10,15 @@ SpriteFont : class extends SpriteMap {
 	text = "" :String
 	
 	init :func (=text) {
-		super("vamos/font_temp.png", 10, 10)
+		super("vamos/font_temp.png", 8, 10)
 	}
 	
-	draw: func (renderer:StateRenderer, entity:Entity) {
+	draw: func (renderer:StateRenderer, entity:Entity, x, y : Double) {
 		count := 0
-		
-		dstRect y = entity y + y - renderer camY * scrollY
-		dstRect w = frameWidth * scale
-		dstRect h = frameHeight * scale
-		
 		for (c in text)
 		{
-			dstRect x = entity x + x + (count * dstRect w) - renderer camX * scrollX
-			
 			setCurrentFrame(c as Int)
-			
-			renderer drawData(data, srcRect&, dstRect&)
-			
+			super (renderer, entity, x + count * frameWidth, y)
 			count += 1  
 		}
 	}

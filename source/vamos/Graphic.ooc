@@ -9,5 +9,5 @@ Graphic: abstract class {
 	scrollX := 1.0
 	scrollY := 1.0
 	
-	draw: abstract func (renderer: StateRenderer, entity:Entity) 
+	draw: abstract func (renderer: StateRenderer, entity:Entity, x, y : Double) 
 }

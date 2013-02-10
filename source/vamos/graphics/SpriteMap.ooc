@@ -25,12 +25,9 @@ SpriteMap : class extends Image {
 		currentFrame = val
 	}
 	
-	draw: func (renderer:StateRenderer, entity:Entity) {
-		dstRect x = entity x + x - renderer camX * scrollX
-		dstRect y = entity y + y - renderer camY * scrollY
+	draw: func (renderer:StateRenderer, entity:Entity, x, y : Double) {
 		dstRect w = frameWidth * scale
 		dstRect h = frameHeight * scale
-		
-		renderer drawData(data, srcRect&, dstRect&)
+		super (renderer, entity, x, y)
 	}
 }

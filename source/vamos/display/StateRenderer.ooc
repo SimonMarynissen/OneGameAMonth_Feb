@@ -40,7 +40,9 @@ StateRenderer: class {
 		for (e in state entities) {
 			graphic := e graphic
 			if (graphic != null && graphic visible) {
-				graphic draw(this, e)
+				x := e x + graphic x - camX * graphic scrollX
+				y := e y + graphic y - camY * graphic scrollY
+				graphic draw(this, e, x, y)
 			}
 		}
 		

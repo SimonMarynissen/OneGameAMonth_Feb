@@ -8,10 +8,22 @@ Image: class extends Graphic {
 	
 	data:ImageData
 	
-	dstRect:SdlRect
-	srcRect:SdlRect
+	dstRect :SdlRect
+	srcRect :SdlRect
+	origin :SdlPoint
 	
-	scale = 1.0:Double
+	scale : Double {
+		get {
+			return scale
+		}
+		set (v) {
+			dstRect w = data width * v
+			dstRect h = data height * v
+			scale = v
+		}
+	}
+	
+	angle = 0.0:Double
 	
 	init: func (path:String) {
 		super()
@@ -20,14 +32,13 @@ Image: class extends Graphic {
 		dstRect h = data height
 		srcRect w = data width
 		srcRect h = data height
+		scale = 1
 		"%d, %d" printfln(dstRect w, dstRect h)
 	}
 	
-	draw: func (renderer:StateRenderer, entity:Entity) {
-		dstRect x = entity x + x - renderer camX * scrollX
-		dstRect y = entity y + y - renderer camY * scrollY
-		dstRect w = data width * scale
-		dstRect h = data height * scale
+	draw: func (renderer:StateRenderer, entity:Entity, x, y : Double) {
+		dstRect x = x
+		dstRect y = y
 		renderer drawData(data, srcRect&, dstRect&)
 	} 
 	
