@@ -30,8 +30,9 @@ Engine: class {
 	
 	
 	start: func (startState:State) {
-		
 		SDL init(SDL_INIT_EVERYTHING)
+		
+		setIcon("icon.bmp")
 		
 		window = SDL createWindow(
 			caption,
@@ -69,6 +70,14 @@ Engine: class {
 		diff := lastTime - timeElapsed
 		
 		SDL delay(1000/frameRate - diff)
+	}
+	
+	setIcon :func (sourcePath:String) {
+		setIcon(SDL loadBMP(sourcePath))
+	}
+	
+	setIcon :func~withSurface (icon:SdlSurface*) {
+		SDL setWindowIcon(window, icon)
 	}
 	
 	cleanup: func () {
