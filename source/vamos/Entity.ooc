@@ -1,11 +1,12 @@
 import structs/ArrayList
-import vamos/[Component, Graphic, Mask]
+import vamos/[State, Component, Graphic, Mask]
 
 Entity: class {
 	
 	x := 0.0
 	y := 0.0
-	
+	type := ""
+	state: State
 	graphic: Graphic
 	
 	mask: Mask {
@@ -57,6 +58,37 @@ Entity: class {
 			if (comp class == class)
 				return comp
 		}
+		return null
+	}
+	
+	collide: func (type:String, x, y:Double) -> Entity {
+		if (mask == null)
+			return null
+		
+		// TODO make this more efficient (using linked lists?)
+		// iterating over every entity is bad
+		for (e in state entities) {
+			if (e type == type && e != this && e mask != null \
+			&& (mask check(e mask) || e mask check(mask)) ) {
+				return e
+			}
+		}
+		
+		return null
+	}
+	
+	collide: func~types(types:ArrayList<String>, x, y:Double) -> Entity {
+		if (mask == null)
+			return null
+		
+		// TODO make this more efficient (using linked lists?)
+		for (e in state entities) {
+			if (types contains?(e type) && e != this && e mask != null \
+			&& (mask check(e mask) || e mask check(mask)) ) {
+				return e
+			}
+		}
+		
 		return null
 	}
 	

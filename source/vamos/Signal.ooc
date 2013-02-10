@@ -9,13 +9,13 @@ import structs/ArrayList
 Signal: class <T> {
 	_listeners := ArrayList<ArgListener<T>> new()
 	
-	add: func (f:Func(T)) -> ArgListener {
+	add: func (f:Func(T)) -> ArgListener<T> {
 		l := ArgListener<T> new(f)
 		_listeners add(l)
 		return l
 	}
 	
-	remove: func (l:ArgListener) {
+	remove: func (l:ArgListener<T>) {
 		_listeners remove(l)
 	}
 	
