@@ -5,6 +5,8 @@ import vamos/[Signal, Entity]
 
 State: class {
 	
+	created := false
+	
 	entities := ArrayList<Entity> new()
 	
 	onEntityAdded := Signal<Entity> new()
@@ -12,13 +14,19 @@ State: class {
 	onEnter := Signal<State> new()
 	onLeave := Signal<State> new()
 	
+	// Don't create entities or load assets here.
 	init: func {
+		
+	}
+	
+	// Called when a renderer is available, and entities/graphics can be initialised
+	create: func {
 		
 	}
 	
 	update: func (dt:Double) {
 		for (e in entities) {
-			e updateComponents(dt)
+			e updateComps(dt)
 			e update(dt)
 		}
 	}

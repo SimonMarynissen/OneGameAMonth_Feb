@@ -11,6 +11,9 @@ StateManager: class {
 				state onLeave dispatch(newState)
 			}
 			if (newState != null) {
+				if (!newState created) {
+					newState create()
+				}
 				newState onEnter dispatch(state)
 			}
 			state = newState

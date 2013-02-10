@@ -1,9 +1,14 @@
 import structs/ArrayList
-import vamos/Component
+import vamos/[Component, Graphic]
 
 Entity: class {
 	
-	x, y:Double
+	x := 0.0
+	y := 0.0
+	
+	graphic: Graphic
+	//mask: Mask
+	
 	components := ArrayList<Component> new()
 	
 	init: func {
@@ -12,25 +17,27 @@ Entity: class {
 	
 	update: func (dt:Double)
 	
-	updateComponents: func (dt:Double) {
-		for (comp in components)
-			comp update(dt)
+	updateComps: func (dt:Double) {
+		for (comp in components) {
+			if (comp active)
+				comp update(dt)
+		}
 	}
 	
-	addComponent: func (comp:Component) {
+	addComp: func (comp:Component) {
 		components remove(comp)
 		components add(comp)
 		comp entity = this
 		comp added()
 	}
 	
-	removeComponent: func (comp:Component) {
+	removeComp: func (comp:Component) {
 		components remove(comp)
 		comp entity = null
 		comp removed()
 	}
 	
-	getComponent: func ~byName (name:String) -> Component {
+	getComp: func ~byName (name:String) -> Component {
 		for (comp in components) {
 			if (comp name == name)
 				return comp
@@ -38,7 +45,7 @@ Entity: class {
 		return null
 	}
 	
-	getComponent: func ~byClass (class:Class) -> Component {
+	getComp: func ~byClass (class:Class) -> Component {
 		for (comp in components) {
 			if (comp class == class)
 				return comp

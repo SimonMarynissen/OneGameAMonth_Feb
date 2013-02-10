@@ -1,9 +1,7 @@
 use sdl2
 import sdl2/Core
-import vamos/[Input, State, StateManager]
+import vamos/[Input, AssetCache, State, StateManager]
 import vamos/display/StateRenderer
-
-import vamos/display/SurfaceLoader
 
 Engine: class {
 	
@@ -43,23 +41,17 @@ Engine: class {
 		
 		renderer = SDL createRenderer(window, -1, SDL_RENDERER_ACCELERATED)
 		
+		AssetCache init(renderer)
+		Input init()
+		
 		stateManager = StateManager new(startState)
 		stateRenderer = StateRenderer new(renderer, startState)
 		
 		running = true
 		Input onQuit add(|| running = false)
 		
-		surface := SurfaceLoader load("assets/vamos/vamos_logo.png")
-		texture := SDL createTextureFromSurface(renderer, surface)
-		SDL freeSurface(surface)
-		
-		targetRect := (10, 10, 160, 100) as SdlRect
-		
 		while (running) {
 			update()
-			SDL renderClear(renderer)
-			SDL renderCopy(renderer, texture, null, targetRect&)
-			SDL renderPresent(renderer)
 		}
 		
 		cleanup()
@@ -71,7 +63,7 @@ Engine: class {
 		
 		Input update()
 		stateManager update(1.0/frameRate)
-		//stateRenderer draw()
+		stateRenderer draw()
 		
 		timeElapsed := SDL getTicks()
 		diff := lastTime - timeElapsed

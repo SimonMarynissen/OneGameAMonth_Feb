@@ -1,7 +1,9 @@
 use sdl2
 import sdl2/Core
 
-Image: class {
+import vamos/display/SurfaceLoader
+
+ImageData: class {
 	
 	texture: SdlTexture
 	width: Double
@@ -9,10 +11,12 @@ Image: class {
 	
 	init: func ~fromSurface (renderer:SdlRenderer, surface:SdlSurface*) {
 		texture = SDL createTextureFromSurface(renderer, surface)
+		width = surface@ w
+		height = surface@ h
 	}
 	
 	init: func ~fromPath (renderer:SdlRenderer, path:String) {
-		surface := SDLImage load(path)
+		surface := SurfaceLoader load(path)
 		if (surface == null) {
 			"!! Error loading image '%s'" printfln(path)
 			// init with a placeholder 

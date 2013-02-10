@@ -1,11 +1,13 @@
-Graphic: abstract class extends Component {
+import vamos/Entity
+import vamos/display/StateRenderer
 
-	x, y: Double
-	width, height: Double
-	visible: Bool
-	scrollX, scrollY: Double
-
-	init: super func
+Graphic: abstract class {
 	
-	draw: func (renderer: SdlRenderer, cam: Camera) 
+	visible := true
+	x := 0.0
+	y := 0.0
+	scrollX := 1.0
+	scrollY := 1.0
+	
+	draw: abstract func (renderer: StateRenderer, entity:Entity) 
 }

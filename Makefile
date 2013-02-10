@@ -8,3 +8,5 @@ run:
 
 clean:
 	rm -rf rock_tmp .libs
+	
+test: clean all run

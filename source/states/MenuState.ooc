@@ -1,14 +1,15 @@
 import vamos/State
 
+import Player
+
 MenuState: class extends State {
 	
-	init: func {
-		
+	create: func {
+		add(Player new(100, 100))
 	}
 	
 	update: func (dt:Double) {
-		super()
-		"updating! %f" printfln(dt)
+		super(dt)
 	}
 	
 }
