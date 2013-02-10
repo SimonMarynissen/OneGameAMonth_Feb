@@ -1,15 +1,17 @@
 use sdl2
 import sdl2/Event
 
+import Ship
 import vamos/Entity
 import vamos/graphics/Image
 import vamos/Input
 
 Player: class extends Entity {
 	
+	img : Ship
 	init: func (=x, =y) {
 		
-		img := Image new("ship_starskipper.png")
+		img = Ship new(1)
 		img scale = 2
 		graphic = img
 	}

@@ -8,28 +8,27 @@ Image: class extends Graphic {
 	
 	data:ImageData
 	
-	destRect:SdlRect
+	dstRect:SdlRect
+	srcRect:SdlRect
 	
-	scale: Double {
-		set (v) {
-			destRect w = data width * v
-			destRect h = data height * v
-		}
-	}
-	
+	scale = 1.0:Double
 	
 	init: func (path:String) {
 		super()
 		data = AssetCache getImageData(path)
-		destRect w = data width
-		destRect h = data height
-		"%d, %d" printfln(destRect w, destRect h)
+		dstRect w = data width
+		dstRect h = data height
+		srcRect w = data width
+		srcRect h = data height
+		"%d, %d" printfln(dstRect w, dstRect h)
 	}
 	
 	draw: func (renderer:StateRenderer, entity:Entity) {
-		destRect x = entity x + x - renderer camX * scrollX
-		destRect y = entity y + y - renderer camY * scrollY
-		renderer drawData(data, null, destRect&)
+		dstRect x = entity x + x - renderer camX * scrollX
+		dstRect y = entity y + y - renderer camY * scrollY
+		dstRect w = data width * scale
+		dstRect h = data height * scale
+		renderer drawData(data, srcRect&, dstRect&)
 	} 
 	
 }
