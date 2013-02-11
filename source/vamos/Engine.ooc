@@ -6,18 +6,13 @@ import vamos/display/StateRenderer
 Engine: class {
 	
 	running := false
-	
 	width, height: Int
 	caption := "Untitled Vamos Game"
-	
 	frameRate := 60.0
-	
 	window: SdlWindow
 	renderer: SdlRenderer
-	
 	stateManager: StateManager
 	stateRenderer: StateRenderer
-	
 	state: State {
 		get { stateManager state }
 		set (s) {
@@ -26,7 +21,7 @@ Engine: class {
 		}
 	}
 	
-	init: func (=width, =height, =frameRate)
+	init: func (=width, =height, =frameRate) {}
 	
 	
 	start: func (startState:State) {
@@ -59,7 +54,6 @@ Engine: class {
 	}
 	
 	update: func () {
-		
 		lastTime := SDL getTicks()
 		
 		Input update()
@@ -72,11 +66,11 @@ Engine: class {
 		SDL delay(1000/frameRate - diff)
 	}
 	
-	setIcon :func (sourcePath:String) {
+	setIcon: func (sourcePath:String) {
 		setIcon(SDL loadBMP(sourcePath))
 	}
 	
-	setIcon :func~withSurface (icon:SdlSurface*) {
+	setIcon: func ~withSurface (icon:SdlSurface*) {
 		SDL setWindowIcon(window, icon)
 	}
 	

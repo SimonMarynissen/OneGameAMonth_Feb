@@ -6,9 +6,7 @@ import vamos/[Signal, Entity]
 State: class {
 	
 	created := false
-	
 	entities := ArrayList<Entity> new()
-	
 	onEntityAdded := Signal<Entity> new()
 	onEntityRemoved := Signal<Entity> new()
 	onEnter := Signal<State> new()
@@ -35,6 +33,7 @@ State: class {
 		entities remove(e)
 		entities add(e)
 		e state = this
+		e added() // has more possibilities then onEntityAdded, you could have different behaviours with other types of entities
 		onEntityAdded dispatch(e)
 	}
 	
@@ -42,5 +41,6 @@ State: class {
 		onEntityRemoved dispatch(e)
 		entities remove(e)
 		e state = null
+		e removed()
 	}
 }

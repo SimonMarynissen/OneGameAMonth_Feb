@@ -24,7 +24,6 @@ StateManager: class {
 	init: func ~withoutState
 	
 	update: func (dt:Double) {
-		if (state)
-			state update(dt)
+		if (state) state update(dt)
 	}
 }

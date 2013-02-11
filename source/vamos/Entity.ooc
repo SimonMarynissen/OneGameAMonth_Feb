@@ -8,7 +8,7 @@ Entity: class {
 	type := ""
 	state: State
 	graphic: Graphic
-	
+	components := ArrayList<Component> new()
 	mask: Mask {
 		set (v) {
 			mask = v
@@ -16,8 +16,6 @@ Entity: class {
 		}
 		get { mask }
 	}
-	
-	components := ArrayList<Component> new()
 	
 	init: func {
 		
@@ -42,7 +40,7 @@ Entity: class {
 		comp added()
 	}
 	
-	addComp: func~withName (name:String, comp:Component) {
+	addComp: func ~withName (name:String, comp:Component) {
 		comp name = name
 		addComp(comp)
 	}
@@ -90,11 +88,11 @@ Entity: class {
 		return null
 	}
 	
-	collide: func~noPos (type:String) -> Entity {
+	collide: func ~noPos (type:String) -> Entity {
 		return collide(type, x, y)
 	}
 	
-	collide: func~types(types:ArrayList<String>, _x, _y:Double) -> Entity {
+	collide: func ~types (types:ArrayList<String>, _x, _y:Double) -> Entity {
 		if (mask == null)
 			return null
 		
@@ -113,8 +111,10 @@ Entity: class {
 		return null
 	}
 	
-	collide: func~typesNoPos (types:ArrayList<String>) -> Entity {
+	collide: func ~typesNoPos (types:ArrayList<String>) -> Entity {
 		return collide(types, x, y)
 	}
 	
+	removed: abstract func () {} // called when removed from world
+	added: abstract func () {} // called when added to world
 }
