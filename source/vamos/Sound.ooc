@@ -12,27 +12,50 @@ Sound: class {
 		onComplete.add(complete)
 	}
 	
+	init: func ~withVolumeAndPan (=volume, =pan) {
+		init()
+	}
+	
 	complete: func () {
 		stop()
 		if (looping) {
-			play(volume, pan)
+			play(true)
 		}
 	}
 	
 	play: func () {
 		play(volume, pan)
-		// play the sound with volume and pan attributes
+	}
+	
+	play: func ~withLooping (=looping) {
+		play(volume, pan)
 	}
 	
 	play: func ~withVolumeAndPan (volume, pan: Double) {
 		// play the sound with the arguments
 		if (playing) stop()
 		position = 0.0
-		
+	}
+	
+	play: func ~withVolumePanAndLooping (volume, pan: Double, =looping) {
+		play(volume, pan)
 	}
 	
 	stop: func () {
+		if (!playing) return
+		pause()
+		position = 0.0
+	}
+	
+	pause: func () {
+		if (!playing) return
 		playing = false
 		// stop the sound and update the position
+	}
+	
+	resume: func () {
+		if (playing) return
+		playing = true
+		// resume at position
 	}
 }
