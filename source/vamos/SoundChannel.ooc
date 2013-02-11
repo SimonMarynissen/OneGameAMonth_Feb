@@ -14,7 +14,7 @@ SoundChannel: class {
 		if (playing) stop()
 		playing = true
 		for (sound in sounds) {
-			newPan := Vamos.clamp(pan + sound pan, -1, 1)
+			newPan := Vamos clamp(pan + sound pan, -1, 1)
 			newVolume := volume * sound volume
 			sound play(newVolume, newPan)
 		}
