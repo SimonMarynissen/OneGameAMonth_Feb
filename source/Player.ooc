@@ -1,17 +1,17 @@
 use sdl2
 import sdl2/Event
 
-import ShipGraphic
+import Actor, ShipGraphic
 import vamos/Entity
 import vamos/graphics/Image
 import vamos/masks/Hitbox
 import vamos/Input
+import vamos/comps/Physics
 
-Player: class extends Entity {
+Player: class extends Actor {
 	
-	init: func (=x, =y) {
-		mask = Hitbox new(32, 32)
-		
+	init: func(=x, =y) {
+		super()
 		image := ShipGraphic new(1)
 		image scale = 2
 		graphic = image
@@ -19,9 +19,9 @@ Player: class extends Entity {
 	}
 	
 	update: func(dt:Double) {
-		if (Input keyHeld(SDLK_LEFT)) x -= 200 * dt
-		if (Input keyHeld(SDLK_RIGHT)) x += 200 * dt
-		if (Input keyHeld(SDLK_UP)) y -= 200 * dt
-		if (Input keyHeld(SDLK_DOWN)) y += 200 * dt
+		if (Input keyPressed(SDLK_LEFT))  physics accX = -300
+		if (Input keyPressed(SDLK_RIGHT)) physics accX = 300
+		if (Input keyPressed(SDLK_UP))    physics accY = -300
+		if (Input keyPressed(SDLK_DOWN))  physics accY = 300
 	}
 }

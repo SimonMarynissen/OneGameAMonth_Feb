@@ -6,7 +6,8 @@ Component: abstract class {
 	
 	name: String
 	entity: Entity
-	active: Bool
+	
+	active := true
 	
 	init: func (=name)
 	

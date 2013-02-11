@@ -1,6 +1,7 @@
-import vamos/Entity
+import vamos/[Entity, Signal]
 import vamos/masks/Hitbox
-import vamos/Signal
+import vamos/comps/Physics
+import structs/ArrayList
 
 Actor: class extends Entity {
 
@@ -9,15 +10,13 @@ Actor: class extends Entity {
 	maxHealth: Int
 	physics: Physics
 	hitbox: Hitbox
-	onDie: Signal
 
-	init: func (=x, =y) {
-		health = maxhealth = 10
-		physics = Physics new()
+	init: func {
+		health = maxHealth = 10
+		physics = Physics new(["wall"] as ArrayList)
 		addComp(physics)
 		hitbox = Hitbox new(20.0, 20.0)
 		mask = hitbox
-		onDie = Signal new()
 	}
 	
 	update: func (dt: Double) {
@@ -41,6 +40,5 @@ Actor: class extends Entity {
 	
 	die: func () {
 		health = 0
-		onDie dispatch()
 	}
 }

@@ -26,9 +26,12 @@ Entity: class {
 	update: func (dt:Double)
 	
 	updateComps: func (dt:Double) {
+		"updating %d components" printfln(components size)
 		for (comp in components) {
-			if (comp active)
+			"updating component: %s" printfln(comp name)
+			if (comp active) {
 				comp update(dt)
+			}
 		}
 	}
 	
@@ -37,6 +40,11 @@ Entity: class {
 		components add(comp)
 		comp entity = this
 		comp added()
+	}
+	
+	addComp: func~withName (name:String, comp:Component) {
+		comp name = name
+		addComp(comp)
 	}
 	
 	removeComp: func (comp:Component) {
@@ -104,6 +112,7 @@ Entity: class {
 		
 		return null
 	}
+	
 	collide: func~typesNoPos (types:ArrayList<String>) -> Entity {
 		return collide(types, x, y)
 	}

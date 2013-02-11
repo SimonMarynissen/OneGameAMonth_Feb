@@ -39,8 +39,8 @@ State: class {
 	}
 	
 	remove: func (e:Entity) {
+		onEntityRemoved dispatch(e)
 		entities remove(e)
 		e state = null
-		onEntityRemoved dispatch(e)
 	}
 }
