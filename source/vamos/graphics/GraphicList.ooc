@@ -1,3 +1,5 @@
+import structs/ArrayList
+
 GraphicList: class extends Graphic {
 
 	graphics: ArrayList<Graphic>

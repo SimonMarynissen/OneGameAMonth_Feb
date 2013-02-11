@@ -1,3 +1,5 @@
+import structs/ArrayList
+
 MaskList: class extends Mask {
 
 	masks: ArrayList<Mask>
