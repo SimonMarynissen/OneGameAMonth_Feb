@@ -1,14 +1,34 @@
-import structs/ArrayList
+import structs/[ArrayList, LinkedList]
 import vamos/[State, Component, Graphic, Mask]
 
 Entity: class {
 	
 	x := 0.0
 	y := 0.0
+	
 	type := ""
 	state: State
 	graphic: Graphic
 	components := ArrayList<Component> new()
+	
+	//type: String {
+	//	get { type }
+	//	set (t) {
+	//		if (state == null)  {
+	//			type = t
+	//			return
+	//		}
+	//		if (type != null && type != "")
+	//			state types[type] removeNode(_typeNode)
+	//		
+	//		type = t
+	//		
+	//		if (type != null && type != "")
+	//			state types[t] add(this)
+	//		state types a
+	//	}
+	//}
+	
 	mask: Mask {
 		set (v) {
 			mask = v
@@ -17,6 +37,9 @@ Entity: class {
 		get { mask }
 	}
 	
+	_node: Node<Entity>
+	_typeNode: Node<Entity>
+	
 	init: func {
 		
 	}
@@ -24,9 +47,7 @@ Entity: class {
 	update: func (dt:Double)
 	
 	updateComps: func (dt:Double) {
-		"updating %d components" printfln(components size)
 		for (comp in components) {
-			"updating component: %s" printfln(comp name)
 			if (comp active) {
 				comp update(dt)
 			}
@@ -92,7 +113,7 @@ Entity: class {
 		return collide(type, x, y)
 	}
 	
-	collide: func ~types (types:ArrayList<String>, _x, _y:Double) -> Entity {
+	collide: func~types(types:ArrayList<String>, x, y:Double) -> Entity {
 		if (mask == null)
 			return null
 		
@@ -115,6 +136,6 @@ Entity: class {
 		return collide(types, x, y)
 	}
 	
-	removed: abstract func () {} // called when removed from world
-	added: abstract func () {} // called when added to world
+	removed: func // called when removed from world
+	added: func   // called when added to world
 }

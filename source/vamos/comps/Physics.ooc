@@ -17,9 +17,13 @@ Physics: class extends Component {
 	nudgeX := 0.0
 	nudgeY := 0.0
 	bounce := 0.0
+	sweep := false
 	
 	init: func (=collideTypes) {
 		name = "physics"
+	}
+	init: func~rawArray(types:String[]) {
+		init(types as ArrayList<String>)
 	}
 
 	update: func (dt:Double) {
@@ -44,51 +48,60 @@ Physics: class extends Component {
 		else if (velY > maxVelY) velY = maxVelY
 		
 		moveBy(velX*dt, velY*dt)
-		"updated physics!" println()
 	}
 	
-
+	_fractionX := 0.0  // account for < 1px movement over many frames
+	_fractionY := 0.0
+	
 	// Thanks Chevy!
 	moveBy: func(x, y:Double) {
+		_fractionX += x
+		_fractionY += y
+		x = x round()
+		y = y round()
+		_fractionX -= x
+		_fractionY -= y
+		"amount x: %f,  y: %f" printfln(x, y)
+		
 		if (x != 0) {
-			if (entity collide(collideTypes, entity x + x, entity y + y)) {
-				sign := sign(x)
+			if (sweep || entity collide(collideTypes, entity x + x, entity y)) {
+				sign := x > 0 ? 1 : -1
 				while (x != 0) {
 					if (entity collide(collideTypes, entity x + sign, entity y)) {
 						collideX()
 						break
 					}
-					entity x = entity x + sign
-					x = x - sign
+					entity x += sign
+					x -= sign
 				}
 			} else {
-				entity x = entity x + x
+				entity x += x
 			}
 		}
 		
 		if (y != 0) {
-			if (entity collide(collideTypes, entity x + x, entity y + y)) {
-				sign := sign(y)
+			if (sweep || entity collide(collideTypes, entity x, entity y + y)) {
+				sign := y > 0 ? 1 : -1
 				while (y != 0) {
 					if (entity collide(collideTypes, entity x, entity y + sign)) {
-						collideX()
+						collideY()
 						break
 					}
-					entity y = entity y + sign
-					y = y - sign
+					entity y += sign
+					y -= sign
 				}
 			} else {
-				entity y = entity y + y
+				entity y += y
 			}
 		}
 	}
 
 	collideX: func {
-		velX = sign(velX) * -bounce
+		velX = -sign(velX) * bounce
 	}
 
 	collideY: func {
-		velY = sign(velY) * -bounce
+		velY = -sign(velY) * bounce
 	}
 	
 }

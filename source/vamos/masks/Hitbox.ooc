@@ -4,9 +4,11 @@ Hitbox: class extends Mask {
 	
 	x, y, width, height : Double
 	
-	init: func(=x, =y, =width, =height)
+	init: func (=x, =y, =width, =height)
+	init: func~size (=width, =height)
 	
-	init: func~sizeOnly (=width, =height)
+	set: func (=x, =y, =width, =height)
+	set: func~size (=width, =height)
 	
 	check: func (other:Mask) -> Bool {
 		return match (other class) {
