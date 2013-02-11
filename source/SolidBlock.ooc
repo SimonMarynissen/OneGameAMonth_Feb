@@ -11,6 +11,7 @@ SolidBlock: class extends Entity {
 		
 		graphic = FilledRect new(w, h, 255,255,255,255)
 		
+		type = "wall"
 	}
 	
 }

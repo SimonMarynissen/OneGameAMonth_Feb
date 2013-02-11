@@ -17,7 +17,7 @@ MenuState: class extends State {
 	
 	update: func (dt:Double) {
 		super(dt)
-		"hitting: %s" printfln(player mask check(block mask) toString())
+		"hitting: %s" printfln((player collide("wall", player x, player y) != null) toString())
 	}
 	
 }

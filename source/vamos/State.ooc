@@ -34,11 +34,13 @@ State: class {
 	add: func (e:Entity) {
 		entities remove(e)
 		entities add(e)
+		e state = this
 		onEntityAdded dispatch(e)
 	}
 	
 	remove: func (e:Entity) {
 		entities remove(e)
+		e state = null
 		onEntityRemoved dispatch(e)
 	}
 }

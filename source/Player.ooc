@@ -15,6 +15,7 @@ Player: class extends Entity {
 		image := ShipGraphic new(1)
 		image scale = 2
 		graphic = image
+		type = "player"
 	}
 	
 	update: func(dt:Double) {
