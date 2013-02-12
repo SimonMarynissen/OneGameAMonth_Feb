@@ -10,6 +10,8 @@ Actor: class extends Entity {
 	maxHealth: Int
 	physics: Physics
 	hitbox: Hitbox
+	
+	accel := 10000
 
 	init: func {
 		health = maxHealth = 10
@@ -22,6 +24,13 @@ Actor: class extends Entity {
 	update: func (dt: Double) {
 	
 	}
+	
+	stopX: func { physics accX = 0 }
+	stopY: func { physics accY = 0 }
+	moveLeft: func { physics accX = -accel }
+	moveRight: func { physics accX = accel }
+	moveUp: func { physics accY = -accel }
+	moveDown: func { physics accY = accel }
 	
 	damage: func (damage: UInt) {
 		health -= damage

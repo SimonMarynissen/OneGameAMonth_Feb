@@ -96,11 +96,11 @@ Physics: class extends Component {
 	}
 
 	collideX: func {
-		velX = -sign(velX) * bounce
+		velX = -velX * bounce
 	}
 
 	collideY: func {
-		velY = -sign(velY) * bounce
+		velY = -velY * bounce
 	}
 	
 }
