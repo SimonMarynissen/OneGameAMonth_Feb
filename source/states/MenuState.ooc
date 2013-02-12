@@ -17,7 +17,6 @@ MenuState: class extends State {
 	
 	update: func (dt:Double) {
 		super(dt)
-		"hitting: %s" printfln((player collide("wall", player x, player y) != null) toString())
 	}
 	
 }

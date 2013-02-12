@@ -93,18 +93,20 @@ Entity: class {
 		if (mask == null)
 			return null
 		
-		(this x, this y, x, y) = (x, y, this x, this y)
+		(oldX, oldY) := (this x, this y)
+		(this x, this y) = (x, y)
 		
 		// TODO make this more efficient (using linked lists?)
 		// iterating over every entity is bad
 		for (e in state entities) {
 		 	if (e type == type && e != this && e mask != null \
 		 	&& (mask check(e mask) || e mask check(mask)) ) {
+		 		(this x, this y) = (oldX, oldY)
 		 		return e
 		 	}
 		}
 		
-		(this x, this y, x, y) = (x, y, this x, this y)
+		(this x, this y) = (oldX, oldY)
 		
 		return null
 	}
@@ -117,17 +119,19 @@ Entity: class {
 		if (mask == null)
 			return null
 		
-		(this x, this y, x, y) = (x, y, this x, this y)
+		(oldX, oldY) := (this x, this y)
+		(this x, this y) = (x, y)
 		
 		// TODO make this more efficient (using linked lists?)
 		for (e in state entities) {
 			if (types contains?(e type) && e != this && e mask != null \
 			&& (mask check(e mask) || e mask check(mask)) ) {
+				(this x, this y) = (oldX, oldY)
 				return e
 			}
 		}
 		
-		(this x, this y, x, y) = (x, y, this x, this y)
+		(this x, this y) = (oldX, oldY)
 		
 		return null
 	}

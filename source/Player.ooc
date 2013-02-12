@@ -33,8 +33,5 @@ Player: class extends Actor {
 		if (Input keyPressed(SDLK_DOWN))  physics accY = 10000
 		if (Input keyReleased(SDLK_UP) || Input keyReleased(SDLK_DOWN))
 			physics accY = 0
-		
-		"x %f, velX %f, accX %f" printfln(x, physics velX, physics accX)
-		"y %f, velY %f, accY %f" printfln(y, physics velY, physics accY)
 	}
 }

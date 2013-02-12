@@ -21,7 +21,7 @@ Engine: class {
 		}
 	}
 	
-	init: func (=width, =height, =frameRate) {}
+	init: func (=width, =height, =frameRate)
 	
 	
 	start: func (startState:State) {
@@ -53,17 +53,26 @@ Engine: class {
 		cleanup()
 	}
 	
-	update: func () {
-		lastTime := SDL getTicks()
+	_dt := 0.0 // Seconds elapsed since last frame
+	
+	update: func {
+		startTime := time()
 		
 		Input update()
-		stateManager update(1.0/frameRate)
+		stateManager update(_dt)
 		stateRenderer draw()
 		
-		timeElapsed := SDL getTicks()
-		diff := lastTime - timeElapsed
-		
-		SDL delay(1000/frameRate - diff)
+		sleep(1.0/frameRate - _dt)
+		_dt = time() - startTime
+	}
+	
+	time: func -> Double {
+		SDL getTicks() as Double / 1000.0
+	}
+	
+	sleep: func (seconds:Double) {
+		if (seconds < 0.0) seconds = 0.0
+		SDL delay(seconds*1000)
 	}
 	
 	setIcon: func (sourcePath:String) {
@@ -74,7 +83,7 @@ Engine: class {
 		SDL setWindowIcon(window, icon)
 	}
 	
-	cleanup: func () {
+	cleanup: func {
 		SDL destroyRenderer(renderer)
 		SDL destroyWindow(window)
 		SDL quit()

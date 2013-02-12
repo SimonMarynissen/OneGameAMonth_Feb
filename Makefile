@@ -1,6 +1,7 @@
 NAME=1GAM_Feb
 
 all:
+	rm -f .libs/$(NAME).a
 	rock main.ooc --sourcepath=source --noclean -v -o=$(NAME) -lmingw32
 
 run:
@@ -9,4 +10,4 @@ run:
 clean:
 	rm -rf rock_tmp .libs
 	
-test: clean all run
+test: all run

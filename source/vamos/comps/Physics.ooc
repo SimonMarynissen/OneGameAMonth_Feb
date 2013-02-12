@@ -57,11 +57,10 @@ Physics: class extends Component {
 	moveBy: func(x, y:Double) {
 		_fractionX += x
 		_fractionY += y
-		x = x round()
-		y = y round()
+		x = _fractionX round()
+		y = _fractionY round()
 		_fractionX -= x
 		_fractionY -= y
-		"amount x: %f,  y: %f" printfln(x, y)
 		
 		if (x != 0) {
 			if (sweep || entity collide(collideTypes, entity x + x, entity y)) {
