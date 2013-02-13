@@ -47,7 +47,9 @@ Physics: class extends Component {
 		if (velY < -maxVelY) velY = -maxVelY
 		else if (velY > maxVelY) velY = maxVelY
 		
-		moveBy(velX*dt, velY*dt)
+		moveBy(velX*dt + nudgeX, velY*dt + nudgeY)
+		nudgeX = 0.0
+		nudgeY = 0.0
 	}
 	
 	_fractionX := 0.0  // account for < 1px movement over many frames
@@ -110,7 +112,4 @@ max: inline static func (a,b:Double) -> Double {
 }
 min: inline static func (a,b:Double) -> Double {
 	(a < b) ? a : b
-}
-sign: inline static func(n:Double) -> Double {
-	(n > 0) ? 1 : ((n < 0) ? -1 : 0)
 }
