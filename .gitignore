@@ -1,8 +1,11 @@
 *.sublime-project
 *.sublime-workspace
-*.exe
 *.dll
 bin/*
 rock_tmp/*
 .libs/*
 .DS_Store
+
+# Executable
+1GAM_Feb
+*.exe
