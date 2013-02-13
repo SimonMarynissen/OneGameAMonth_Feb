@@ -1,11 +1,15 @@
 import AI
+import Actor
+import vamos/[Vamos, Entity]
+import math
 
-BasicAI: class {
-
-	speed: Double
+BasicAI: class extends AI {
+	
+	actor: Actor
+	speed: Double = 0.0
 	angle: Double {
-		set(a) {
-			angle %= a
+		set(a: Double) {
+			angle = a % 360.0
 			adjustVelocity()
 		}
 		get {angle}
@@ -13,11 +17,18 @@ BasicAI: class {
 	
 	init: func (=angle, =speed)
 	
+	added: func {
+		actor = entity as Actor
+		adjustVelocity()
+	}
+	
 	adjustVelocity: func {
-		rad := Vamos rad(angle)
-		physics maxVelX = speed * Math cos(rad)
-		physics maxVelY = speed * Math sin(rad)
-		physics accX = 1000
-		physics accY = 1000
+		if (actor) {
+			rad := rad(angle)
+			actor physics maxVelX = speed * cos(rad)
+			actor physics maxVelY = speed * sin(rad)
+			actor physics accX = 1000
+			actor physics accY = 1000
+		}
 	}
 }

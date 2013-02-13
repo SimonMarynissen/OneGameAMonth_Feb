@@ -1,4 +1,6 @@
 import Actor
+import AIs/AI
+import vamos/comps/Physics
 
 Enemy: class extends Actor {
 
@@ -7,7 +9,8 @@ Enemy: class extends Actor {
 	interval := 1000
 	angle: Double
 	
-	init: func (=x, =y) {
+	init: func (.x, .y) {
+		super(x, y)
 		health = maxHealth = 10
 		physics = Physics new(["player"])
 		addComp(physics)

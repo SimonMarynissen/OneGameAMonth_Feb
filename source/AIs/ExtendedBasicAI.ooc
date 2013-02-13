@@ -5,13 +5,13 @@ ExtendedBasicAI: class {
 	newAngle: Func(Enemy)
 	enemy: Enemy
 	
-	init: func (=angle, =speed, =changeOfAngle)
+	init: func (=angle, =speed, =newAngle)
 	
 	added: func {
 		enemy = entity as Enemy
 	}
 	
 	update: func (dt: Double) {
-		angle = newAngle(enemy)
+		enemy angle = newAngle(enemy)
 	}
 }

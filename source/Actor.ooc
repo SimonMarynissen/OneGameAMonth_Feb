@@ -19,6 +19,7 @@ Actor: class extends Entity {
 		addComp(physics)
 		hitbox = Hitbox new(20.0, 20.0)
 		mask = hitbox
+		type = "actor"
 	}
 	
 	update: func (dt: Double) {
