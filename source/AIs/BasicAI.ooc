@@ -9,19 +9,13 @@ BasicAI: class extends AI {
 	actor: Actor
 	speed: Double = 0.0
 	angle: Double {
-		set (a) {
-                    if (a > 360.0) {
-                        angle = a - 360.0
-                    } else if (a < 0.0) {
-                        angle = a + 360.0
-                    } else {
-                        angle = a
-                    }
-                    adjustVelocity()
+		set(a) {
+			angle = a
+			while (angle < 0) angle += 360
+			while (angle >= 360) angle -= 360
+			adjustVelocity()
 		}
-		get {
-                    angle
-                }
+		get {angle}
 	}
 	
 	init: func (=angle, =speed)
