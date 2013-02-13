@@ -40,9 +40,7 @@ Entity: class {
 	_node: Node<Entity>
 	_typeNode: Node<Entity>
 	
-	init: func (=x, =y) {
-		
-	}
+	init: func (=x, =y)
 	
 	update: func (dt:Double)
 	

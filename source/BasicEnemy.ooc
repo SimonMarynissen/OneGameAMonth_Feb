@@ -2,14 +2,11 @@ import Enemy
 
 BasicEnemy: class extends Enemy {
 
-	init: func (=x, =y) {
-		ai = BasicAI new()
+	init: func (.x, .y, horizontal: Bool, speed: Double) {
+		super(x, y)
+		ai = BasicAI new(horizontal, speed)
+		addComp(ai)
 		hit = 10
-		interval = 1.0
 		type = "basic"
-	}
-	
-	shoot: func () {
-		world add(Bullet new(x, y))
 	}
 }

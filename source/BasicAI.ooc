@@ -2,15 +2,22 @@ import AI
 
 BasicAI: class {
 
-	init: func {
+	horizontal: Bool
+	speed: Double
+	
+	init: func (=horizontal, =speed) {
 		name = "basicAI"
 	}
 	
 	added: func {
-		if (entity x < engine width / 2) {
-			// entity velocity = + constant
+		if (horizontal) {
+			if (entity x < engine width / 2) {
+				entity xVelocity = speed
+			} else {
+				entity xVelocity = -speed
+			}
 		} else {
-			// entity velocity = - constant
+			entity yVelocity = speed
 		}
 	}
 }
