@@ -2,7 +2,7 @@ NAME=1GAM_Feb
 
 all:
 	rm -f .libs/$(NAME).a
-	rock main.ooc --sourcepath=source --noclean -v -o=$(NAME) -lmingw32
+	rock main.ooc --sourcepath=source --noclean -v -o=$(NAME)
 
 run:
 	./$(NAME)

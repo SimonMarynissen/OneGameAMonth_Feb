@@ -1,6 +1,7 @@
 import AI
 import Actor
 import vamos/[Vamos, Entity]
+import vamos/comps/Physics
 import math
 
 BasicAI: class extends AI {
@@ -8,11 +9,19 @@ BasicAI: class extends AI {
 	actor: Actor
 	speed: Double = 0.0
 	angle: Double {
-		set(a: Double) {
-			angle = a % 360.0
-			adjustVelocity()
+		set (a) {
+                    if (a > 360.0) {
+                        angle = a - 360.0
+                    } else if (a < 0.0) {
+                        angle = a + 360.0
+                    } else {
+                        angle = a
+                    }
+                    adjustVelocity()
 		}
-		get {angle}
+		get {
+                    angle
+                }
 	}
 	
 	init: func (=angle, =speed)
