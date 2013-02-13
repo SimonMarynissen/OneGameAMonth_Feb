@@ -22,7 +22,7 @@ Physics: class extends Component {
 	init: func (=collideTypes) {
 		name = "physics"
 	}
-	init: func~rawArray(types:String[]) {
+	init: func ~rawArray (types:String[]) {
 		init(types as ArrayList<String>)
 	}
 

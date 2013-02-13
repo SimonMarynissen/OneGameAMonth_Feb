@@ -40,7 +40,7 @@ Entity: class {
 	_node: Node<Entity>
 	_typeNode: Node<Entity>
 	
-	init: func {
+	init: func (=x, =y) {
 		
 	}
 	
@@ -115,7 +115,7 @@ Entity: class {
 		return collide(type, x, y)
 	}
 	
-	collide: func~types(types:ArrayList<String>, x, y:Double) -> Entity {
+	collide: func ~types (types:ArrayList<String>, x, y:Double) -> Entity {
 		if (mask == null)
 			return null
 		

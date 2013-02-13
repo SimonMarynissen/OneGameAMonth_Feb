@@ -13,7 +13,7 @@ Actor: class extends Entity {
 	
 	accel := 10000
 
-	init: func {
+	init: func (=x, =y) {
 		health = maxHealth = 10
 		physics = Physics new(["wall"])
 		addComp(physics)
@@ -50,5 +50,8 @@ Actor: class extends Entity {
 		if (health > maxHealth) health = maxHealth
 	}
 	
-	die: func
+	die: func {
+		type = "dead"
+		world remove(this)
+	}
 }
