@@ -8,11 +8,12 @@ BasicAI: class extends AI {
 	
 	actor: Actor
 	speed: Double = 0.0
+	physics: Physics
 	angle: Double {
 		set(a) {
 			angle = a
-			while (angle < 0) angle += 360
-			while (angle >= 360) angle -= 360
+			while (angle < 0.0) angle += 360.0
+			while (angle >= 360.0) angle -= 360.0
 			adjustVelocity()
 		}
 		get {angle}
@@ -22,16 +23,19 @@ BasicAI: class extends AI {
 	
 	added: func {
 		actor = entity as Actor
+		physics = actor physics
 		adjustVelocity()
 	}
 	
 	adjustVelocity: func {
-		if (actor) {
+		if (actor && physics) {
 			rad := rad(angle)
-			actor physics maxVelX = speed * cos(rad)
-			actor physics maxVelY = speed * sin(rad)
-			actor physics accX = 1000
-			actor physics accY = 1000
+			xSpeed := speed * cos(rad)
+			ySpeed := speed * sin(rad)
+			actor physics maxVelX = sign(xSpeed) * xSpeed
+			actor physics maxVelY = sign(ySpeed) * ySpeed
+			actor physics accX = 10000 * sign(xSpeed)
+			actor physics accY = 10000 * -sign(ySpeed)
 		}
 	}
 }

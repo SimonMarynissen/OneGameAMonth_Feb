@@ -10,7 +10,7 @@ PlayState: class extends State {
 	create: func {
 		player = Player new(200, 100)
 		add(player)
-		enemy = BasicEnemy new(300.0, 100.0, 270.0, 2.0)
+		enemy = BasicEnemy new(200, 100, 315, 20)
 		add(enemy)
 	}
 	

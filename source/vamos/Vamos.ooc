@@ -14,3 +14,6 @@ deg: func (rad: Double) -> Double {
 rad: func (deg: Double) -> Double {
 	deg * PI / 180
 }
+sign: func (val: Double) -> Double {
+	(val > 0) ? 1 : ((val < 0) ? -1 : 0)
+}
