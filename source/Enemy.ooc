@@ -13,9 +13,5 @@ Enemy: class extends Actor {
 		type = "enemy"
 	}
 	
-	update: func (dt: Double) {
-		// per interval call shoot()
-	}
-	
 	shoot: func // defined in subclasses
 }

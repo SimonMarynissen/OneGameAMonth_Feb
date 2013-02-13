@@ -1,4 +1,5 @@
 import Enemy
+import AIs/BasicAI
 
 BasicEnemy: class extends Enemy {
 

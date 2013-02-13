@@ -138,6 +138,11 @@ Entity: class {
 		return collide(types, x, y)
 	}
 	
+	removeSelf: func {
+		type = "dead"
+		state remove(this)
+	}
+	
 	removed: func // called when removed from world
 	added: func   // called when added to world
 }

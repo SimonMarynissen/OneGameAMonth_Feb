@@ -1,8 +1,7 @@
-import vamos/[Entity, Vamos]
-use Math
+import AI
 
-Bullet: class extends Projectile {
-	
+BasicAI: class {
+
 	speed: Double
 	angle: Int {
 		set(a) {
@@ -11,18 +10,13 @@ Bullet: class extends Projectile {
 		get {angle}
 	}
 	
-	init: super func
-	init: super func ~rawArray
+	init: func (=angle, =speed)
 	
-	added: func {
+	adjustVelocity: func {
 		rad := Vamos rad(angle)
 		physics maxVelX = speed * Math cos(rad)
 		physics maxVelY = speed * Math sin(rad)
 		physics accX = 1000
 		physics accY = 1000
-	}
-	
-	clone: func -> Bullet {
-		return Bullet new(x, y, types)
 	}
 }
