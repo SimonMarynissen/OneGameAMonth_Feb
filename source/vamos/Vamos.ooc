@@ -1,4 +1,4 @@
-use Math
+import math
 
 clamp: func (value, min, max: Double) -> Double {
 	newValue := value
@@ -8,9 +8,9 @@ clamp: func (value, min, max: Double) -> Double {
 }
 
 deg: func (rad: Double) -> Double {
-	rad * 180 / Math PI
+	rad * 180 / PI
 }
 
 rad: func (deg: Double) -> Double {
-	deg * Math PI / 180
+	deg * PI / 180
 }

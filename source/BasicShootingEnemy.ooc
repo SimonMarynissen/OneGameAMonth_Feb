@@ -7,8 +7,8 @@ BasicShootingEnemy: class extends BasicEnemy {
 	interval = 1.0
 	timer: Timer
 
-	init: func (.x, .y, horizontal: Bool, speed: Double, =bulletProtoType) {
-		super(x, y, horizontal, speed)
+	init: func (.x, .y, angle, speed: Double, =bulletProtoType) {
+		super(x, y, angle, speed)
 	}
 	
 	added: func {
@@ -21,7 +21,7 @@ BasicShootingEnemy: class extends BasicEnemy {
 		bullet y = y
 		bullet type = ["player"]
 		bullet angle = Vamos deg(Math atan2(state player x, state player y))
-		bullet speed = bulletSpeed 
+		bullet speed = bulletSpeed
 		state add(bullet)
 	}
 }

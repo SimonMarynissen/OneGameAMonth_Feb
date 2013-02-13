@@ -1,10 +1,10 @@
 import vamos/[Entity, Vamos]
-use Math
+import math
 
 Bullet: class extends Projectile {
 	
 	speed: Double
-	angle: Int {
+	angle: Double {
 		set(a) {
 			angle %= a
 		}
@@ -16,8 +16,8 @@ Bullet: class extends Projectile {
 	
 	added: func {
 		rad := Vamos rad(angle)
-		physics maxVelX = speed * Math cos(rad)
-		physics maxVelY = speed * Math sin(rad)
+		physics maxVelX = speed * cos(rad)
+		physics maxVelY = speed * sin(rad)
 		physics accX = 1000
 		physics accY = 1000
 	}

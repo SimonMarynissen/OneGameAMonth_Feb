@@ -2,11 +2,16 @@ import BasicAI
 
 ExtendedBasicAI: class {
 	
-	changeOfAngle: Func(Double, Double, Double, Int)
+	newAngle: Func(Enemy)
+	enemy: Enemy
 	
 	init: func (=angle, =speed, =changeOfAngle)
 	
+	added: func {
+		enemy = entity as Enemy
+	}
+	
 	update: func (dt: Double) {
-		angle = changeOfAngle(dt, x, y, angle)
+		angle = newAngle(enemy)
 	}
 }

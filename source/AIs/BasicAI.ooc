@@ -3,9 +3,10 @@ import AI
 BasicAI: class {
 
 	speed: Double
-	angle: Int {
+	angle: Double {
 		set(a) {
 			angle %= a
+			adjustVelocity()
 		}
 		get {angle}
 	}

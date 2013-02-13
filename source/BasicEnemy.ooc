@@ -3,9 +3,9 @@ import AIs/BasicAI
 
 BasicEnemy: class extends Enemy {
 
-	init: func (.x, .y, horizontal: Bool, speed: Double) {
+	init: func (.x, .y, =angle, speed: Double) {
 		super(x, y)
-		ai = BasicAI new(horizontal, speed)
+		ai = BasicAI new(angle, speed)
 		addComp(ai)
 		hit = 10
 		type = "basic"
