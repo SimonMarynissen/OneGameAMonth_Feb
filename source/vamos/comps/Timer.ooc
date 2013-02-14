@@ -17,7 +17,7 @@ Timer: class extends Component {
 	init: func ~withCallback (=callback) {
 		init()
 	}
-	init: func ~withIntervalAndCallback (=interval, =callback)
+	init: func ~withIntervalAndCallback (=interval, =callback) {
 		init()
 	}
 	
