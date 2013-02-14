@@ -40,16 +40,18 @@ Timer: class extends Component {
 		_looping = false
 	}
 	
-	start: func ~withInterval (=interval) {
+	start: func ~withInterval (interval: Double) {
+		this interval = interval
 		start()
 	}
 	
-	loop: func () {
+	loop: func {
 		_running = true
 		_looping = true
 	}
 	
-	loop: func ~withInterval (=interval) {
+	loop: func ~withInterval (interval: Double) {
+		this interval = interval
 		loop()
 	}
 	

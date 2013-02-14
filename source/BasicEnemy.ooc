@@ -13,4 +13,13 @@ BasicEnemy: class extends Enemy {
 		hit = 10
 		type = "basic"
 	}
+	
+	clone: func -> BasicEnemy {
+		enemy := BasicEnemy new(x, y, (ai as BasicAI) angle, (ai as BasicAI) speed)
+		enemy ai = ai
+		enemy hit = hit
+		enemy interval = interval
+		enemy angle = angle
+		return enemy
+	}
 }

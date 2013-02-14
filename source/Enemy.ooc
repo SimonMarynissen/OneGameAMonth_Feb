@@ -17,5 +17,14 @@ Enemy: class extends Actor {
 		type = "enemy"
 	}
 	
+	clone: func -> Enemy {
+		enemy := Enemy new(x, y)
+		enemy ai = ai
+		enemy hit = hit
+		enemy interval = interval
+		enemy angle = angle
+		return enemy
+	}
+	
 	shoot: func // defined in subclasses
 }

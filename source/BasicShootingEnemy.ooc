@@ -13,6 +13,8 @@ BasicShootingEnemy: class extends BasicEnemy {
 	
 	added: func {
 		timer = Timer(interval, || shoot())
+		addComp(timer)
+		timer loop()
 	}
 	
 	shoot: func {
