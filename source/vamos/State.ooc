@@ -1,11 +1,15 @@
 import structs/ArrayList
-import vamos/[Signal, Entity]
+import vamos/[Engine, Signal, Entity]
 
-// Contains and updates entites
+// TODO: replace the current ArrayList system with linked lists
 
+/**
+ * Contains and updates entites
+ */
 State: class {
 	
 	created := false
+	engine: Engine
 	entities := ArrayList<Entity> new()
 	onEntityAdded := Signal<Entity> new()
 	onEntityRemoved := Signal<Entity> new()
@@ -17,7 +21,7 @@ State: class {
 		
 	}
 	
-	// Called when a renderer is available, and entities/graphics can be initialised
+	/// Called when a renderer is available, and entities/graphics can be initialised
 	create: func {
 		
 	}
@@ -33,7 +37,7 @@ State: class {
 		entities remove(e)
 		entities add(e)
 		e state = this
-		e added() // has more possibilities then onEntityAdded, you could have different behaviours with other types of entities
+		e added()
 		onEntityAdded dispatch(e)
 	}
 	

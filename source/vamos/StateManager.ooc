@@ -10,18 +10,15 @@ StateManager: class {
 			if (state != null) {
 				state onLeave dispatch(newState)
 			}
-			if (newState != null) {
-				if (!newState created) {
-					newState create()
-				}
-				newState onEnter dispatch(state)
+			if (!newState created) {
+				newState create()
 			}
+			newState onEnter dispatch(state)
 			state = newState
 		}
 	}
 	
-	init: func (=state) {}
-	init: func ~withoutState
+	init: func (=state)
 	
 	update: func (dt:Double) {
 		if (state) state update(dt)

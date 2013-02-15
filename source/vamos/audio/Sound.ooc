@@ -1,29 +1,33 @@
-Sound: class {
+import vamos/Signal
 
+Sound: class {
+	
+	data: UInt8*
+	size: UInt32
+	position: UInt32
+	
 	playing := false
 	looping := false
 	volume: Double = 1.0
 	pan: Double = 0.0
-	position: Double = 0.0
-	onComplete := Signal new()
+	onComplete := VoidSignal new()
 	
-	
-	init: func () {
-		onComplete.add(complete)
+	init: func {
+		onComplete add(complete)
 	}
 	
 	init: func ~withVolumeAndPan (=volume, =pan) {
 		init()
 	}
 	
-	complete: func () {
+	complete: func {
 		stop()
 		if (looping) {
 			play(true)
 		}
 	}
 	
-	play: func () {
+	play: func {
 		play(volume, pan)
 	}
 	
@@ -41,21 +45,19 @@ Sound: class {
 		play(volume, pan)
 	}
 	
-	stop: func () {
+	stop: func {
 		if (!playing) return
 		pause()
 		position = 0.0
 	}
 	
-	pause: func () {
+	pause: func {
 		if (!playing) return
 		playing = false
-		// stop the sound and update the position
 	}
 	
-	resume: func () {
+	resume: func {
 		if (playing) return
 		playing = true
-		// resume at position
 	}
 }

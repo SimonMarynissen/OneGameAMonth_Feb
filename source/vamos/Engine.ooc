@@ -2,6 +2,7 @@ use sdl2
 import sdl2/Core
 import vamos/[Input, AssetCache, State, StateManager]
 import vamos/display/StateRenderer
+import vamos/audio/Mixer
 
 Engine: class {
 	
@@ -9,13 +10,16 @@ Engine: class {
 	width, height: Int
 	caption := "Untitled Vamos Game"
 	frameRate := 60.0
+	
 	window: SdlWindow
 	renderer: SdlRenderer
+	mixer: Mixer
 	stateManager: StateManager
 	stateRenderer: StateRenderer
 	state: State {
 		get { stateManager state }
 		set (s) {
+			if (s) s engine = this
 			stateManager state = s
 			stateRenderer state = s
 		}
@@ -27,8 +31,6 @@ Engine: class {
 	start: func (startState:State) {
 		SDL init(SDL_INIT_EVERYTHING)
 		
-		setIcon("icon.bmp")
-		
 		window = SDL createWindow(
 			caption,
 			SDL_WINDOWPOS_UNDEFINED,
@@ -39,6 +41,7 @@ Engine: class {
 		
 		AssetCache init(renderer)
 		Input init()
+		mixer = Mixer new() .open()
 		
 		stateManager = StateManager new(startState)
 		stateRenderer = StateRenderer new(renderer, startState)
@@ -66,6 +69,7 @@ Engine: class {
 		_dt = time() - startTime
 	}
 	
+	/// number of seconds since the program began
 	time: func -> Double {
 		SDL getTicks() as Double / 1000.0
 	}
@@ -75,15 +79,13 @@ Engine: class {
 		SDL delay(seconds*1000)
 	}
 	
-	setIcon: func (sourcePath:String) {
-		setIcon(SDL loadBMP(sourcePath))
-	}
-	
-	setIcon: func ~withSurface (icon:SdlSurface*) {
+	setIcon: func (icon:SdlSurface*) {
 		SDL setWindowIcon(window, icon)
 	}
 	
 	cleanup: func {
+		AssetCache free()
+		mixer close()
 		SDL destroyRenderer(renderer)
 		SDL destroyWindow(window)
 		SDL quit()
