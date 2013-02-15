@@ -14,7 +14,7 @@ Fleet: class extends Entity {
 	added: func {
 		_timer = Timer new(interval, || spawn())
 		addComp(_timer)
-		// _timer loop()
+		_timer loop()
 	}
 	
 	spawn: func {
@@ -23,9 +23,9 @@ Fleet: class extends Entity {
 			newEnemy := protoType clone()
 			newEnemy x = x
 			newEnemy y = y
-			// state add(newEnemy)
+			state add(newEnemy)
 		} else {
-			// _timer stop()
+			_timer stop()
 			removeSelf()
 		}
 	}

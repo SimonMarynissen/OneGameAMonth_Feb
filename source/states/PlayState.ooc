@@ -15,7 +15,7 @@ PlayState: class extends State {
 		enemy = BasicEnemy new(200, 100, 270, 40)
 		enemies = Fleet new(200, 0, enemy)
 		enemies amount = 10
-		enemies interval = 2
+		enemies interval = 1
 		add(enemies)
 	}
 	
