@@ -70,6 +70,10 @@ Entity: class {
 		comp removed()
 	}
 	
+	removeComp: func ~byName (name:String) {
+		removeComp(getComp(name))
+	}
+	
 	getComp: func ~byName (name:String) -> Component {
 		for (comp in components) {
 			if (comp name == name)

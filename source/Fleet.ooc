@@ -5,7 +5,7 @@ import vamos/comps/Timer
 Fleet: class extends Entity {
 
 	protoType: Enemy
-	interval: Double
+	interval: Double = 1.0
 	amount: Int = 10
 	_timer: Timer
 	
@@ -13,7 +13,7 @@ Fleet: class extends Entity {
 	
 	added: func {
 		_timer = Timer new(interval, || spawn())
-		addComp(_timer)
+		addComp("timer", _timer)
 		_timer loop()
 	}
 	
@@ -26,6 +26,7 @@ Fleet: class extends Entity {
 			state add(newEnemy)
 		} else {
 			_timer stop()
+			removeComp("timer")
 			removeSelf()
 		}
 	}
