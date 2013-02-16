@@ -1,28 +1,31 @@
 use sdl2
 import sdl2/Core
 import structs/HashMap
-import vamos/display/ImageData
+import vamos/Engine
+import vamos/display/Texture
 
 AssetCache: class {
 	
-	renderer: static SdlRenderer
-	imageCache := static HashMap<String, ImageData> new()
+	engine: Engine
+	imageCache := HashMap<String, Texture> new()
 	
-	init: static func (r:SdlRenderer) {
-		renderer = r
-	}
+	init: func (=engine)
 	
-	free: static func {
+	free: func {
 		for (image in imageCache)
 			image destroy()
 		imageCache clear()
 	}
 	
-	getImageData: static func (path:String) -> ImageData {
+	getTexture: func (path:String) -> Texture {
+		
+		if (engine == null || engine renderer == null)
+			return null
+			
 		path = "assets/" + path
-		image:ImageData = imageCache[path]
+		image:Texture = imageCache[path]
 		if (image == null) {
-			image = ImageData new(renderer, path)
+			image = Texture new(engine renderer, path)
 			imageCache[path] = image
 		}
 		return image

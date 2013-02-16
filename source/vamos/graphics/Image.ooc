@@ -1,21 +1,19 @@
 use sdl2
 import sdl2/Core
 
-import vamos/[Graphic, Entity, AssetCache]
-import vamos/display/[ImageData, StateRenderer]
+import vamos/[Engine, Graphic, Entity]
+import vamos/display/[Texture, StateRenderer]
 
 Image: class extends Graphic {
 	
-	data:ImageData
+	data:Texture
 	
-	dstRect :SdlRect
-	srcRect :SdlRect
-	origin :SdlPoint
+	dstRect: SdlRect
+	srcRect: SdlRect
+	origin: SdlPoint
 	
-	scale : Double {
-		get {
-			return scale
-		}
+	scale: Double {
+		get
 		set (v) {
 			dstRect w = data width * v
 			dstRect h = data height * v
@@ -23,20 +21,19 @@ Image: class extends Graphic {
 		}
 	}
 	
-	angle = 0.0:Double
+	angle := 0.0
 	
 	init: func (path:String) {
 		super()
-		data = AssetCache getImageData(path)
+		data = engine assets getTexture(path)
 		dstRect w = data width
 		dstRect h = data height
 		srcRect w = data width
 		srcRect h = data height
 		scale = 1
-		"%d, %d" printfln(dstRect w, dstRect h)
 	}
 	
-	draw: func (renderer:StateRenderer, entity:Entity, x, y : Double) {
+	draw: func (renderer:StateRenderer, entity:Entity, x, y: Double) {
 		dstRect x = x
 		dstRect y = y
 		renderer drawData(data, srcRect&, dstRect&)

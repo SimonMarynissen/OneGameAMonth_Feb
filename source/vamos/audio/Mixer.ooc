@@ -1,15 +1,15 @@
 use sdl2
 import sdl2/[Core, Audio]
 import structs/ArrayList
-import vamos/audio/SoundSource
+import vamos/audio/AudioSource
 
 /**
  * Contains sound sources, streams them to SDL on-demand.
- * Generally only one instance should exist per-game.
+ * Generally one instance exists per game, managed by the engine.
  */
 Mixer: class {
 	
-	sources := ArrayList<SoundSource> new()
+	sources := ArrayList<AudioSource> new()
 	spec: SdlAudioSpec
 	
 	init: func {
@@ -33,10 +33,10 @@ Mixer: class {
 		SdlAudio close()
 	}
 	
-	add: func (source:SoundSource) {
+	add: func (source:AudioSource) {
 		sources add(source)
 	}
-	remove: func (source:SoundSource) {
+	remove: func (source:AudioSource) {
 		sources remove(source)
 	}
 	
@@ -50,7 +50,7 @@ Mixer: class {
 }
 
 
-_currentSources: static ArrayList<SoundSource>
+_currentSources: static ArrayList<AudioSource>
 
 _mix: static func (userdata:Pointer, stream:UInt8*, len:Int) {
 	memset(stream, 0, len)

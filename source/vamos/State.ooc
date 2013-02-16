@@ -9,7 +9,6 @@ import vamos/[Engine, Signal, Entity]
 State: class {
 	
 	created := false
-	engine: Engine
 	entities := ArrayList<Entity> new()
 	onEntityAdded := Signal<Entity> new()
 	onEntityRemoved := Signal<Entity> new()

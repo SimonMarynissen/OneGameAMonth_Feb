@@ -1,6 +1,6 @@
 import AI
 import Actor
-import vamos/[Vamos, Entity]
+import vamos/[Util, Entity]
 import vamos/comps/Physics
 import math
 

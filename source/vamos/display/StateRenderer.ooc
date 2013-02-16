@@ -3,7 +3,7 @@ import sdl2/Core
 import structs/ArrayList
 
 import vamos/[State, Entity]
-import vamos/display/ImageData
+import vamos/display/Texture
 import vamos/Graphic
 
 import vamos/AssetCache
@@ -19,12 +19,12 @@ StateRenderer: class {
 	
 	init: func (=target, =state)
 	
-	drawData: inline func(data:ImageData, sourceRect, destRect:SdlRect*) {
-		SDL renderCopy(target, data texture, sourceRect, destRect)
+	drawData: inline func(texture:Texture, sourceRect, destRect:SdlRect*) {
+		SDL renderCopy(target, texture data, sourceRect, destRect)
 	}
 	
-	drawData: inline func~ex (data:ImageData, sourceRect, destRect:SdlRect*, angle:const Double, center:const SdlPoint*, flip:const Int) {
-		SDL renderCopyEx(target, data texture, sourceRect, destRect, angle, center, flip)
+	drawData: inline func~ex (texture:Texture, sourceRect, destRect:SdlRect*, angle:const Double, center:const SdlPoint*, flip:const Int) {
+		SDL renderCopyEx(target, texture data, sourceRect, destRect, angle, center, flip)
 	}
 	
 	fillRect: func (rect:SdlRect*, r,g,b,a:UInt8) {

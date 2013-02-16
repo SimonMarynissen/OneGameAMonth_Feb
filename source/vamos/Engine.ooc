@@ -4,6 +4,11 @@ import vamos/[Input, AssetCache, State, StateManager]
 import vamos/display/StateRenderer
 import vamos/audio/Mixer
 
+engine:Engine
+
+/**
+ * Manages the various subsystems, runs the main loop
+ */
 Engine: class {
 	
 	running := false
@@ -13,13 +18,13 @@ Engine: class {
 	
 	window: SdlWindow
 	renderer: SdlRenderer
+	assets: AssetCache
 	mixer: Mixer
 	stateManager: StateManager
 	stateRenderer: StateRenderer
 	state: State {
 		get { stateManager state }
 		set (s) {
-			if (s) s engine = this
 			stateManager state = s
 			stateRenderer state = s
 		}
@@ -39,10 +44,10 @@ Engine: class {
 		
 		renderer = SDL createRenderer(window, -1, SDL_RENDERER_ACCELERATED)
 		
-		AssetCache init(renderer)
-		Input init()
-		mixer = Mixer new() .open()
+		engine = this
 		
+		assets = AssetCache new(this)
+		mixer = Mixer new() .open()
 		stateManager = StateManager new(startState)
 		stateRenderer = StateRenderer new(renderer, startState)
 		
@@ -84,8 +89,9 @@ Engine: class {
 	}
 	
 	cleanup: func {
-		AssetCache free()
 		mixer close()
+		assets free()
+		engine = null
 		SDL destroyRenderer(renderer)
 		SDL destroyWindow(window)
 		SDL quit()

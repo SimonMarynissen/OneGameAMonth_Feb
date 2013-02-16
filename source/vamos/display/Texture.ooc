@@ -3,14 +3,14 @@ import sdl2/Core
 
 import vamos/display/SurfaceLoader
 
-ImageData: class {
+Texture: class {
 	
-	texture: SdlTexture
+	data: SdlTexture
 	width: Double
 	height: Double
 	
 	init: func ~fromSurface (renderer:SdlRenderer, surface:SdlSurface*) {
-		texture = SDL createTextureFromSurface(renderer, surface)
+		data = SDL createTextureFromSurface(renderer, surface)
 		width = surface@ w
 		height = surface@ h
 	}
@@ -27,7 +27,7 @@ ImageData: class {
 	}
 	
 	destroy: func {
-		SDL destroyTexture(texture)
+		SDL destroyTexture(data)
 		width = 0
 		height = 0
 	}
