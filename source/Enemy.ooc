@@ -4,27 +4,19 @@ import vamos/comps/Physics
 
 Enemy: class extends Actor {
 
-	ai: AI
-	hit: Int // when the player hits the ship, the player gets this amount of damage
-	interval := 1000
-	angle: Double
+	movementAI: MovementAI
+	hit: Int = 10 // when the player hits the ship, the player gets this amount of damage
 	
 	init: func (.x, .y) {
 		super(x, y)
 		health = maxHealth = 10
-		physics = Physics new(["player"])
+		physics = Physics new([])
 		addComp(physics)
 		type = "enemy"
 	}
 	
-	clone: func -> Enemy {
-		enemy := Enemy new(x, y)
-		enemy ai = ai
-		enemy hit = hit
-		enemy interval = interval
-		enemy angle = angle
-		return enemy
+	addAI: func (movementAI: MovementAI) {
+		this movementAI = movementAI
+		addComp("movementAI", movementAI)
 	}
-	
-	shoot: func // defined in subclasses
 }

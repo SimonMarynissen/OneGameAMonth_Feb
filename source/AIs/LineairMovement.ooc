@@ -1,10 +1,10 @@
-import AI
+import MovementAI
 import Actor
 import vamos/[Util, Entity]
 import vamos/comps/Physics
 import math
 
-BasicAI: class extends AI {
+LineairMovement: class extends MovementAI {
 	
 	actor: Actor
 	speed: Double = 0.0

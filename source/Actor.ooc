@@ -10,7 +10,7 @@ Actor: class extends Entity {
 	maxHealth: Int
 	physics: Physics
 	hitbox: Hitbox
-	
+	angle: Double
 	accel := 10000
 
 	init: func (=x, =y) {
@@ -54,4 +54,6 @@ Actor: class extends Entity {
 	die: func {
 		removeSelf()
 	}
+	
+	shoot: func
 }
