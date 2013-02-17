@@ -1,6 +1,6 @@
 import math
 import structs/ArrayList
-import vamos/[Component, Entity]
+import vamos/[Util, Component, Entity]
 
 Physics: class extends Component {
 	
@@ -19,10 +19,13 @@ Physics: class extends Component {
 	bounce := 0.0
 	sweep := false
 	
-	init: func (=collideTypes) {
+	init: func {
 		name = "physics"
 	}
-	init: func ~rawArray (types:String[]) {
+	init: func ~types (=collideTypes) {
+		init()
+	}
+	init: func ~rawTypes (types:String[]) {
 		init(types as ArrayList<String>)
 	}
 
@@ -105,11 +108,4 @@ Physics: class extends Component {
 		velY = -velY * bounce
 	}
 	
-}
-
-max: inline static func (a,b:Double) -> Double {
-	(a > b) ? a : b
-}
-min: inline static func (a,b:Double) -> Double {
-	(a < b) ? a : b
 }

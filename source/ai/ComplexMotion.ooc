@@ -1,7 +1,7 @@
-import LineairMovement
+import LinearMovement
 import Actor
 
-ComplexMovement: class extends LineairMovement {
+ComplexMovement: class extends LinearMovement {
 	
 	newAngle: Func(Actor)
 	

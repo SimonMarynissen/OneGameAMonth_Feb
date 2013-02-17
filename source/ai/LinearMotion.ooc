@@ -1,10 +1,9 @@
-import MovementAI
-import Actor
-import vamos/[Util, Entity]
-import vamos/comps/Physics
 import math
+import vamos/[Component, Util, Entity]
+import vamos/comps/Physics
+import Actor
 
-LineairMovement: class extends MovementAI {
+LinearMotion: class extends Component {
 	
 	actor: Actor
 	speed: Double = 0.0
@@ -29,11 +28,11 @@ LineairMovement: class extends MovementAI {
 	
 	adjustVelocity: func {
 		if (actor && physics) {
-			rad := rad(angle)
-			xSpeed := speed * cos(rad)
-			ySpeed := speed * sin(rad)
-			actor physics maxVelX = sign(xSpeed) * xSpeed
-			actor physics maxVelY = sign(ySpeed) * ySpeed
+			r := rad(angle)
+			xSpeed := speed * r cos()
+			ySpeed := speed * r sin()
+			actor physics maxVelX = xSpeed abs()
+			actor physics maxVelY = ySpeed abs()
 			actor physics accX = 10000 * sign(xSpeed)
 			actor physics accY = 10000 * -sign(ySpeed)
 		}

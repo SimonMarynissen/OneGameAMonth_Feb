@@ -1,5 +1,6 @@
-import Actor
 import vamos/Engine
+import vamos/masks/Hitbox
+import Actor
 
 ai1: func (actor: Actor) -> Double { // wall bouncing
 	if (actor x < 0 && actor angle > 90 && actor angle < 270) {
