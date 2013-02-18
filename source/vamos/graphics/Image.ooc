@@ -6,7 +6,7 @@ import vamos/display/[Texture, StateRenderer]
 
 Image: class extends Graphic {
 	
-	data:Texture
+	texture:Texture
 	
 	dstRect: SdlRect
 	srcRect: SdlRect
@@ -15,8 +15,8 @@ Image: class extends Graphic {
 	scale: Double {
 		get
 		set (v) {
-			dstRect w = data width * v
-			dstRect h = data height * v
+			dstRect w = texture width * v
+			dstRect h = texture height * v
 			scale = v
 		}
 	}
@@ -25,18 +25,18 @@ Image: class extends Graphic {
 	
 	init: func (path:String) {
 		super()
-		data = engine assets getTexture(path)
-		dstRect w = data width
-		dstRect h = data height
-		srcRect w = data width
-		srcRect h = data height
+		texture = engine assets getTexture(path)
+		dstRect w = texture width
+		dstRect h = texture height
+		srcRect w = texture width
+		srcRect h = texture height
 		scale = 1
 	}
 	
 	draw: func (renderer:StateRenderer, entity:Entity, x, y: Double) {
 		dstRect x = x
 		dstRect y = y
-		renderer drawData(data, srcRect&, dstRect&)
+		renderer drawTexture(texture, srcRect&, dstRect&)
 	} 
 	
 }

@@ -16,7 +16,7 @@ SpriteMap: class extends Image {
 		super(path)
 		srcRect w = frameWidth
 		srcRect h = frameHeight
-		_framesWide = data width / frameWidth
+		_framesWide = texture width / frameWidth
 	}
 	
 	setCurrentFrame: func (val:Int) {
@@ -28,6 +28,6 @@ SpriteMap: class extends Image {
 	draw: func (renderer:StateRenderer, entity:Entity, x, y: Double) {
 		dstRect w = frameWidth * scale
 		dstRect h = frameHeight * scale
-		super (renderer, entity, x, y)
+		super(renderer, entity, x, y)
 	}
 }

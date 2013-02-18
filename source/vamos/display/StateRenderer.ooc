@@ -19,11 +19,11 @@ StateRenderer: class {
 	
 	init: func (=target, =state)
 	
-	drawData: inline func(texture:Texture, sourceRect, destRect:SdlRect*) {
+	drawTexture: inline func(texture:Texture, sourceRect, destRect:SdlRect*) {
 		SDL renderCopy(target, texture data, sourceRect, destRect)
 	}
 	
-	drawData: inline func~ex (texture:Texture, sourceRect, destRect:SdlRect*, angle:const Double, center:const SdlPoint*, flip:const Int) {
+	drawTexture: inline func~ex (texture:Texture, sourceRect, destRect:SdlRect*, angle:const Double, center:const SdlPoint*, flip:const Int) {
 		SDL renderCopyEx(target, texture data, sourceRect, destRect, angle, center, flip)
 	}
 	

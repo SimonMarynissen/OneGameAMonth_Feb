@@ -1,16 +1,15 @@
-import LinearMovement
+import ai/LinearMotion
 import Actor
 
-ComplexMovement: class extends LinearMovement {
+ComplexMotion: class extends LinearMotion {
 	
-	newAngle: Func(Actor)
+	newAngle: Func(Actor) -> Double
 	
-	init: func (=angle, =speed, =newAngle)
+	init: func (angle, speed:Double, =newAngle) {
+		super(angle, speed)
+	}
 	
 	update: func (dt: Double) {
-		if (newAngle) {
-			newAngle(actor)
-			angle = actor angle
-		}
+		newAngle(actor)
 	}
 }

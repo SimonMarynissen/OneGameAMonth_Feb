@@ -6,35 +6,26 @@ import Actor
 LinearMotion: class extends Component {
 	
 	actor: Actor
-	speed: Double = 0.0
-	physics: Physics
-	angle: Double {
-		set(a) {
-			angle = a
-			while (angle < 0.0) angle += 360.0
-			while (angle >= 360.0) angle -= 360.0
-			adjustVelocity()
-		}
-		get {angle}
-	}
+	speed: Double
+	angle: Double
 	
 	init: func (=angle, =speed)
 	
 	added: func {
 		actor = entity as Actor
-		physics = actor physics
+		actor angle = angle
 		adjustVelocity()
 	}
 	
 	adjustVelocity: func {
-		if (actor && physics) {
-			r := rad(angle)
+		if (actor) {
+			r := angle toRadians()
 			xSpeed := speed * r cos()
 			ySpeed := speed * r sin()
 			actor physics maxVelX = xSpeed abs()
 			actor physics maxVelY = ySpeed abs()
-			actor physics accX = 10000 * sign(xSpeed)
-			actor physics accY = 10000 * -sign(ySpeed)
+			actor physics accX = 10000 * xSpeed sign()
+			actor physics accY = 10000 * -ySpeed sign()
 		}
 	}
 }

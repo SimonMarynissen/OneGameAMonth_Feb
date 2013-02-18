@@ -25,5 +25,8 @@ clamp: func (n, min, max: Double) -> Double {
 }
 
 extend Double {
-	clamp: func(min, max: Double) -> Double { clamp(this, min, max) }
+	clamp: inline func(min, max: This) -> This { clamp(this, min, max) }
+	sign: inline func -> This { sign(this) }
+	toRadians: inline func -> This { rad(this) }
+	toDegrees: inline func -> This { deg(this) }
 }

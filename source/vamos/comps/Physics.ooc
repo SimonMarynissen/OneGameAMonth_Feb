@@ -2,9 +2,16 @@ import math
 import structs/ArrayList
 import vamos/[Util, Component, Entity]
 
+defaultHandler: static func (e:Entity) -> Bool {
+	true
+}
+
 Physics: class extends Component {
 	
-	collideTypes:ArrayList<String>
+	types:ArrayList<String>
+	
+	/// Return true to collide, return false to keep moving
+	onCollide: Func(Entity)->Bool = defaultHandler
 	
 	velX := 0.0
 	velY := 0.0
@@ -19,12 +26,14 @@ Physics: class extends Component {
 	bounce := 0.0
 	sweep := false
 	
-	init: func {
+	init: func (=types) {
 		name = "physics"
 	}
-	init: func ~types (=collideTypes) {
-		init()
+	
+	init: func ~noTypes {
+		init(ArrayList<String> new())
 	}
+	
 	init: func ~rawTypes (types:String[]) {
 		init(types as ArrayList<String>)
 	}
@@ -51,8 +60,8 @@ Physics: class extends Component {
 		else if (velY > maxVelY) velY = maxVelY
 		
 		moveBy(velX*dt + nudgeX, velY*dt + nudgeY)
-		nudgeX = 0.0
-		nudgeY = 0.0
+		nudgeX = 0
+		nudgeY = 0
 	}
 	
 	_fractionX := 0.0  // account for < 1px movement over many frames
@@ -67,13 +76,15 @@ Physics: class extends Component {
 		_fractionX -= x
 		_fractionY -= y
 		
+		sign:Double
+		e:Entity
+		
 		if (x != 0) {
-			if (sweep || entity collide(collideTypes, entity x + x, entity y)) {
-				sign := x > 0 ? 1 : -1
+			if (sweep || entity collide(types, entity x + x, entity y)) {
+				sign = x > 0 ? 1 : -1
 				while (x != 0) {
-					if (entity collide(collideTypes, entity x + sign, entity y)) {
-						collideX()
-						break
+					if (e = entity collide(types, entity x + sign, entity y)) {
+						if (collideX(e)) break
 					}
 					entity x += sign
 					x -= sign
@@ -84,12 +95,11 @@ Physics: class extends Component {
 		}
 		
 		if (y != 0) {
-			if (sweep || entity collide(collideTypes, entity x, entity y + y)) {
-				sign := y > 0 ? 1 : -1
+			if (sweep || entity collide(types, entity x, entity y + y)) {
+				sign = y > 0 ? 1 : -1
 				while (y != 0) {
-					if (entity collide(collideTypes, entity x, entity y + sign)) {
-						collideY()
-						break
+					if (e = entity collide(types, entity x, entity y + sign)) {
+						if (collideY(e)) break
 					}
 					entity y += sign
 					y -= sign
@@ -100,12 +110,24 @@ Physics: class extends Component {
 		}
 	}
 
-	collideX: func {
-		velX = -velX * bounce
+	collideX: func (e:Entity) -> Bool {
+		if (onCollide(e)) {
+			velX = -velX * bounce
+			return true
+		}
+		return false
 	}
 
-	collideY: func {
-		velY = -velY * bounce
+	collideY: func (e:Entity) -> Bool {
+		if (onCollide(e)) {
+			velY = -velY * bounce
+			return true
+		}
+		return false
+	}
+	
+	handle: func (f:Func(Entity)->Bool) {
+		onCollide = f
 	}
 	
 }

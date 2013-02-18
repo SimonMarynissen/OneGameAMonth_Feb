@@ -8,17 +8,8 @@ Timer: class extends Component {
 	_running := false
 	_looping := false
 	
-	init: func {
+	init: func (=interval, =callback) {
 		name = "timer"
-	}
-	init: func ~withInterval (=interval) {
-		init()
-	}
-	init: func ~withCallback (=callback) {
-		init()
-	}
-	init: func ~withIntervalAndCallback (=interval, =callback) {
-		init()
 	}
 	
 	update: func (dt: Double) {

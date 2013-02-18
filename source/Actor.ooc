@@ -10,8 +10,15 @@ Actor: class extends Entity {
 	maxHealth: Int
 	physics: Physics
 	hitbox: Hitbox
-	angle: Double
 	accel := 10000
+	angle: Double {
+		get
+		set(a) {
+			while (a < 0.0) a += 360.0
+			while (a >= 360.0) a -= 360.0
+			angle = a
+		}
+	}
 
 	init: func (=x, =y) {
 		health = maxHealth = 10

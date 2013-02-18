@@ -4,28 +4,26 @@ import vamos/comps/Timer
 
 Fleet: class extends Entity {
 
-	prototype: Enemy
+	spawnType: String
 	interval: Double = 1.0
 	amount: Int = 10
-	_timer: Timer
+	timer: Timer
 	
-	init: func (=x, =y, =prototype)
+	init: func (=x, =y, =spawnType)
 	
 	added: func {
-		_timer = Timer new(interval, || spawn())
-		addComp("timer", _timer)
-		_timer loop()
+		timer = Timer new(interval, || spawn())
+		addComp("timer", timer)
+		timer loop()
 	}
 	
 	spawn: func {
 		if (amount > 0) {
 			amount -= 1
-			newEnemy := prototype clone()
-			newEnemy x = x
-			newEnemy y = y
-			state add(newEnemy)
+			enemy := Enemy new(x, y) .build(spawnType)
+			state add(enemy)
 		} else {
-			_timer stop()
+			timer stop()
 			removeComp("timer")
 			removeSelf()
 		}
