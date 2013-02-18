@@ -7,7 +7,7 @@ Button: class extends Entity {
 	onReleased := VoidSignal new()
 	down := false
 	_spriteMap: SpriteMap
-	_spriteFont: SpriteFont 
+	_spriteFont: SpriteFont
 	
 	init: func (=x, =y, text: String) {
 		_spriteMap = SpriteMap new("button.png", 32, 32)

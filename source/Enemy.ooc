@@ -16,7 +16,7 @@ Enemy: class extends Actor {
 		physics handle(|e|
 			if (e type == "player") {
 				"ermahgerd!" println()
-				return true
+				return false
 			}
 			return true
 		)
