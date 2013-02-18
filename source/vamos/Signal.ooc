@@ -6,49 +6,60 @@ import structs/ArrayList
 	If you don't need event information to be dispatched, you can use VoidSignal.
 */
 
+/**
+ * List of functions, each of which accepts a single argument of type T
+ */
 Signal: class <T> {
-	_listeners := ArrayList<ArgListener<T>> new()
+	listeners := ArrayList<ArgListener<T>> new()
 	
 	add: func (f:Func(T)) -> ArgListener<T> {
 		l := ArgListener<T> new(f)
-		_listeners add(l)
+		listeners add(l)
 		return l
 	}
 	
 	remove: func (l:ArgListener<T>) {
-		_listeners remove(l)
+		listeners remove(l)
 	}
 	
 	dispatch: func (param:T) {
-		for (l in _listeners) l call(param)
+		for (l in listeners) l call(param)
 	}
 }
 
+/**
+ * Contains a function which accepts an argument of type T
+ */
 ArgListener: class <T> {
 	f: Func(T)
 	init: func(=f)
 	call: func(param:T) { f(param) }
 }
 
-
+/**
+ * List of functions which accept no arguments
+ */
 VoidSignal: class {
-	_listeners := ArrayList<VoidListener> new()
+	listeners := ArrayList<VoidListener> new()
 	
 	add: func (f:Func) -> VoidListener {
 		l := VoidListener new(f)
-		_listeners add(l)
+		listeners add(l)
 		return l
 	}
 	
 	remove: func (l:VoidListener) {
-		_listeners remove(l)
+		listeners remove(l)
 	}
 	
 	dispatch: func {
-		for (l in _listeners) l call()
+		for (l in listeners) l call()
 	}
 }
 
+/**
+ * Contains a function which accepts no arguments
+ */
 VoidListener: class {
 	f: Func
 	init: func(=f)
