@@ -14,8 +14,6 @@ Button: class extends Entity {
 		_spriteMap setCurrentFrame(0)
 		_spriteFont = SpriteFont new(text)
 		_spriteFont scale = 2
-		_spriteFont origin x = 4
-		_spriteFont origin y = 4
 		glist := GraphicList new()
 		glist add(_spriteMap)
 		glist add(_spriteFont)
@@ -23,7 +21,7 @@ Button: class extends Entity {
 	}
 	
 	update: func (dt: Double) {
-		/*if (Input mousePressed) {
+		if (Input mousePressed) {
 			_spriteMap setCurrentFrame(1)
 			onPressed dispatch()
 		}
@@ -35,6 +33,6 @@ Button: class extends Entity {
 				_spriteMap setCurrentFrame(0)
 				onReleased dispatch()
 			}
-		}*/
+		}
 	}
 }
