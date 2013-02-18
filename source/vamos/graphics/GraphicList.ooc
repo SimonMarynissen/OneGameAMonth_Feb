@@ -1,22 +1,20 @@
 import structs/ArrayList
+import vamos/[Graphic, Entity]
+import vamos/display/StateRenderer
 
 GraphicList: class extends Graphic {
 
-	graphics: ArrayList<Graphic>
+	graphics := ArrayList<Graphic> new()
 	
 	init: func (=graphics) {}
 	init: func ~withoutGraphics () {}
 	
 	update: func (dt: Double) {
-		if (graphic active) {
-			for (graphic in graphics) graphic update(dt)
-		}
+		for (graphic in graphics) graphic update(dt)
 	}
 	
-	draw: func (renderer: StateRenderer, entity:Entity, x, y : Double) {
-		if (graphic visible) {
-			for (graphic in graphics) graphic draw(renderer, entity, x, y)
-		}
+	draw: func (renderer: StateRenderer, entity: Entity, x, y: Double) {
+		for (graphic in graphics) graphic draw(renderer, entity, x, y)
 	}
 	
 	add: func (graphic: Graphic) {
