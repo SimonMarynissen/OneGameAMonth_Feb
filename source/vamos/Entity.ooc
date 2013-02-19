@@ -44,10 +44,12 @@ Entity: class {
 	update: func (dt:Double)
 	
 	updateComps: func (dt:Double) {
-		for (comp in components) {
-			if (comp active) {
-				comp update(dt)
-			}
+		iter := components iterator()
+		
+		while (iter hasNext?()) {
+			comp := iter next()
+			if (comp entity != this) iter remove()
+			else if (comp active) comp update(dt)
 		}
 	}
 	
@@ -64,9 +66,8 @@ Entity: class {
 	}
 	
 	removeComp: func (comp:Component) {
-		components remove(comp)
-		comp entity = null
 		comp removed()
+		comp entity = null
 	}
 	
 	removeComp: func ~byName (name:String) {
@@ -139,11 +140,6 @@ Entity: class {
 	
 	collide: func ~typesNoPos (types:ArrayList<String>) -> Entity {
 		return collide(types, x, y)
-	}
-	
-	removeSelf: func {
-		type = "dead"
-		state remove(this)
 	}
 	
 	removed: func // called when removed from world

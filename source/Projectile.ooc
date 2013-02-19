@@ -20,11 +20,9 @@ Projectile: class extends Entity {
 	update: func (dt: Double) {
 		for (t in types) {
 			e := collide(t)
-			if (e) {
-				if (e is Actor) {
-					e damage(damage)
-					removeSelf()
-				}
+			if (e && e instaceOf?(Actor)) {
+				(e as Actor) damage(damage)
+				state remove(this)
 			}
 		}
 	}

@@ -42,7 +42,7 @@ Fleet: class extends Entity {
 		} else {
 			timer stop()
 			removeComp("timer")
-			removeSelf()
+			state remove(this)
 		}
 	}
 }

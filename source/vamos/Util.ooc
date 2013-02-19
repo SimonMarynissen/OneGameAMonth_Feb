@@ -31,31 +31,6 @@ extend Double {
 	toDegrees: inline func -> This { deg(this) }
 }
 
-// // Color in ARGB format
-//Color: cover from UInt32 {
-//	
-//	//a: UInt8 {
-//	//	get { this >> 24 }
-//	//	//set(v) { this = this & 0x00ffffff | (v << 24)}
-//	//}
-//	//r: UInt8 {
-//	//	get { (this >> 16) & 0xff }
-//	//	//set(v) { this = this & 0xff00ffff | (v << 16)}
-//	//}
-//	//g: UInt8 {
-//	//	get { (this >> 8) & 0xff }
-//	//	//set(v) { this = this & 0xff00ffff | (v << 8)}
-//	//}
-//	//b: UInt8 {
-//	//	get { this & 0xff }
-//	//	//set(v) { this = this & 0xffffff00 | v }
-//	//}
-//	//
-//	toString: func -> String {
-//		"#%x" format(this)
-//	}
-//}
-
 Color: cover {
 	a:UInt8 = 255
 	r,g,b:UInt8

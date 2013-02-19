@@ -1,6 +1,13 @@
+import vamos/Vamos
 import vamos/Signal
+import vamos/audio/AudioSource
+import vamos/SoundLoader
 
-Sound: class {
+/**
+ * A sample that can be loaded from a .wav or .ogg file
+ * If your file is large, consider using a streaming 'Music' object instead.
+ */
+Sound: class extends AudioSource {
 	
 	data: UInt8*
 	size: UInt32
@@ -12,12 +19,8 @@ Sound: class {
 	pan: Double = 0.0
 	onComplete := VoidSignal new()
 	
-	init: func {
-		onComplete add(complete)
-	}
-	
-	init: func ~withVolumeAndPan (=volume, =pan) {
-		init()
+	init: func (path:String) {
+		SoundLoader load("path")
 	}
 	
 	complete: func {
@@ -31,18 +34,10 @@ Sound: class {
 		play(volume, pan)
 	}
 	
-	play: func ~withLooping (=looping) {
-		play(volume, pan)
-	}
-	
 	play: func ~withVolumeAndPan (volume, pan: Double) {
 		// play the sound with the arguments
 		if (playing) stop()
 		position = 0.0
-	}
-	
-	play: func ~withVolumePanAndLooping (volume, pan: Double, =looping) {
-		play(volume, pan)
 	}
 	
 	stop: func {

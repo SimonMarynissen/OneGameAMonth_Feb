@@ -1,5 +1,6 @@
 use sdl2
 import sdl2/Core
+import sdl2/Audio
 import vamos/[Input, AssetCache, State, StateManager]
 import vamos/display/StateRenderer
 import vamos/audio/Mixer
@@ -15,6 +16,7 @@ Engine: class {
 	width, height: Int
 	caption := "Untitled Vamos Game"
 	frameRate:Double = 60
+	dt:Double // Seconds elapsed since last frame
 	
 	window: SdlWindow
 	renderer: SdlRenderer
@@ -61,17 +63,16 @@ Engine: class {
 		cleanup()
 	}
 	
-	_dt:Double // Seconds elapsed since last frame
-	
 	update: func {
 		startTime := time()
 		
 		Input update()
-		stateManager update(_dt)
+		stateManager update(dt)
 		stateRenderer draw()
+		mixer update(dt)
 		
-		sleep(1.0/frameRate - _dt)
-		_dt = time() - startTime
+		sleep(1.0/frameRate - dt)
+		dt = time() - startTime
 	}
 	
 	/// number of seconds since the program began

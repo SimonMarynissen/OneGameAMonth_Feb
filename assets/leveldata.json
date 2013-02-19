@@ -3,8 +3,8 @@
 {
 	"name": "level 1",
 	"fleets": [
-		{"x":200.0, "y":-20.0, "amount":20, "delay":5.0, "interval":1.0,
-		 "type": "linear", "params":{"angle":270.0, "speed":100.0} }
+		{"x":250.0, "y":-20.0, "amount":20, "delay":5.0, "interval":1.0,
+		 "type": "blue", "params":{"angle":200.0, "speed":100.0} }
 	]
 }
 

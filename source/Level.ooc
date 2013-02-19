@@ -1,23 +1,21 @@
 import vamos/State
-import TimedFleet, Player
-import structs/ArrayList
+import Fleet, Player
+import structs/[ArrayList, Bag, HashBag]
 
 Level: class extends State {
 	
-	fleets: ArrayList<TimedFleet>
+	fleets: ArrayList<Fleet>
 	player: Player
 	
-	init: func () { // Load JSON String from file
-	
+	init: func (data:HashBag) {
+		fleetBag := data get("fleets", Bag)
+		for (i in 0..fleetBag size-1) {
+			fleets[i] = Fleet new(fleetBag get(i, HashBag))
+		}
 	}
 	
 	create: func {
-		parseJSON()
 		for (fleet in fleets) add(fleet)
 		add(Player new(100, 100))
-	}
-	
-	parseJSON: func { // load fleets
-	
 	}
 }

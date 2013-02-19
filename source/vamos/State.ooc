@@ -27,14 +27,19 @@ State: class {
 	}
 	
 	update: func (dt:Double) {
-		for (e in entities) {
-			e updateComps(dt)
-			e update(dt)
+		iter := entities iterator()
+		
+		while (iter hasNext?()) {
+			e := iter next()
+			if (e state != this) iter remove()
+			else {
+				e updateComps(dt)
+				e update(dt)
+			}
 		}
 	}
 	
 	add: func (e:Entity) {
-		entities remove(e)
 		entities add(e)
 		e state = this
 		e added()
@@ -43,8 +48,7 @@ State: class {
 	
 	remove: func (e:Entity) {
 		onEntityRemoved dispatch(e)
-		entities remove(e)
-		e state = null
 		e removed()
+		e state = null
 	}
 }

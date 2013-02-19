@@ -13,4 +13,5 @@ clean:
 debug:
 	rock main.ooc --sourcepath=source --noclean -v -o=$(NAME) +-gstabs
 	
-test: all run
+test: all
+	gdb -ex run ./$(NAME) 

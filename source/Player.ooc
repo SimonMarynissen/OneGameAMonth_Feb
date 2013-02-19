@@ -13,10 +13,9 @@ Player: class extends Actor {
 		image := ShipGraphic new(9)
 		graphic = image
 		
-		physics velX class name println()
-		physics maxVelX = physics maxVelY = 300
+		physics maxVelX = physics maxVelY = 340
 		physics dragX = physics dragY = 1000
-		accel = 2000
+		accel = 3000
 		
 		addComp(PlayerInput new())
 		

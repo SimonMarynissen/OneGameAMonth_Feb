@@ -23,7 +23,9 @@ Mixer: class {
 	/// Make SDL use this mixer's spec. Begin playing audio.
 	open: func {
 		_currentSources = sources
-		SdlAudio open(spec&, null)
+		if (SdlAudio open(spec&, null) < 0) {
+			Exception new("SDL failed to open audio driver: %s" format(SDL getError())) throw()
+		}
 		play()
 	}
 	
@@ -33,11 +35,21 @@ Mixer: class {
 		SdlAudio close()
 	}
 	
+	/// If this causes threading problems it might need to be removed
+	update: func(dt:Double) {
+		iter := sources iterator()
+		while (iter hasNext?()) {
+			source := iter next()
+			if (source _removed) iter remove()
+			else source update(dt)
+		}
+	}
+	
 	add: func (source:AudioSource) {
 		sources add(source)
 	}
 	remove: func (source:AudioSource) {
-		sources remove(source)
+		source _removed = true
 	}
 	
 	play: func {
@@ -53,7 +65,25 @@ Mixer: class {
 _currentSources: static ArrayList<AudioSource>
 
 _mix: static func (userdata:Pointer, stream:UInt8*, len:Int) {
+	
+	// clear the audio buffer
 	memset(stream, 0, len)
-	for (source in _currentSources)
+	
+	/*
+		WARNING - Due to differences in SDL and Boehm GC threads,
+		          the garbage collector must *not* be invoked in any
+		          mix or mixInto callbacks!
+		          Hopefully this will be fixed, but the current
+		          workaround is to not instantiate any objects in here.
+	*/
+	if (_currentSources == null)
+		return
+	
+	i := 0
+	
+	while (i < _currentSources size) {
+		source := _currentSources[i]
 		source mixInto(stream, len)
+		i += 1
+	}
 }
