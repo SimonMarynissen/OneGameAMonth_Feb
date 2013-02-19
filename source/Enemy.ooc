@@ -22,7 +22,8 @@ Enemy: class extends Actor {
 	
 	create: static func (type:String) -> Enemy {
 		match type {
-			case "example" => ExampleEnemy new()
+			case "linear" => LinearEnemy new()
+			case "complex" => ComplexEnemy new()
 			case =>
 				Exception new("No class for type '%s'" format(type)) throw()
 				null
@@ -47,11 +48,11 @@ Enemy: class extends Actor {
 	}
 }
 
-ExampleEnemy: class extends Enemy {
+LinearEnemy: class extends Enemy {
 	
 	init: super func {
 		graphic = Image new("blueship.png")
-		type = "example"
+		type = "linear"
 	}
 	
 	configure: func (data:HashBag) {
@@ -60,5 +61,19 @@ ExampleEnemy: class extends Enemy {
 		speed := data get("speed", Double)
 		addComp(LinearMotion new(angle, speed))
 	}
+}
+
+ComplexEnemy: class extends Enemy {
+	init: super func {
+		graphic = Image new("blueship.png")
+		type = "complex"
+	}
 	
+	configure: func (data:HashBag) {
+		super(data)
+		angle := data get("angle", Double)
+		speed := data get("speed", Double)
+		aiFunc := data get("aiFunc", Func)
+		addComp(ComplexMotion new(angle, speed, aiFunc))
+	}
 }

@@ -29,7 +29,7 @@ Actor: class extends Entity {
 		type = "actor"
 	}
 	
-	init: func~pos(=x, =y) {
+	init: func ~pos (=x, =y) {
 		init()
 	}
 	
