@@ -34,7 +34,8 @@ StateRenderer: class {
 	
 	
 	draw: func {
-		SDL setRenderDrawColor(target, 0x20, 0x20, 0x20, 255)
+		col := state color
+		SDL setRenderDrawColor(target, col r, col g, col b, col a)
 		SDL renderClear(target)
 		
 		for (e in state entities) {

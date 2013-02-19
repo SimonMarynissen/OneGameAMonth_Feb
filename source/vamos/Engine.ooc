@@ -14,7 +14,7 @@ Engine: class {
 	running := false
 	width, height: Int
 	caption := "Untitled Vamos Game"
-	frameRate:Double = 60.0
+	frameRate:Double = 60
 	
 	window: SdlWindow
 	renderer: SdlRenderer

@@ -31,6 +31,8 @@ PlayState: class extends State {
 			
 		enemies = Fleet new(fleetConf)
 		add(enemies)
+		
+		color set(0xffaaaabb)
 	}
 	
 	update: func (dt: Double) {

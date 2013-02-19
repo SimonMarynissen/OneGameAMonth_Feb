@@ -1,5 +1,5 @@
 import structs/ArrayList
-import vamos/[Engine, Signal, Entity]
+import vamos/[Engine, Signal, Entity, Util]
 
 // TODO: replace the current ArrayList system with linked lists
 
@@ -14,6 +14,7 @@ State: class {
 	onEntityRemoved := Signal<Entity> new()
 	onEnter := Signal<State> new()
 	onLeave := Signal<State> new()
+	color:Color
 	
 	// Don't create entities or load assets here.
 	init: func {

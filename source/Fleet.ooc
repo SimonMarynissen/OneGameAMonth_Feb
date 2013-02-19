@@ -34,7 +34,8 @@ Fleet: class extends Entity {
 	}
 	
 	spawn: func {
-		if (amount-- > 0) {
+		if (amount > 0) {
+			amount -= 1
 			enemy := Enemy create(spawnType, x, y)
 			enemy configure(spawnConf)
 			state add(enemy)
