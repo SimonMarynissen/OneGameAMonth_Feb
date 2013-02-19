@@ -1,4 +1,5 @@
 import vamos/Entity
+import structs/HashBag
 
 Projectile: class extends Entity {
 
@@ -27,6 +28,12 @@ Projectile: class extends Entity {
 			}
 		}
 	}
-	
-	clone: abstract func
+
+	configure: func (data HashBag) {
+		for (k in data getKeys()) {
+			match k {
+				case "damage" => damage = data get("damage", Int)
+			}
+		}
+	}
 }

@@ -22,8 +22,8 @@ PlayState: class extends State {
 		
 		fleetConf := HashBag new().
 			add("x", 200 as Double).
-			add("y", 30 as Double).
-			add("type", "example").
+			add("y", -30 as Double).
+			add("type", "linear").
 			add("amount", 20).
 			add("delay", 3.0 as Double).
 			add("interval", 0.2 as Double).

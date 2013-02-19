@@ -65,6 +65,4 @@ Actor: class extends Entity {
 	die: func {
 		removeSelf()
 	}
-	
-	shoot: func
 }
