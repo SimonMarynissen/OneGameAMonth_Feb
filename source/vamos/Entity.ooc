@@ -3,8 +3,7 @@ import vamos/[State, Component, Graphic, Mask]
 
 Entity: class {
 	
-	x := 0.0
-	y := 0.0
+	x, y:Double
 	
 	type := ""
 	state: State

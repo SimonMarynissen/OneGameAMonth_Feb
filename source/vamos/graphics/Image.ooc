@@ -21,7 +21,7 @@ Image: class extends Graphic {
 		}
 	}
 	
-	angle := 0.0
+	angle:Double
 	
 	init: func (path:String) {
 		super()

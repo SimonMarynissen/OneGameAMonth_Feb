@@ -10,23 +10,27 @@ Actor: class extends Entity {
 	maxHealth: Int
 	physics: Physics
 	hitbox: Hitbox
-	accel := 10000
+	accel: Double = 10000
 	angle: Double {
 		get
 		set(a) {
-			while (a < 0.0) a += 360.0
-			while (a >= 360.0) a -= 360.0
+			while (a < 0) a += 360
+			while (a >= 360) a -= 360
 			angle = a
 		}
 	}
 
-	init: func (=x, =y) {
+	init: func {
 		health = maxHealth = 10
 		physics = Physics new(["wall"])
 		addComp(physics)
-		hitbox = Hitbox new(20.0, 20.0)
+		hitbox = Hitbox new(16, 16)
 		mask = hitbox
 		type = "actor"
+	}
+	
+	init: func~pos(=x, =y) {
+		init()
 	}
 	
 	update: func (dt: Double) {

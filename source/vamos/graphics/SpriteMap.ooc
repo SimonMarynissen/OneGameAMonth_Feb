@@ -8,9 +8,9 @@ import vamos/graphics/Image
 
 SpriteMap: class extends Image {
 	
-	frameWidth, frameHeight : Int
-	currentFrame = 0:Int
-	_framesWide : Int
+	frameWidth, frameHeight: Int
+	currentFrame: Int
+	_framesWide: Int
 	
 	init: func (path:String, =frameWidth, =frameHeight) {
 		super(path)

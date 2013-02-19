@@ -13,17 +13,13 @@ Physics: class extends Component {
 	/// Return true to collide, return false to keep moving
 	onCollide: Func(Entity)->Bool = defaultHandler
 	
-	velX := 0.0
-	velY := 0.0
-	accX := 0.0
-	accY := 0.0
-	maxVelX := 99999.0
-	maxVelY := 99999.0
-	dragX := 0.0
-	dragY := 0.0
-	nudgeX := 0.0
-	nudgeY := 0.0
-	bounce := 0.0
+	velX, velY: Double
+	accX, accY: Double
+	maxVelX: Double = 99999
+	maxVelY: Double = 99999
+	dragX, dragY: Double
+	nudgeX, nudgeY: Double
+	bounce: Double
 	sweep := false
 	
 	init: func (=types) {
@@ -64,8 +60,8 @@ Physics: class extends Component {
 		nudgeY = 0
 	}
 	
-	_fractionX := 0.0  // account for < 1px movement over many frames
-	_fractionY := 0.0
+	_fractionX:Double  // account for < 1px movement over many frames
+	_fractionY:Double
 	
 	// Thanks Chevy!
 	moveBy: func(x, y:Double) {

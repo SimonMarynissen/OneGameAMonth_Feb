@@ -13,9 +13,10 @@ Player: class extends Actor {
 		image := ShipGraphic new(9)
 		graphic = image
 		
+		physics velX class name println()
 		physics maxVelX = physics maxVelY = 300
-		physics dragX = physics dragY = 10000
-		accel = 5000
+		physics dragX = physics dragY = 1000
+		accel = 2000
 		
 		addComp(PlayerInput new())
 		
@@ -24,6 +25,6 @@ Player: class extends Actor {
 	}
 	
 	update: func(dt:Double) {
-		
+		super(dt)
 	}
 }

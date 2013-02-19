@@ -9,5 +9,8 @@ run:
 
 clean:
 	rm -rf rock_tmp .libs
+
+debug:
+	rock main.ooc --sourcepath=source --noclean -v -o=$(NAME) +-gstabs
 	
 test: all run

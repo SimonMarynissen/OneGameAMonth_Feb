@@ -14,7 +14,7 @@ Engine: class {
 	running := false
 	width, height: Int
 	caption := "Untitled Vamos Game"
-	frameRate := 60.0
+	frameRate:Double = 60.0
 	
 	window: SdlWindow
 	renderer: SdlRenderer
@@ -61,7 +61,7 @@ Engine: class {
 		cleanup()
 	}
 	
-	_dt := 0.0 // Seconds elapsed since last frame
+	_dt:Double // Seconds elapsed since last frame
 	
 	update: func {
 		startTime := time()
@@ -80,7 +80,7 @@ Engine: class {
 	}
 	
 	sleep: func (seconds:Double) {
-		if (seconds < 0.0) seconds = 0.0
+		if (seconds < 0) seconds = 0
 		SDL delay(seconds*1000)
 	}
 	

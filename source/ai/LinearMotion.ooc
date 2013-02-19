@@ -18,7 +18,7 @@ LinearMotion: class extends Component {
 	}
 	
 	adjustVelocity: func {
-		if (actor) {
+		if (actor && actor physics) {
 			r := angle toRadians()
 			xSpeed := speed * r cos()
 			ySpeed := speed * r sin()

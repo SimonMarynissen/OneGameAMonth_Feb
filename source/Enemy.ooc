@@ -1,3 +1,4 @@
+import structs/HashBag
 import vamos/comps/Physics
 import vamos/graphics/Image
 import Actor
@@ -5,32 +6,59 @@ import ai/LinearMotion
 
 Enemy: class extends Actor {
 
-	damage: Int = 10
+	damageAmount:Int = 10
 	
-	init: func (.x, .y) {
-		super(x, y)
-		health = maxHealth = 10
-		
-		physics = Physics new(["player"])
-		addComp(physics)
-		physics handle(|e|
-			if (e type == "player") {
-				"ermahgerd!" println()
-				return false
-			}
-			return true
-		)
+	init: super func {
+		//physics handle(|e|
+		//	if (e type == "player") {
+		//		//e as Actor 
+		//		return false
+		//	}
+		//	return true
+		//)
 		
 		type = "enemy"
 	}
 	
-	build: func (type:String) {
+	create: static func (type:String) -> Enemy {
 		match type {
-			case "example" =>
-				addComp(LinearMotion new(225, 40))
-				graphic = Image new("blueship.png")
+			case "example" => ExampleEnemy new()
 			case =>
-				Exception new("No instructions for building enemy '$s'" format(type)) throw()
+				Exception new("No class for type '%s'" format(type)) throw()
+				null
 		}
 	}
+	
+	create: static func~withPos(type:String, x, y:Double) -> Enemy {
+		e := create(type)
+		e x = x; e y = y
+		return e
+	}
+	
+	configure: func (data:HashBag) {
+		for (k in data getKeys()) {
+			match k {
+				case "damage" => damageAmount = data get("damage", Int)
+				case "health" =>
+					maxHealth = data get("health", Int)
+					health = maxHealth
+			}
+		}
+	}
+}
+
+ExampleEnemy: class extends Enemy {
+	
+	init: super func {
+		graphic = Image new("blueship.png")
+		type = "example"
+	}
+	
+	configure: func (data:HashBag) {
+		super(data)
+		angle := data get("angle", Double)
+		speed := data get("speed", Double)
+		addComp(LinearMotion new(angle, speed))
+	}
+	
 }
