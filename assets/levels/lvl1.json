@@ -1,0 +1,11 @@
+{
+	"name": "level 1",
+	"fleets": [
+		{"x":0, "y":0, "amount":20, "delay":1.0, "interval":0.3,
+		 "type": "red", "conf":{"angle":340, "speed":300} },
+		{"x":0.5, "y":0, "amount":20, "delay":10.0, "interval":0.2,
+		 "type": "blue", "conf":{"angle":270, "speed":100} },
+		{"x":1, "y":0, "amount":40, "delay":20.0, "interval":0.1,
+		 "type": "blue", "conf":{"angle":200, "speed":200} }
+	]
+}

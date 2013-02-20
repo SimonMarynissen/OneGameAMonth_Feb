@@ -1,4 +1,5 @@
-import structs/HashBag
+import structs/HashBag, BagUtil
+import vamos/Engine
 import vamos/comps/Physics
 import vamos/graphics/[Image, SpriteMap]
 import Actor
@@ -34,16 +35,17 @@ Enemy: class extends Actor {
 	
 	create: static func~withPos(type:String, x, y:Double) -> Enemy {
 		e := create(type)
-		e x = x; e y = y
+		e x = x
+		e y = y
 		return e
 	}
 	
 	configure: func (data:HashBag) {
 		for (k in data getKeys()) {
 			match k {
-				case "damage" => damageAmount = data get("damage", Int)
+				case "damage" => damageAmount = data getInt("damage")
 				case "health" =>
-					maxHealth = data get("health", Int)
+					maxHealth = data getInt("health")
 					health = maxHealth
 			}
 		}
@@ -53,14 +55,15 @@ Enemy: class extends Actor {
 BlueEnemy: class extends Enemy {
 	
 	init: super func {
-		graphic = Image new("blueship.png")
+		graphic = Image new("enemy_blue.png")
 		type = "blue"
 	}
 	
 	configure: func (data:HashBag) {
 		super(data)
-		angle := data get("angle", Double)
-		speed := data get("speed", Double)
+		angle := data getDouble("angle")
+		speed := data getDouble("speed")
+		"b angle = %f, speed = %f" printfln(angle, speed)
 		addComp(LinearMotion new(angle, speed))
 	}
 }
@@ -68,14 +71,15 @@ BlueEnemy: class extends Enemy {
 RedEnemy: class extends Enemy {
 	
 	init: super func {
-		graphic = SpriteMap new("redship.png", 16, 16)
+		graphic = SpriteMap new("enemy_red.png", 16, 16)
 		type = "red"
 	}
 	
 	configure: func (data:HashBag) {
 		super(data)
-		angle := data get("angle", Double)
-		speed := data get("speed", Double)
+		angle := data getDouble("angle")
+		speed := data getDouble("speed")
+		"r angle = %f, speed = %f" printfln(angle, speed)
 		addComp(LinearMotion new(angle, speed))
 	}
 }

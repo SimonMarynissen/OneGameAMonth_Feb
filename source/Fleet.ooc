@@ -1,10 +1,11 @@
-import structs/HashBag
-import Enemy
+import structs/HashBag, BagUtil
 import vamos/Entity
 import vamos/comps/Timer
+import Enemy, Level
 
 Fleet: class extends Entity {
-
+	
+	level: Level
 	spawnType: String
 	spawnConf: HashBag
 	amount: Int = 10
@@ -15,13 +16,17 @@ Fleet: class extends Entity {
 	age: Double
 	
 	init: func (data:HashBag) {
-		x = data get("x", Double)
-		y = data get("y", Double)
-		spawnType = data get("type", String)
-		amount = data get("amount", Int)
-		delay = data get("delay", Double)
-		interval = data get("interval", Double)
-		spawnConf = data get("conf", HashBag)
+		x = data getDouble("x")
+		y = data getDouble("y")
+		spawnType = data getString("type")
+		amount = data getInt("amount")
+		delay = data getDouble("delay")
+		interval = data getDouble("interval")
+		spawnConf = data getHashBag("conf")
+	}
+	
+	added: func {
+		level = state as Level
 	}
 	
 	update: func (dt:Double) {
@@ -36,7 +41,9 @@ Fleet: class extends Entity {
 	spawn: func {
 		if (amount > 0) {
 			amount -= 1
-			enemy := Enemy create(spawnType, x, y)
+			enemy := Enemy create(spawnType,
+				x * (level right - level left) - level padding,
+				y * (level bottom - level top) - level padding)
 			enemy configure(spawnConf)
 			state add(enemy)
 		} else {
