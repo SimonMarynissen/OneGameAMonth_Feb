@@ -1,4 +1,5 @@
-
+import vamos/Component
+import vamos/Entity
 
 IntervalShooter: class extends Component {
 	
@@ -14,6 +15,7 @@ IntervalShooter: class extends Component {
 	}
 	
 	shoot: func {
-	
+		projectile := prototype clone(entity x, entity y)
+		entity state add(projectile)
 	}
 }

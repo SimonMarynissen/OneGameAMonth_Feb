@@ -6,14 +6,14 @@ Bullet: class extends Projectile {
 	
 	speed: Double
 	angle: Double
-	aimToPlayer: Bool = false
+	aim: Bool = false
 	
 	init: super func
 	init: super func ~rawArray
 	
 	added: func {
 		rad: Double
-		if (aimToPlayer) {
+		if (aim) {
 			rad = atan2((state as PlayState) player x - x, (state as PlayState) player y - y)
 		} else {
 			rad = Vamos rad(angle)
@@ -30,7 +30,7 @@ Bullet: class extends Projectile {
 			match k {
 				case "speed" => speed = data get("speed", Double)
 				case "angle" => angle = data get("angle", Double)
-				case "aiming" => aimToPlayer = data get("aiming", Bool)
+				case "aim" => aim = data get("aiming", Bool)
 			}
 		}
 	}

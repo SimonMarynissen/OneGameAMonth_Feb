@@ -68,6 +68,24 @@ BlueEnemy: class extends Enemy {
 	}
 }
 
+BlueShooter: class extends BlueEnemy {
+
+	init: super func {
+		graphic = Image new("enemy_blue.png")
+		type = "blueshooter"
+	}
+	
+	configure: func (data:HashBag) {
+		super(data)
+		interval := data get("interval", Double)
+		comp := IntervalShooter new(interval)
+		bullet := Bullet new(0, 0, ["player"])
+		bullet configure(data get("bullet", HashBag))
+		comp prototype = bullet
+		addComp(comp)
+	}
+}
+
 RedEnemy: class extends Enemy {
 	
 	init: super func {

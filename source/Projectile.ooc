@@ -34,4 +34,10 @@ Projectile: class extends Entity {
 			}
 		}
 	}
+	
+	clone: func (x, y: Double) -> Projectile {
+		proj := Projectile new(x, y, types)
+		proj damage = this damage
+		return proj
+	}
 }
