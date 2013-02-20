@@ -27,6 +27,7 @@ Enemy: class extends Actor {
 		match type {
 			case "blue" => BlueEnemy new()
 			case "red" => RedEnemy new()
+			case "blueshooter" => BlueShooter new()
 			case =>
 				Exception new("No such enemy '%s'" format(type)) throw()
 				null
