@@ -1,7 +1,7 @@
 use sdl2
 import sdl2/Core
 
-use stbi
+use stb-image
 import stb/image
 
 SurfaceLoader: class {
