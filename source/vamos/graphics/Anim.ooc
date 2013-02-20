@@ -1,43 +1,43 @@
 import vamos/Graphic
 
 Anim: class extends Graphic {
-       
-	frames :Int[]
-	speed :Int
-	looped :Bool
-       
-	_playing :Bool
-	_currentIndex :Int
-	_tick :Int
-       
-	init: func (=frames, =speed, =looped) {
+	
+	frames: Int[]
+	speed: Int
+	looping: Bool
+	playing: Bool
+	
+	_currentIndex: Int
+	_tick: Int
+	
+	init: func (=frames, =speed, =looping) {
 		_tick = 0
 		_currentIndex = 0
 	}
-       
-	currentFrame: func () -> Int {
-		return frames[_currentIndex]
+	
+	currentFrame: func -> Int {
+		frames[_currentIndex]
 	}
-       
-	play: func(reset :Bool) {
-		_playing = true
+	
+	play: func (reset: Bool) {
+		playing = true
 		if (reset)
 			_currentIndex = 0
 		_tick = 0
 	}
-       
+	
 	pause: func {
-		_playing = false
+		playing = false
 	}
-       
+	
 	update: func {
-		if (!_playing) return
-	       
+		if (!playing) return
+		
 		_tick += 1
 		if (_tick == speed) {
-		       
+			
 			if (_currentIndex + 1 == frames length) {
-				if (looped) {
+				if (looping) {
 					_currentIndex = 0
 				}
 			} else {

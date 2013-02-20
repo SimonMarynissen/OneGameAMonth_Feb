@@ -7,14 +7,14 @@ import vamos/display/Texture
 AssetCache: class {
 	
 	engine: Engine
-	imageCache := HashMap<String, Texture> new()
+	textureCache := HashMap<String, Texture> new()
 	
 	init: func (=engine)
 	
 	free: func {
-		for (image in imageCache)
+		for (image in textureCache)
 			image destroy()
-		imageCache clear()
+		textureCache clear()
 	}
 	
 	getTexture: func (path:String) -> Texture {
@@ -23,10 +23,11 @@ AssetCache: class {
 			Exception new("Can't obtain texture when StateRenderer is not initialised!") throw()
 			
 		path = "assets/" + path
-		image:Texture = imageCache[path]
+		image:Texture = textureCache[path]
+		
 		if (image == null) {
 			image = Texture new(engine renderer, path)
-			imageCache[path] = image
+			textureCache[path] = image
 		}
 		return image
 	}

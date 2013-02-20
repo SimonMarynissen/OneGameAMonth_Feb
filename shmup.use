@@ -1,0 +1,5 @@
+Name: Shmup
+Description: Shoot stuff!
+SourcePath: source
+Requires: vamos
+Main: main.ooc

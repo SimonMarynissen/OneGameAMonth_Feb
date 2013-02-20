@@ -1,3 +1,4 @@
+use sdl2
 import sdl2/Core
 import vamos/[Graphic, Entity]
 import vamos/display/StateRenderer

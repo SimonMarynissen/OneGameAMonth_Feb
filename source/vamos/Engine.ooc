@@ -1,6 +1,5 @@
 use sdl2
 import sdl2/Core
-import sdl2/Audio
 import vamos/[Input, AssetCache, State, StateManager]
 import vamos/display/StateRenderer
 import vamos/audio/Mixer

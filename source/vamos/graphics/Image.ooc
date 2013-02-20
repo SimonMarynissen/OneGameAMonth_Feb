@@ -1,6 +1,5 @@
 use sdl2
 import sdl2/Core
-
 import vamos/[Engine, Graphic, Entity]
 import vamos/display/[Texture, StateRenderer]
 

@@ -18,7 +18,7 @@ SpriteFont: class extends SpriteMap {
 		for (c in text) {
 			setCurrentFrame(c as Int)
 			super(renderer, entity, x + count * frameWidth, y)
-			count += 1  
+			count += 1
 		}
 	}
 }
