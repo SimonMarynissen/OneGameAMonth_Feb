@@ -142,6 +142,11 @@ Entity: class {
 		return collide(types, x, y)
 	}
 	
+	position: inline func (.x, .y) {
+		this x = x
+		this y = y
+	}
+	
 	removed: func // called when removed from world
 	added: func   // called when added to world
 }

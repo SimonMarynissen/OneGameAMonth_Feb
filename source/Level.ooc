@@ -15,6 +15,7 @@ Level: class extends State {
 	
 	init: func (data:HashBag) {
 		name = data getString("name")
+		color set(data getString("color"))
 		fleetBag := data getBag("fleets")
 		
 		for (i in 0..fleetBag size)

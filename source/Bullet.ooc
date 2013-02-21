@@ -1,37 +1,67 @@
-import vamos/[Entity, Vamos]
-import structs/HashBag
 import math
+import structs/[HashBag, ArrayList]
+import vamos/[Entity, Util]
+import vamos/comps/Physics
+import Actor, BagUtil
 
-Bullet: class extends Projectile {
+Bullet: class extends Entity {
 	
-	speed: Double
+	physics := Physics new()
+	damage: Int = 0
+	speed: Double = 1000
 	angle: Double
-	aim: Bool = false
+	target: Actor
 	
-	init: super func
-	init: super func ~rawArray
+	// Recommend to set this if you want the bullet to hit anything ;)
+	damageTypes: ArrayList<String> {
+		get { physics types }
+		set (v) {
+			if (v != null) physics types = v
+			else physics types = ArrayList<String> new()
+		}
+	}
+	
+	init: func {
+		physics handle(|e|
+			if (e instanceOf?(Actor)) {
+				(e as Actor) damage(damage)
+				state remove(this)
+			}
+			false
+		)
+		addComp(physics)
+		type = "bullet"
+	}
 	
 	added: func {
 		rad: Double
-		if (aim) {
-			rad = atan2((state as PlayState) player x - x, (state as PlayState) player y - y)
+		if (target) {
+			rad = atan2(target x - x, target y - y)
 		} else {
-			rad = Vamos rad(angle)
+			rad = angle toRadians()
 		}
-		physics maxVelX = speed * cos(rad)
-		physics maxVelY = speed * sin(rad)
-		physics accX = 1000
-		physics accY = 1000
+		physics velX = speed * rad cos()
+		physics velY = speed * rad sin()
 	}
 	
-	configure: func (data:HashBag) {
-		super(data)
-		for (k in data getKeys()) {
-			match k {
-				case "speed" => speed = data get("speed", Double)
-				case "angle" => angle = data get("angle", Double)
-				case "aim" => aim = data get("aiming", Bool)
-			}
+	create: static func (type:String) -> Bullet {
+		match type {
+			case "regular" => RegularBullet new()
+			case =>
+				Exception new("No such enemy '%s'" format(type)) throw()
+				null
 		}
+	}
+	
+}
+
+import vamos/graphics/FilledRect
+
+RegularBullet: class extends Bullet {
+	
+	init: func () {
+		super()
+		type = "regular_bullet"
+		graphic = FilledRect new(4, 4, 0,0,0)
 	}
 }

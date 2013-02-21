@@ -1,6 +1,6 @@
 use sdl2
 import sdl2/Core
-import vamos/[Input, AssetCache, State, StateManager]
+import vamos/[Util, Input, AssetCache, State, StateManager]
 import vamos/display/StateRenderer
 import vamos/audio/Mixer
 
@@ -71,7 +71,7 @@ Engine: class {
 		mixer update(dt)
 		
 		sleep(1.0/frameRate - dt)
-		dt = time() - startTime
+		dt = min(time()-startTime, 1.0/(2.0*frameRate))
 	}
 	
 	/// number of seconds since the program began

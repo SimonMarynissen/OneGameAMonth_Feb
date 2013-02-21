@@ -4,10 +4,18 @@ import vamos/display/StateRenderer
 
 GraphicList: class extends Graphic {
 
-	graphics := ArrayList<Graphic> new()
+	graphics: ArrayList<Graphic>
 	
-	init: func (=graphics) {}
-	init: func ~withoutGraphics () {}
+	init: func (=graphics)
+	
+	init: func ~arr (arr:Graphic[]) {
+		init(arr as ArrayList<Graphic>)
+	}
+	
+	init: func ~empty {
+		init(ArrayList<Graphic> new())
+	}
+	
 	
 	update: func (dt: Double) {
 		for (graphic in graphics) graphic update(dt)
@@ -36,14 +44,14 @@ GraphicList: class extends Graphic {
 		updateActive()
 	}
 	
-	removeAll: func () {
+	removeAll: func {
 		graphics clear()
 		visible = false
 		active = false
 	}
 	
 	/** private */
-	updateVisible: func () {
+	updateVisible: func {
 		visible = false
 		for (graphic in graphics) {
 			if (graphic visible) {
@@ -54,7 +62,7 @@ GraphicList: class extends Graphic {
 	}
 	
 	/** private */
-	updateActive: func () {
+	updateActive: func {
 		active = false
 		for (graphic in graphics) {
 			if (graphic active) {

@@ -19,6 +19,10 @@ FilledRect: class extends Graphic {
 	
 	init: func (=width, =height, =r,=g,=b,=a)
 	
+	init: func~rgb (=width, =height, =r,=g,=b) {
+		a = 255
+	}
+	
 	draw: func (renderer:StateRenderer, entity:Entity, x, y : Double) {
 		rect x = x
 		rect y = y

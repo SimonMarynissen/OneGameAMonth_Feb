@@ -1,6 +1,9 @@
 {
 	"name": "level 1",
+	"color": "#ccccff",
 	"fleets": [
+		{"x":0, "y":0.5, "amount":10, "delay":0, "interval":0.3,
+		 "type": "blueshooter", "conf":{"angle":0, "speed":300, "interval":0.5} },
 		{"x":0, "y":0, "amount":20, "delay":1.0, "interval":0.3,
 		 "type": "red", "conf":{"angle":340, "speed":300} },
 		{"x":0.5, "y":0, "amount":20, "delay":10.0, "interval":0.2,

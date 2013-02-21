@@ -1,9 +1,9 @@
-import structs/HashBag, BagUtil
+import structs/[ArrayList, HashBag], BagUtil
 import vamos/Engine
 import vamos/comps/Physics
 import vamos/graphics/[Image, SpriteMap]
-import Actor
-import ai/LinearMotion
+import Actor, Bullet
+import ai/[LinearMotion, EnemyGun]
 
 Enemy: class extends Actor {
 
@@ -64,7 +64,6 @@ BlueEnemy: class extends Enemy {
 		super(data)
 		angle := data getDouble("angle")
 		speed := data getDouble("speed")
-		"b angle = %f, speed = %f" printfln(angle, speed)
 		addComp(LinearMotion new(angle, speed))
 	}
 }
@@ -78,12 +77,10 @@ BlueShooter: class extends BlueEnemy {
 	
 	configure: func (data:HashBag) {
 		super(data)
-		interval := data get("interval", Double)
-		comp := IntervalShooter new(interval)
-		bullet := Bullet new(0, 0, ["player"])
-		bullet configure(data get("bullet", HashBag))
-		comp prototype = bullet
-		addComp(comp)
+		interval := data getDouble("interval", 0.5)
+		gun := EnemyGun new(interval, "regular")
+		gun damageTypes = ["player"] as ArrayList<String>
+		addComp(gun)
 	}
 }
 
@@ -98,7 +95,6 @@ RedEnemy: class extends Enemy {
 		super(data)
 		angle := data getDouble("angle")
 		speed := data getDouble("speed")
-		"r angle = %f, speed = %f" printfln(angle, speed)
 		addComp(LinearMotion new(angle, speed))
 	}
 }
