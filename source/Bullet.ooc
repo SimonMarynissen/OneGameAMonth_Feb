@@ -6,42 +6,36 @@ import Actor, BagUtil
 
 Bullet: class extends Entity {
 	
-	physics := Physics new()
 	damage: Int = 0
 	speed: Double = 1000
 	angle: Double
 	target: Actor
+	velX, velY: Double
 	
 	// Recommend to set this if you want the bullet to hit anything ;)
-	damageTypes: ArrayList<String> {
-		get { physics types }
-		set (v) {
-			if (v != null) physics types = v
-			else physics types = ArrayList<String> new()
-		}
-	}
-	
+	damageTypes: ArrayList<String>
 	init: func {
-		physics handle(|e|
-			if (e instanceOf?(Actor)) {
-				(e as Actor) damage(damage)
-				state remove(this)
-			}
-			false
-		)
-		addComp(physics)
 		type = "bullet"
 	}
 	
 	added: func {
 		rad: Double
-		if (target) {
-			rad = atan2(target x - x, target y - y)
-		} else {
-			rad = angle toRadians()
+		if (target) rad = atan2(target x - x, target y - y)
+		else rad = angle toRadians()
+		velX = speed * rad cos()
+		velY = speed * rad sin()
+	}
+	
+	update: func (dt:Double) {
+		x += velX
+		y += velY
+		if (damageTypes) {
+			e := collide(damageTypes)
+			if (e) {
+				"BANG" println()
+				state = null
+			}
 		}
-		physics velX = speed * rad cos()
-		physics velY = speed * rad sin()
 	}
 	
 	create: static func (type:String) -> Bullet {

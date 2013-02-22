@@ -35,7 +35,7 @@ Mixer: class {
 		SdlAudio close()
 	}
 	
-	/// If this causes threading problems it might need to be removed
+	/// If this causes threading problems it might need to be changed or removed
 	update: func(dt:Double) {
 		iter := sources iterator()
 		while (iter hasNext?()) {
@@ -47,9 +47,12 @@ Mixer: class {
 	
 	add: func (source:AudioSource) {
 		sources add(source)
+		source mixer = this
+		source added()
 	}
 	remove: func (source:AudioSource) {
 		source _removed = true
+		source removed()
 	}
 	
 	play: func {

@@ -34,6 +34,5 @@ EnemyGun: class extends Component {
 		b position(entity x + offsetX, entity y + offsetY)
 		b damageTypes = damageTypes
 		entity state add(b)
-		"bullet added!" println()
 	}
 }
