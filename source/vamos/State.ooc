@@ -51,4 +51,18 @@ State: class {
 		e removed()
 		e state = null
 	}
+	
+	getFirst: func ~ofType(type:String) -> Entity {
+		for (e in entities)
+			if (e type == type)
+				return e
+		null
+	}
+	
+	getFirst: func ~ofClass <T> (T:Class) -> T {
+		for (e in entities)
+			if (e instanceOf?(T))
+				return e as T
+		null
+	}
 }

@@ -1,10 +1,12 @@
+import structs/ArrayList
 import vamos/[Entity, Signal]
 import vamos/masks/Hitbox
 import vamos/comps/Physics
-import structs/ArrayList
+import Level
 
 Actor: class extends Entity {
-
+	
+	level: Level
 	dead: Bool {get {health == 0}}
 	health: Int
 	maxHealth: Int
@@ -29,8 +31,16 @@ Actor: class extends Entity {
 		type = "actor"
 	}
 	
-	update: func (dt: Double) {
+	added: func {
+		level = state as Level
+	}
+	removed: func {
+		level = null
+	}
 	
+	
+	update: func (dt: Double) {
+		
 	}
 	
 	stopX: func { physics accX = 0 }

@@ -2,39 +2,47 @@ import math
 import structs/[HashBag, ArrayList]
 import vamos/[Entity, Util]
 import vamos/comps/Physics
-import Actor, BagUtil
+import vamos/masks/Hitbox
+import Actor, Level, BagUtil
 
 Bullet: class extends Entity {
 	
+	level: Level
 	damage: Int = 0
-	speed: Double = 1000
+	speed: Double = 100
 	angle: Double
 	target: Actor
+	hitbox: Hitbox
 	velX, velY: Double
-	
-	// Recommend to set this if you want the bullet to hit anything ;)
 	damageTypes: ArrayList<String>
+	
 	init: func {
 		type = "bullet"
+		hitbox = Hitbox new(4, 4, 1, 1)
+		mask = hitbox
 	}
 	
 	added: func {
+		level = state as Level
 		rad: Double
 		if (target) rad = atan2(target x - x, target y - y)
 		else rad = angle toRadians()
-		velX = speed * rad cos()
-		velY = speed * rad sin()
+		velX = speed * rad sin()
+		velY = speed * rad cos()
 	}
 	
 	update: func (dt:Double) {
-		x += velX
-		y += velY
+		x += velX * dt
+		y += velY * dt
 		if (damageTypes) {
 			e := collide(damageTypes)
 			if (e) {
-				"BANG" println()
-				state = null
+				state remove(this)
 			}
+		}
+		
+		if (y > level bottom || x < level left || x > level right) {
+			state remove(this)
 		}
 	}
 	
@@ -56,6 +64,6 @@ RegularBullet: class extends Bullet {
 	init: func () {
 		super()
 		type = "regular_bullet"
-		graphic = FilledRect new(4, 4, 0,0,0)
+		graphic = FilledRect new(6, 6, 0,0,0)
 	}
 }

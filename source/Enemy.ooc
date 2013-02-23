@@ -2,11 +2,11 @@ import structs/[ArrayList, HashBag], BagUtil
 import vamos/Engine
 import vamos/comps/Physics
 import vamos/graphics/[Image, SpriteMap]
-import Actor, Bullet
+import Actor, Level, Bullet
 import ai/[LinearMotion, EnemyGun]
 
 Enemy: class extends Actor {
-
+	
 	damageAmount:Int = 10
 	
 	init: func {
@@ -21,6 +21,11 @@ Enemy: class extends Actor {
 		)
 		
 		type = "enemy"
+	}
+	
+	update: func (dt:Double) {
+		if (x < level left - 20 || x > level right + 20)
+			level remove(this)
 	}
 	
 	create: static func (type:String) -> Enemy {
@@ -79,7 +84,7 @@ BlueShooter: class extends BlueEnemy {
 		super(data)
 		interval := data getDouble("interval", 0.5)
 		gun := EnemyGun new(interval, "regular")
-		gun damageTypes = ["player"] as ArrayList<String>
+		gun offset(8, 8)
 		addComp(gun)
 	}
 }

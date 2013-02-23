@@ -1,8 +1,7 @@
+import Fleet, Player
+import structs/[ArrayList, Bag, HashBag], BagUtil
 import vamos/[Engine, State]
 import vamos/audio/Music
-import Fleet, Player
-import structs/[ArrayList, Bag, HashBag]
-import BagUtil
 
 use sdl2
 import sdl2/Event
@@ -37,13 +36,13 @@ Level: class extends State {
 		for (fleet in fleets) add(fleet)
 		add(Player new(100, 100))
 		
-		music := Music new("assets/music/geckojsc - Mothership.ogg")
-		engine mixer add(music)
+		//music := Music new("assets/music/geckojsc - Mothership.ogg")
+		//engine mixer add(music)
 	}
 	
 	update: func (dt:Double) {
 		super(dt)
-		if (Input keyPressed(SDLK_b))
-			"breakpoint here?" println()
+		
 	}
+	
 }
