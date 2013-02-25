@@ -40,6 +40,8 @@ State: class {
 		}
 		
 		for (e in removed) {
+			e removed()
+			onEntityRemoved dispatch(e)
 			e state = null
 			entities remove(e)
 			_removeType(e)
@@ -47,23 +49,20 @@ State: class {
 		removed clear()
 		
 		for (e in added) {
-			e state = this
 			entities add(e)
 			_addType(e)
+			e state = this
+			e added()
+			onEntityAdded dispatch(e)
 		}
 		added clear()
 	}
 	
-	add: func (e:Entity) {
+	add: inline func (e:Entity) {
 		added add(e)
-		e state = this
-		e added()
-		onEntityAdded dispatch(e)
 	}
 	
-	remove: func (e:Entity) {
-		onEntityRemoved dispatch(e)
-		e removed()
+	remove: inline func (e:Entity) {
 		removed add(e)
 	}
 	

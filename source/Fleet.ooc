@@ -44,11 +44,12 @@ Fleet: class extends Entity {
 	
 	spawn: func {
 		if (spawned < amount) {
-			enemy := Enemy create(spawnType)
-			enemy x = (x + spawned*spreadX) * (level right - level left) - level padding
-			enemy y = (y + spawned*spreadY) * (level bottom - level top) - level padding
-			enemy configure(data)
-			state add(enemy)
+			e := Enemy create(spawnType)
+			e fleetPos = spawned
+			e x = (x + spawned*spreadX) * (level right - level left) - level padding
+			e y = (y + spawned*spreadY) * (level bottom - level top) - level padding
+			e configure(data)
+			state add(e)
 			spawned += 1
 		} else {
 			timer stop()

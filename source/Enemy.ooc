@@ -17,6 +17,7 @@ Enemy: class extends Actor {
 		"barrier"  // inflicts high damage on collision, gets in the way
 	] as ArrayList<String>
 	
+	fleetPos:Int
 	damageAmount:Int = 10
 	
 	init: func {
@@ -69,6 +70,9 @@ Enemy: class extends Actor {
 			for (i in 0..events size)
 				addComp(EnemyEvent new(events getHashBag(i)))
 		}
+		if (data contains?("remove")) {
+			state remove(this)
+		}
 	}
 }
 
@@ -81,19 +85,24 @@ import vamos/Component
 
 EnemyEvent: class extends Component {
 	
+	enemy: Enemy
 	data: HashBag
 	time: Double
 	
 	init: func(=data) {
-		"event added" println()
 		time = data getDouble("after", 0)
+	}
+	
+	added: func {
+		enemy = entity as Enemy
+		time += data getDouble("spread", 0) * enemy fleetPos
 	}
 	
 	update: func(dt:Double) {
 		time -= dt
 		if (time < dt) {
-			(entity as Enemy) configure(data)
-			entity removeComp(this)
+			enemy configure(data)
+			enemy removeComp(this)
 		}
 	}
 }
@@ -114,7 +123,7 @@ Popcorn: class extends Enemy {
 	configure: func (data:HashBag) {
 		super(data)
 		
-		if (data contains?("frame"))
+		if (data contains?("style"))
 			sheet frame = frame(data getString("style"))
 		
 		motion configure(data)

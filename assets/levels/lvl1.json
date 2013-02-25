@@ -2,18 +2,15 @@
 	"name": "level 1",
 	"color": "#ccccff",
 	"fleets": [
-		{"after":0, "type":"popcorn", "style":"orange", "x":0, "y": 0.1, "amount":10, "interval":0.2, "angle":0, "speed":200,
+		{"after":0, "type":"popcorn", "style":"orange", "x":0, "y": 0.1, "amount":10, "interval":0.16, "angle":0, "speed":180,
 		 "event": [
-			{"after":1, "turn":-180},
-			{"after":3, "turn":0}
+			{"after":0.5, "turn":-180},
+			{"after":2.5, "turn":0, "angle":0},
+			{"after":3.8, "spread":-0.16, "accel":-360},
+			{"after":4.1, "spread":-0.16, "accel":0, "speed":0},
+			{"after":4.1, "accel":2000, "angle":270},
+			{"after":4.6, "accel":0},
+			{"after":8, "remove":true}
 		]}
-	],
-	"unused": [
-		{"type":"shell", "x":0, "y":0.5, "amount":10, "delay":0, "interval":0.3, "angle":0, "speed":300, "interval":0.5},
-		{"type":"rocket", "x":0, "y":0, "amount":20, "delay":1.0, "interval":0.3, "angle":340, "speed":300},
-		{"type":"shell", "x":0.5, "y":0, "amount":20, "delay":10.0, "interval":0.2, "angle":270, "speed":100},
-		{"type":"rocket", "x":0, "y":0.2, "amount":20, "delay":15, "interval":0.1, "angle":0, "speed":500},
-		{"type":"rocket", "x":1, "y":0.3, "amount":20, "delay":15, "interval":0.1, "angle":180, "speed":500},
-		{"type":"shell", "x":1, "y":0, "amount":40, "delay":20.0, "interval":0.1, "angle":200, "speed":200},
 	]
 }

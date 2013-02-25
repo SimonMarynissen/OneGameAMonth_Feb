@@ -34,9 +34,6 @@ Actor: class extends Entity {
 	added: func {
 		level = state as Level
 	}
-	removed: func {
-		level = null
-	}
 	
 	
 	update: func (dt: Double) {
