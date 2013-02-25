@@ -32,9 +32,14 @@ Image: class extends Graphic {
 		scale = 1
 	}
 	
+	center: func {
+		origin x = srcRect w * 0.5
+		origin y = srcRect h * 0.5
+	}
+	
 	draw: func (renderer:StateRenderer, entity:Entity, x, y: Double) {
-		dstRect x = x
-		dstRect y = y
+		dstRect x = x - origin x
+		dstRect y = y - origin y
 		renderer drawTexture(texture, srcRect&, dstRect&)
 	} 
 	

@@ -9,20 +9,22 @@ import vamos/graphics/Image
 SpriteMap: class extends Image {
 	
 	frameWidth, frameHeight: Int
-	currentFrame: Int
 	_framesWide: Int
+	
+	frame: Int {
+		get
+		set (v) {
+			srcRect x = (v % _framesWide) * frameWidth
+			srcRect y = floor(v / _framesWide) * frameHeight
+			frame = v
+		}
+	}
 	
 	init: func (path:String, =frameWidth, =frameHeight) {
 		super(path)
 		srcRect w = frameWidth
 		srcRect h = frameHeight
 		_framesWide = texture width / frameWidth
-	}
-	
-	setCurrentFrame: func (val:Int) {
-		srcRect x = (val % _framesWide) * frameWidth
-		srcRect y = floor(val / _framesWide) * frameHeight
-		currentFrame = val
 	}
 	
 	draw: func (renderer:StateRenderer, entity:Entity, x, y: Double) {

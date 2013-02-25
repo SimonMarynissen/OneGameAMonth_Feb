@@ -1,8 +1,8 @@
+import io/File
+import text/json
 import vamos/Engine
 import Level
 import states/[MenuState, PlayState]
-import io/File
-import text/json
 
 main: func (argc:Int, arcv:CString*) {
 	

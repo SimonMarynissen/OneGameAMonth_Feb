@@ -79,6 +79,7 @@ Engine: class {
 		SDL getTicks() as Double / 1000.0
 	}
 	
+	/// Pause the program for the specified number of seconds
 	sleep: func (seconds:Double) {
 		if (seconds < 0) seconds = 0
 		SDL delay(seconds*1000)

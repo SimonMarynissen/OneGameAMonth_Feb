@@ -6,23 +6,27 @@ import Enemy, Level
 Fleet: class extends Entity {
 	
 	level: Level
+	data: HashBag
 	spawnType: String
-	spawnConf: HashBag
-	amount: Int = 10
-	delay: Double = 0.0
-	interval: Double = 1.0
+	amount: Int 
+	delay: Double
+	interval: Double
+	spreadX, spreadY: Double
+	
+	spawned := 0
 	
 	timer: Timer
 	age: Double
 	
-	init: func (data:HashBag) {
+	init: func (=data) {
 		x = data getDouble("x")
 		y = data getDouble("y")
 		spawnType = data getString("type")
-		amount = data getInt("amount")
-		delay = data getDouble("delay")
-		interval = data getDouble("interval")
-		spawnConf = data getHashBag("conf")
+		amount = data getInt("amount", 1)
+		delay = data getDouble("after", 0)
+		interval = data getDouble("interval", 0.3)
+		spreadX = data getDouble("spread_x", 0)
+		spreadY = data getDouble("spread_y", 0)
 	}
 	
 	added: func {
@@ -39,13 +43,13 @@ Fleet: class extends Entity {
 	}
 	
 	spawn: func {
-		if (amount > 0) {
-			amount -= 1
-			enemy := Enemy create(spawnType,
-				x * (level right - level left) - level padding,
-				y * (level bottom - level top) - level padding)
-			enemy configure(spawnConf)
+		if (spawned < amount) {
+			enemy := Enemy create(spawnType)
+			enemy x = (x + spawned*spreadX) * (level right - level left) - level padding
+			enemy y = (y + spawned*spreadY) * (level bottom - level top) - level padding
+			enemy configure(data)
 			state add(enemy)
+			spawned += 1
 		} else {
 			timer stop()
 			removeComp("timer")

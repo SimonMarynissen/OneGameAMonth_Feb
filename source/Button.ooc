@@ -11,7 +11,7 @@ Button: class extends Entity {
 	
 	init: func (=x, =y, text: String) {
 		_spriteMap = SpriteMap new("button.png", 32, 32)
-		_spriteMap setCurrentFrame(0)
+		_spriteMap frame = 0
 		_spriteFont = SpriteFont new(text)
 		_spriteFont scale = 2
 		glist := GraphicList new()
@@ -22,15 +22,15 @@ Button: class extends Entity {
 	
 	update: func (dt: Double) {
 		if (Input mousePressed) {
-			_spriteMap setCurrentFrame(1)
+			_spriteMap frame = 1
 			onPressed dispatch()
 		}
 		if (Input mouseReleased) {
 			down = !down
 			if (down) {
-				_spriteMap setCurrentFrame(2)
+				_spriteMap frame = 2
 			} else {
-				_spriteMap setCurrentFrame(0)
+				_spriteMap frame = 0
 				onReleased dispatch()
 			}
 		}

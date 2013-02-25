@@ -16,7 +16,7 @@ SpriteFont: class extends SpriteMap {
 	draw: func (renderer:StateRenderer, entity:Entity, x, y: Double) {
 		count := 0
 		for (c in text) {
-			setCurrentFrame(c as Int)
+			frame = c as Int
 			super(renderer, entity, x + count * frameWidth, y)
 			count += 1
 		}

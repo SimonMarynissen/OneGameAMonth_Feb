@@ -3,15 +3,24 @@ import vamos/Engine
 import vamos/comps/Physics
 import vamos/graphics/[Image, SpriteMap]
 import Actor, Level, Bullet
-import ai/[LinearMotion, EnemyGun]
+import ai/[Motion, EnemyGun]
 
 Enemy: class extends Actor {
+	
+	allTypes := static [
+		"popcorn", // easy to destroy, doesn't shoot bullets, has many designs
+		"rocket",  // red ship, trundles along shooting in the direction of the player
+		"shell",   // round blue ship which sprays bullets in different patterns 
+		"insect",  // moves horizontally and vertically, fires straight down
+		"meteor",  // space debris, just damages you
+		"shadow",  // strong, only shoots bullets when hit, explodes into more bullets
+		"barrier"  // inflicts high damage on collision, gets in the way
+	] as ArrayList<String>
 	
 	damageAmount:Int = 10
 	
 	init: func {
 		super()
-		 
 		physics handle(|e|
 			if (e type == "player") {
 				// damage
@@ -19,8 +28,6 @@ Enemy: class extends Actor {
 			}
 			return true
 		)
-		
-		type = "enemy"
 	}
 	
 	update: func (dt:Double) {
@@ -30,9 +37,13 @@ Enemy: class extends Actor {
 	
 	create: static func (type:String) -> Enemy {
 		match type {
-			case "blue" => BlueEnemy new()
-			case "red" => RedEnemy new()
-			case "blueshooter" => BlueShooter new()
+			case "popcorn" => Popcorn new()
+			case "shell" => Shell new()
+			case "rocket" => Rocket new()
+			case "insect" => Insect new()
+			case "meteor" => Meteor new()
+			case "shadow" => Shadow new()
+			case "barrier" => Barrier new()
 			case =>
 				Exception new("No such enemy '%s'" format(type)) throw()
 				null
@@ -41,65 +52,176 @@ Enemy: class extends Actor {
 	
 	create: static func~withPos(type:String, x, y:Double) -> Enemy {
 		e := create(type)
-		e x = x
-		e y = y
+		e position(x, y)
 		return e
 	}
 	
 	configure: func (data:HashBag) {
-		for (k in data getKeys()) {
-			match k {
-				case "damage" => damageAmount = data getInt("damage")
-				case "health" =>
-					maxHealth = data getInt("health")
-					health = maxHealth
-			}
+		if (data contains?("damage")) {
+			damageAmount = data getInt("damage")
+		}
+		if (data contains?("health")) {
+			maxHealth = data getInt("health")
+			health = maxHealth
+		}
+		if (data contains?("event")) {
+			events := data getBag("event")
+			for (i in 0..events size)
+				addComp(EnemyEvent new(events getHashBag(i)))
 		}
 	}
 }
 
-BlueEnemy: class extends Enemy {
+
+// EnemyEvent is a timer that sets properties of an enemy after a certain amount of time
+// the properties should be the same as the enemy config itself
+// the creation of the enemy could count as an event in itself, removing duplication?
+
+import vamos/Component
+
+EnemyEvent: class extends Component {
 	
-	init: super func {
-		graphic = Image new("enemy_blue.png")
-		type = "blue"
+	data: HashBag
+	time: Double
+	
+	init: func(=data) {
+		"event added" println()
+		time = data getDouble("after", 0)
 	}
 	
-	configure: func (data:HashBag) {
-		super(data)
-		angle := data getDouble("angle")
-		speed := data getDouble("speed")
-		addComp(LinearMotion new(angle, speed))
+	update: func(dt:Double) {
+		time -= dt
+		if (time < dt) {
+			(entity as Enemy) configure(data)
+			entity removeComp(this)
+		}
 	}
 }
 
-BlueShooter: class extends BlueEnemy {
 
-	init: super func {
-		graphic = Image new("enemy_blue.png")
-		type = "blueshooter"
+Popcorn: class extends Enemy {
+	
+	sheet := SpriteMap new("enemy_popcorn.png", 16, 16)
+	motion := Motion new()
+	
+	init: func {
+		super()
+		type = "popcorn"
+		addComp(motion)
+		graphic = sheet
 	}
 	
 	configure: func (data:HashBag) {
 		super(data)
-		interval := data getDouble("interval", 0.5)
-		gun := EnemyGun new(interval, "regular")
-		gun offset(8, 8)
-		addComp(gun)
+		
+		if (data contains?("frame"))
+			sheet frame = frame(data getString("style"))
+		
+		motion configure(data)
+	}
+	
+	frame: func (style:String) -> Int {
+		match style {
+			case "dark" => 0
+			case "blue" => 1
+			case "green" => 2
+			case "orange" => 3
+			case "yellow" => 4
+			case "purple" => 5
+			case "white" => 6
+			case "palegreen" => 7
+			case "palepurple" => 8
+			case "paleblue" => 9
+			case => 0
+		}
 	}
 }
 
-RedEnemy: class extends Enemy {
-	
-	init: super func {
-		graphic = SpriteMap new("enemy_red.png", 16, 16)
-		type = "red"
+Shell: class extends Enemy {
+
+	init: func {
+		super()
+		type = "shell"
+		img := Image new("enemy_shell.png") .center()
+		graphic = img
 	}
 	
 	configure: func (data:HashBag) {
 		super(data)
-		angle := data getDouble("angle")
-		speed := data getDouble("speed")
-		addComp(LinearMotion new(angle, speed))
+		rate := data getDouble("fire_rate", 0.5)
+		
+		addComp(Motion new(data))
+		addComp(EnemyGun new(rate, "regular"))
+	}
+}
+
+Rocket: class extends Enemy {
+	
+	init: func {
+		super()
+		type = "rocket"
+		sheet := SpriteMap new("enemy_rocket.png", 16, 16) .center()
+		graphic = sheet
+	}
+	
+	configure: func (data:HashBag) {
+		super(data)
+		addComp(Motion new(data))
+	}
+}
+
+Insect: class extends Enemy {
+	
+	init: func {
+		super()
+		type = "insect"
+		img := Image new("enemy_insect.png") .center()
+		graphic = img
+	}
+	
+	configure: func (data:HashBag) {
+		super(data)
+	}
+}
+
+Meteor: class extends Enemy {
+	
+	init: func {
+		super()
+		type = "meteor"
+		img := Image new("enemy_meteor.png") .center()
+		graphic = img
+	}
+	
+	configure: func (data:HashBag) {
+		super(data)
+	}
+}
+
+Shadow: class extends Enemy {
+	
+	init: func {
+		super()
+		type = "shadow"
+		img := Image new("enemy_shadow.png") .center()
+		graphic = img
+	}
+	
+	configure: func (data:HashBag) {
+		super(data)
+	}
+}
+
+Barrier: class extends Enemy {
+	
+	init: func {
+		super()
+		type = "barrier"
+		img := Image new("enemy_barrier.png") .center()
+		graphic = img
+	}
+	
+	configure: func (data:HashBag) {
+		super(data)
 	}
 }

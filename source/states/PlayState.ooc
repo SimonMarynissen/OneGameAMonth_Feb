@@ -1,7 +1,6 @@
 import structs/HashBag
 import vamos/State
 import Player, Enemy, Fleet
-import ai/ComplexMotion
 
 PlayState: class extends State {
 	

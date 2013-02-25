@@ -10,8 +10,6 @@ Player: class extends Actor {
 	
 	init: func(=x, =y) {
 		super()
-		image := ShipGraphic new(9)
-		graphic = image
 		
 		physics maxVelX = 360
 		physics maxVelY = 280
@@ -20,8 +18,11 @@ Player: class extends Actor {
 		
 		addComp(PlayerInput new())
 		
-		hitbox set(16, 16)
+		hitbox set(12, 10) .center()
 		type = "player"
+		
+		image := ShipGraphic new(9) .center()
+		graphic = image
 	}
 	
 	update: func(dt:Double) {

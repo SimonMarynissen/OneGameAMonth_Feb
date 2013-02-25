@@ -10,6 +10,11 @@ Hitbox: class extends Mask {
 	set: func (=width, =height, =x, =y)
 	set: func~size (=width, =height)
 	
+	center: func {
+		x = width * -0.5
+		y = height * -0.5
+	}
+	
 	check: func (other:Mask) -> Bool {
 		return match (other class) {
 			case Hitbox => checkHitbox(other as Hitbox)
