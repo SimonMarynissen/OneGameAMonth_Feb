@@ -9,6 +9,7 @@ import vamos/Input
 
 Level: class extends State {
 	
+	data: HashBag
 	name: String
 	player: Player
 	fleets := ArrayList<Fleet> new()
@@ -17,9 +18,9 @@ Level: class extends State {
 	width, height: Double
 	top, bottom, left, right: Double
 	
-	init: func (data:HashBag) {
-		name = data getString("name")
-		color set(data getString("color"))
+	init: func (=data) {
+		name = data getString("name", "Untitled Level")
+		color set(data getString("color", "#ffffffff"))
 		fleetBag := data getBag("fleets")
 		
 		for (i in 0..fleetBag size)
@@ -38,6 +39,10 @@ Level: class extends State {
 		
 		//music := Music new("assets/music/geckojsc - Mothership.ogg")
 		//engine mixer add(music)
+		
+		if (data contains?("backdrop")) {
+			//add backdrop
+		}
 	}
 	
 	update: func (dt:Double) {

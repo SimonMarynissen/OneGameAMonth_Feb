@@ -39,6 +39,10 @@ PlayerInput: class extends Component {
 			if (Input keyHeld(SDLK_UP)) actor moveUp()
 			else actor stopY()
 		}
+		
+		if (Input keyPressed(SDLK_z)) actor beginFiring()
+		if (Input keyReleased(SDLK_z)) actor endFiring()
+		
 	}
 	
 }

@@ -31,7 +31,8 @@ Entity: class {
 		get { mask }
 	}
 	
-	init: func (=x, =y)
+	init: func
+	init: func ~pos(=x, =y)
 	
 	update: func (dt:Double)
 	

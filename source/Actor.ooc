@@ -23,7 +23,7 @@ Actor: class extends Entity {
 	}
 
 	init: func {
-		health = maxHealth = 10
+		health = maxHealth = 1
 		physics = Physics new(["wall"])
 		addComp(physics)
 		hitbox = Hitbox new(16, 16)
@@ -46,8 +46,10 @@ Actor: class extends Entity {
 	moveRight: func { physics accX = accel }
 	moveUp: func { physics accY = -accel }
 	moveDown: func { physics accY = accel }
+	beginFiring: func
+	endFiring: func
 	
-	damage: func (damage: UInt) {
+	damage: func (damage: Int) {
 		health -= damage
 		if (health < 0) {
 			health = 0

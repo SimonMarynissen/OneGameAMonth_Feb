@@ -7,7 +7,8 @@ import ai/[Motion, EnemyGun]
 
 Enemy: class extends Actor {
 	
-	allTypes := static [
+	allTypes := static ArrayList<String> new()
+	allTypes = [
 		"popcorn", // easy to destroy, doesn't shoot bullets, has many designs
 		"rocket",  // red ship, trundles along shooting in the direction of the player
 		"shell",   // round blue ship which sprays bullets in different patterns 
@@ -115,7 +116,9 @@ Popcorn: class extends Enemy {
 	
 	init: func {
 		super()
+		health = maxHealth = 2
 		type = "popcorn"
+		hitbox set(16, 8) .center()
 		addComp(motion)
 		graphic = sheet
 	}
@@ -127,6 +130,10 @@ Popcorn: class extends Enemy {
 			sheet frame = frame(data getString("style"))
 		
 		motion configure(data)
+	}
+	
+	damage: func (amount:Int) {
+		super(amount)
 	}
 	
 	frame: func (style:String) -> Int {

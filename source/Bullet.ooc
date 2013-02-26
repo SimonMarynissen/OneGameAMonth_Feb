@@ -1,9 +1,9 @@
 import math
-import structs/[HashBag, ArrayList]
+import structs/[HashBag, ArrayList], BagUtil
 import vamos/[Entity, Util]
 import vamos/comps/Physics
 import vamos/masks/Hitbox
-import Actor, Level, BagUtil
+import Actor, Level, Enemy
 
 Bullet: class extends Entity {
 	
@@ -27,8 +27,8 @@ Bullet: class extends Entity {
 		rad: Double
 		if (target) rad = atan2(target x - x, target y - y)
 		else rad = angle toRadians()
-		velX = speed * rad sin()
-		velY = speed * rad cos()
+		velX = speed * rad cos()
+		velY = speed * -rad sin()
 	}
 	
 	update: func (dt:Double) {
@@ -36,7 +36,8 @@ Bullet: class extends Entity {
 		y += velY * dt
 		if (damageTypes) {
 			e := collide(damageTypes)
-			if (e) {
+			if (e && e instanceOf?(Actor)) {
+				e as Actor damage(damage)
 				state remove(this)
 			}
 		}
@@ -49,6 +50,7 @@ Bullet: class extends Entity {
 	create: static func (type:String) -> Bullet {
 		match type {
 			case "regular" => RegularBullet new()
+			case "player" => PlayerBullet new()
 			case =>
 				Exception new("No such enemy '%s'" format(type)) throw()
 				null
@@ -61,9 +63,23 @@ import vamos/graphics/FilledRect
 
 RegularBullet: class extends Bullet {
 	
-	init: func () {
+	init: func {
 		super()
 		type = "regular_bullet"
-		graphic = FilledRect new(6, 6, 0,0,0)
+		
+		fill := FilledRect new(6, 6, 0,0,0) .center()
+		graphic = fill
 	}
+}
+
+PlayerBullet: class extends Bullet {
+	
+	init: func {
+		super()
+		type = "player_bullet"
+		damage = 1
+		fill := FilledRect new(4, 4, 200,0,200) .center()
+		graphic = fill
+	}
+	
 }

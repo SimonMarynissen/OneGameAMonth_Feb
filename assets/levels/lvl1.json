@@ -9,8 +9,8 @@
 			{"after":3.8, "spread":-0.16, "accel":-360},
 			{"after":4.1, "spread":-0.16, "accel":0, "speed":0},
 			{"after":4.1, "accel":2000, "angle":270},
-			{"after":4.6, "accel":0},
-			{"after":8, "remove":true}
+			{"after":4.4, "accel":0},
+			{"after":6, "remove":true}
 		]}
 	]
 }
