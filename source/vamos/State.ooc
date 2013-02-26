@@ -36,6 +36,7 @@ State: class {
 	update: func (dt:Double) {
 		for (e in entities) {
 			e updateComps(dt)
+			e updateGraphic(dt)
 			e update(dt)
 		}
 		

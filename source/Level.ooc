@@ -1,4 +1,4 @@
-import Fleet, Player
+import Fleet, Player, Explosion
 import structs/[ArrayList, Bag, HashBag], BagUtil
 import vamos/[Engine, State]
 import vamos/audio/Music
@@ -36,6 +36,7 @@ Level: class extends State {
 		
 		for (fleet in fleets) add(fleet)
 		add(Player new(100, 100))
+		add(Explosion new(150, 150))
 		
 		//music := Music new("assets/music/geckojsc - Mothership.ogg")
 		//engine mixer add(music)

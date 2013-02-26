@@ -36,6 +36,10 @@ Entity: class {
 	
 	update: func (dt:Double)
 	
+	updateGraphic: func (dt:Double) {
+		if (graphic) graphic update(dt)
+	}
+	
 	updateComps: func (dt:Double) {
 		iter := components iterator()
 		
