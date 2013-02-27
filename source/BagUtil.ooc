@@ -15,7 +15,7 @@ extend HashBag {
 			case Double => return get(key, Double) as Int
 			case Number => return get(key, Number) value toInt()
 		}
-		Exception new("Key '%s' (%s) can't be converted to Int" format(key, t name)) throw()
+		raise("Key '%s' (%s) can't be converted to Int" format(key, t name))
 		-1
 	}
 	
@@ -27,7 +27,7 @@ extend HashBag {
 			case Int =>    return get(key, Int) as Double
 			case Number => return get(key, Number) value toDouble()
 		}
-		Exception new("Key '%s' (%s) can't be converted to Double" format(key, t name)) throw()
+		raise("Key '%s' (%s) can't be converted to Double" format(key, t name))
 		-1.0
 	}
 	
@@ -77,7 +77,7 @@ extend HashBag {
 	
 	_assertContains: func(key:String) {
 		if (!contains?(key))
-			Exception new("No such key '%s' in the HashBag" format(key)) throw()
+			raise("No such key '%s' in the HashBag" format(key))
 	}
 	
 }
@@ -92,7 +92,7 @@ extend Bag {
 			case Double => return get(n, Double) as Int
 			case Number => return get(n, Number) value toInt()
 		}
-		Exception new("Element %d (%s) can't be converted to Int" format(n, t name)) throw()
+		raise("Element %d (%s) can't be converted to Int" format(n, t name))
 		-1
 	}
 	
@@ -104,7 +104,7 @@ extend Bag {
 			case Int =>    return get(n, Int) as Double
 			case Number => return get(n, Number) value toDouble()
 		}
-		Exception new("Element %d (%s) can't be converted to Double" format(n, t name)) throw()
+		raise("Element %d (%s) can't be converted to Double" format(n, t name))
 		-1.0
 	}
 	
@@ -130,7 +130,7 @@ extend Bag {
 	
 	_assertContains: func(n:Int) {
 		if (data get(n) == null)
-			Exception new("No item at index '%d' in the Bag" format(n)) throw()
+			raise("No item at index '%d' in the Bag" format(n))
 	}
 	
 }

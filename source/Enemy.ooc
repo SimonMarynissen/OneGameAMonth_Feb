@@ -2,12 +2,12 @@ import structs/[ArrayList, HashBag], BagUtil
 import vamos/Engine
 import vamos/comps/[Physics, Tween]
 import vamos/graphics/[Image, SpriteMap]
-import Actor, Level, Bullet
+import Actor, Level, Bullet, Explosion
 import ai/[Motion, EnemyGun]
 
 Enemy: class extends Actor {
 	
-	allTypes := static ArrayList<String> new()
+	allTypes: static ArrayList<String>
 	allTypes = [
 		"popcorn", // easy to destroy, doesn't shoot bullets, has many designs
 		"rocket",  // red ship, trundles along shooting in the direction of the player
@@ -47,7 +47,7 @@ Enemy: class extends Actor {
 			case "shadow" => Shadow new()
 			case "barrier" => Barrier new()
 			case =>
-				Exception new("No such enemy '%s'" format(type)) throw()
+				raise("No such enemy '%s'" format(type))
 				null
 		}
 	}
@@ -120,6 +120,7 @@ Popcorn: class extends Enemy {
 		type = "popcorn"
 		hitbox set(16, 8) .center()
 		addComp(motion)
+		sheet center()
 		graphic = sheet
 	}
 	
@@ -134,11 +135,12 @@ Popcorn: class extends Enemy {
 	
 	damage: func (amount:Int) {
 		super(amount)
-		addComp(Tween new(0.3, |n| sheet tint a = 255 - 255*n))
+		addComp(Tween new(0.3, |n| sheet color set(1,1,n,n)))
 	}
 	
 	die: func {
 		super()
+		state add(Explosion new(x, y))
 		state remove(this)
 	}
 	

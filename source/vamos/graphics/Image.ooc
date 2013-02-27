@@ -11,7 +11,6 @@ Image: class extends Graphic {
 	srcRect: SdlRect
 	origin: SdlPoint
 	
-	tint := (0,255,255,255) as Color
 	color := (255,255,255,255) as Color
 	alpha: UInt8 {
 		get { color a }
@@ -21,8 +20,8 @@ Image: class extends Graphic {
 	scale: Double {
 		get
 		set (v) {
-			dstRect w = texture width * v
-			dstRect h = texture height * v
+			dstRect w = srcRect w * v
+			dstRect h = srcRect h * v
 			scale = v
 		}
 	}
@@ -49,13 +48,6 @@ Image: class extends Graphic {
 		dstRect y = y + this y - origin y
 		texture color = color
 		renderer drawTexture(texture, srcRect&, dstRect&)
-		
-		if (tint a) {
-			texture blend = BlendMode ADD
-			texture color = tint
-			renderer drawTexture(texture, srcRect&, dstRect&)
-			texture blend = BlendMode BLEND
-		}
 	}
 	
 }

@@ -16,7 +16,7 @@ Music: class extends AudioSource {
 	init: func(filename:String) {
 		ogg = StbVorbis openFilename(filename, error&, null)
 		if (ogg == null)
-			Exception new("StbVorbis: " + error toString()) throw()
+			raise("Error in StbVorbis: " + error toString())
 		playing = true
 	}
 	

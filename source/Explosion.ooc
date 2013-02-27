@@ -1,8 +1,7 @@
-import vamos/Entity
-import vamos/graphics/GraphicList
-import Particle
-import math
-import math/Random
+import math, math/Random
+import vamos/[Entity, Util]
+import vamos/graphics/[GraphicList, Image]
+import vamos/comps/Tween
 
 Explosion: class extends Entity {
 	
@@ -15,9 +14,29 @@ Explosion: class extends Entity {
 	added: func {
 		for (i in 1..40) {
 			angle: Double = Random randInt(0, 360)
-			speed: Double = Random randInt(50, 200)
-			graphics add(Particle new(x, y, angle, speed))
+			speed: Double = Random randInt(50, 100)
+			graphics add(ExplodeParticle new(1, angle, speed))
 		}
 		graphic = graphics
+	}
+}
+
+ExplodeParticle: class extends Image {
+	
+	speed: Double
+	duration, t: Double
+	
+	init: func (=duration, =angle, =speed) {
+		super("particle.png")
+		srcRect w = srcRect h
+		srcRect x = Random randInt(0, 2) * srcRect w
+		center()
+	}
+	
+	update: func (dt:Double) {
+		t = min(duration, t+dt)
+		x += speed * cos(angle) * dt
+		y += speed * sin(angle) * dt
+		scale = Tween cosineOut(1, 0, t/duration)
 	}
 }

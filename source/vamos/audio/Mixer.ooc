@@ -24,7 +24,7 @@ Mixer: class {
 	open: func {
 		_currentSources = sources
 		if (SdlAudio open(spec&, null) < 0) {
-			Exception new("SDL failed to open audio driver: %s" format(SDL getError())) throw()
+			raise("SDL failed to open audio driver: %s" format(SDL getError()))
 		}
 		play()
 	}

@@ -53,7 +53,7 @@ Bullet: class extends Entity {
 			case "regular" => RegularBullet new()
 			case "player" => PlayerBullet new()
 			case =>
-				Exception new("No such enemy '%s'" format(type)) throw()
+				raise("No such enemy '%s'" format(type))
 				null
 		}
 	}

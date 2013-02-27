@@ -20,7 +20,7 @@ AssetCache: class {
 	getTexture: func (path:String) -> Texture {
 		
 		if (engine renderer == null)
-			Exception new("Can't obtain texture when StateRenderer is not initialised!") throw()
+			raise("Can't obtain texture when StateRenderer is not initialised!")
 			
 		path = "assets/" + path
 		image:Texture = textureCache[path]

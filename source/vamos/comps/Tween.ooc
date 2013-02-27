@@ -38,12 +38,30 @@ Tween: class extends Component {
 		this
 	}
 	
+	//    .`
+	//  .`
 	linear: static func (a, b, mix:Double) -> Double {
 		a + (b-a) * mix
 	}
 	
+	//      .--
+	//  __.'
 	cosine: static func (a, b, mix:Double) -> Double {
-		mix = (1 - cos(mix*PI)) * 0.5
+		mix = (1 - cos(mix * PI)) * 0.5
+		a + (b-a) * mix
+	}
+	
+	//        /
+	//  ___.-`
+	cosineIn: static func (a, b, mix:Double) -> Double {
+		mix = 1 - cos(mix * PI*0.5)
+		a + (b-a) * mix
+	}
+	
+	//    ,-'``
+	//   /
+	cosineOut: static func (a, b, mix:Double) -> Double {
+		mix = cos((1-mix) * PI*0.5)
 		a + (b-a) * mix
 	}
 }
