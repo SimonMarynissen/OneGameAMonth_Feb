@@ -1,6 +1,7 @@
 import math
 import structs/[HashBag, ArrayList], BagUtil
 import vamos/[Entity, Util]
+import vamos/graphics/Image
 import vamos/comps/Physics
 import vamos/masks/Hitbox
 import Actor, Level, Enemy
@@ -18,7 +19,7 @@ Bullet: class extends Entity {
 	
 	init: func {
 		type = "bullet"
-		hitbox = Hitbox new(4, 4, 1, 1)
+		hitbox = Hitbox new(0,0)
 		mask = hitbox
 	}
 	
@@ -68,7 +69,7 @@ RegularBullet: class extends Bullet {
 		super()
 		type = "regular_bullet"
 		
-		fill := FilledRect new(6, 6, 0,0,0) .center()
+		fill := FilledRect new(9, 9, 0,0,0) .center()
 		graphic = fill
 	}
 }
@@ -79,8 +80,9 @@ PlayerBullet: class extends Bullet {
 		super()
 		type = "player_bullet"
 		damage = 1
-		fill := FilledRect new(4, 4, 200,0,200) .center()
-		graphic = fill
+		hitbox set(6, 6) .center()
+		image := Image new("bullets.png") .center()
+		graphic = image
 	}
 	
 }

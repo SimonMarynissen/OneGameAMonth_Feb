@@ -10,6 +10,7 @@ Player: class extends Actor {
 	
 	input := PlayerInput new()
 	gun := PlayerGun new()
+	image := ShipGraphic new(9) .center()
 	
 	init: func(=x, =y) {
 		super()
@@ -25,7 +26,6 @@ Player: class extends Actor {
 		hitbox set(12, 10) .center()
 		type = "player"
 		
-		image := ShipGraphic new(9) .center()
 		graphic = image
 	}
 	

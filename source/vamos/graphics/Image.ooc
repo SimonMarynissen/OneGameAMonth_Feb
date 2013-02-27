@@ -47,7 +47,11 @@ Image: class extends Graphic {
 		dstRect x = x + this x - origin x
 		dstRect y = y + this y - origin y
 		texture color = color
-		renderer drawTexture(texture, srcRect&, dstRect&)
+		if (angle == 0) {
+			renderer drawTexture(texture, srcRect&, dstRect&)
+		} else {
+			renderer drawTexture(texture, srcRect&, dstRect&, angle, null, SDL_FLIP_NONE)
+		}
 	}
 	
 }
