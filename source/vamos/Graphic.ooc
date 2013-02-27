@@ -10,5 +10,5 @@ Graphic: abstract class {
 	scrollY: Double = 1.0
 	
 	update: func (dt: Double)
-	draw: abstract func (renderer: StateRenderer, entity:Entity, x, y : Double)
+	draw: abstract func (renderer: StateRenderer, entity:Entity, x, y: Double)
 }

@@ -1,6 +1,6 @@
 import structs/[ArrayList, HashBag], BagUtil
 import vamos/Engine
-import vamos/comps/Physics
+import vamos/comps/[Physics, Tween]
 import vamos/graphics/[Image, SpriteMap]
 import Actor, Level, Bullet
 import ai/[Motion, EnemyGun]
@@ -134,6 +134,12 @@ Popcorn: class extends Enemy {
 	
 	damage: func (amount:Int) {
 		super(amount)
+		addComp(Tween new(0.3, |n| sheet tint a = 255 - 255*n))
+	}
+	
+	die: func {
+		super()
+		state remove(this)
 	}
 	
 	frame: func (style:String) -> Int {

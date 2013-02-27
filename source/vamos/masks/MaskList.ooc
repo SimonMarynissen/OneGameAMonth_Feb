@@ -4,10 +4,8 @@ MaskList: class extends Mask {
 
 	masks: ArrayList<Mask>
 
-	init: func (=masks)
-	init: func~empty {
-		init(ArrayList<Mask> new())
-	}
+	init: func (=masks) {}
+	init : func ~withoutMasks () {}
 	
 	check: func (other: Mask) -> Bool {
 		for (mask in masks) {

@@ -1,7 +1,7 @@
 use sdl2
 import sdl2/Core
-
-import vamos/display/SurfaceLoader
+import vamos/Util
+import ./[SurfaceLoader, BlendMode]
 
 Texture: class {
 	
@@ -25,6 +25,32 @@ Texture: class {
 		init~fromSurface(renderer, surface)
 		SDL freeSurface(surface)
 	}
+	
+	color: Color {
+		get
+		set (v) {
+			color = v
+			SDL setTextureColorMod(data, v r, v g, v b)
+			SDL setTextureAlphaMod(data, v a)
+		}
+	}
+	color = (255,255,255,255) as Color
+	
+	blend: BlendMode {
+		get
+		set (v) {
+			blend = v
+			SDL setTextureBlendMode(data, v as Int)
+		}
+	}
+	blend = BlendMode BLEND
+	
+	//alpha: UInt8 {
+	//	get { SDL getTextureAlphaMod(data) }
+	//	set (v) { SDL setTextureAlphaMod(data, v) }
+	//}
+	//
+	//color: C
 	
 	destroy: func {
 		SDL destroyTexture(data)

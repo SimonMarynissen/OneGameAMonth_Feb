@@ -36,6 +36,7 @@ Bullet: class extends Entity {
 		y += velY * dt
 		if (damageTypes) {
 			e := collide(damageTypes)
+			if (e==null) e = collide(damageTypes, x-velX*0.5, y-velY*0.5)
 			if (e && e instanceOf?(Actor)) {
 				e as Actor damage(damage)
 				state remove(this)

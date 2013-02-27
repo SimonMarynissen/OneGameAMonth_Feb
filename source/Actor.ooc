@@ -68,6 +68,6 @@ Actor: class extends Entity {
 	}
 	
 	die: func {
-		state remove(this)
+		type = "dead"
 	}
 }

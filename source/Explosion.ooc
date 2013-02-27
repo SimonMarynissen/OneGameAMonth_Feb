@@ -13,9 +13,9 @@ Explosion: class extends Entity {
 	}
 	
 	added: func {
-		for (i in 1..100) {
+		for (i in 1..40) {
 			angle: Double = Random randInt(0, 360)
-			speed: Double = Random randInt(10, 100) * 0.5
+			speed: Double = Random randInt(50, 200)
 			graphics add(Particle new(x, y, angle, speed))
 		}
 		graphic = graphics

@@ -1,7 +1,7 @@
 use sdl2
 import sdl2/Core
-import vamos/[Engine, Graphic, Entity]
-import vamos/display/[Texture, StateRenderer]
+import vamos/[Engine, Graphic, Entity, Util]
+import vamos/display/[Texture, StateRenderer, BlendMode]
 
 Image: class extends Graphic {
 	
@@ -10,6 +10,13 @@ Image: class extends Graphic {
 	dstRect: SdlRect
 	srcRect: SdlRect
 	origin: SdlPoint
+	
+	tint := (0,255,255,255) as Color
+	color := (255,255,255,255) as Color
+	alpha: UInt8 {
+		get { color a }
+		set (v) { color a = v }
+	}
 	
 	scale: Double {
 		get
@@ -38,9 +45,17 @@ Image: class extends Graphic {
 	}
 	
 	draw: func (renderer:StateRenderer, entity:Entity, x, y: Double) {
-		dstRect x = x - origin x
-		dstRect y = y - origin y
+		dstRect x = x + this x - origin x
+		dstRect y = y + this y - origin y
+		texture color = color
 		renderer drawTexture(texture, srcRect&, dstRect&)
-	} 
+		
+		if (tint a) {
+			texture blend = BlendMode ADD
+			texture color = tint
+			renderer drawTexture(texture, srcRect&, dstRect&)
+			texture blend = BlendMode BLEND
+		}
+	}
 	
 }
