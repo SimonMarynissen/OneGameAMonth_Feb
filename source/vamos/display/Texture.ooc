@@ -1,27 +1,37 @@
 use sdl2
 import sdl2/Core
-import ./[SurfaceLoader, Color]
+import vamos/Engine
+import ./[SurfaceLoader, Bitmap, Color]
 
+/**
+ * Wrapper object for SdlTexture
+ * The engine must be initialised before textures can be created.
+ */
 Texture: class {
 	
 	data: SdlTexture
 	width: Double
 	height: Double
 	
-	init: func ~fromSurface (renderer:SdlRenderer, surface:SdlSurface*) {
-		data = SDL createTextureFromSurface(renderer, surface)
+	init: func ~fromSurface (surface:SdlSurface*) {
+		if (!engine || !engine renderer)
+			raise("Can't create texture when engine is not initialised!")
+		data = SDL createTextureFromSurface(engine renderer, surface)
 		width = surface@ w
 		height = surface@ h
 	}
 	
-	init: func ~fromPath (renderer:SdlRenderer, path:String) {
+	init: func ~fromBitmap (bitmap:Bitmap) {
+		init(bitmap surface)
+	}
+	
+	init: func ~fromPath (path:String) {
 		surface := SurfaceLoader load(path)
 		if (surface == null) {
 			"!! Error loading image '%s'" printfln(path)
-			// init with a placeholder 
-			surface = SDL createRGBSurface(0, 8, 8, 32, 0,0,0,0)
+			surface = SDL createRGBSurface(0, 8, 8, 32, 0,0,0,0) // init with placeholder 
 		}
-		init~fromSurface(renderer, surface)
+		init(surface)
 		SDL freeSurface(surface)
 	}
 	

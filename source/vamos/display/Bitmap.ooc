@@ -9,6 +9,7 @@ Bitmap: class {
 	width: Int { get { surface@ w } }
 	height: Int { get { surface@ h } }
 	format: SdlPixelFormat* { get { surface@ format } }
+	pixels: UInt32* { get { surface@ pixels } }
 	
 	init: func ~surface (=surface)
 	
@@ -16,8 +17,7 @@ Bitmap: class {
 		surface = SurfaceLoader load(path)
 		if (surface == null) {
 			"!! Error loading surface '%s'" printfln(path)
-			// init with a placeholder 
-			surface = SDL createRGBSurface(0, 8, 8, 32, 0,0,0,0)
+			surface = SDL createRGBSurface(0, 8, 8, 32, 0,0,0,0) // init with placeholder 
 		}
 	}
 	
@@ -55,10 +55,9 @@ Bitmap: class {
 		SDL lockSurface(surface)
 		for (x in 0..width) {
 			for (y in 0..height) {
-				pixel = surface@ pixels + (x%width + y*width) * UInt32 size
+				pixel = pixels[x%width + y*width]&
 				color set(pixel@, format)
-				color = f(x, y, color)
-				pixel@ = color toSDL(format)
+				pixel@ = f(x, y, color) toSDL(format)
 			}
 		}
 		SDL unlockSurface(surface)

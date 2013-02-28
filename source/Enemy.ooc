@@ -2,7 +2,7 @@ import structs/[ArrayList, HashBag], BagUtil
 import vamos/Engine
 import vamos/comps/[Physics, Tween]
 import vamos/display/Color
-import vamos/graphics/[Image, SpriteMap]
+import vamos/graphics/[GraphicList, Image, SpriteMap]
 import Actor, Level, Bullet, Explosion
 import ai/[Motion, EnemyGun]
 
@@ -113,6 +113,8 @@ EnemyEvent: class extends Component {
 Popcorn: class extends Enemy {
 	
 	sheet := SpriteMap new("enemy_popcorn.png", 16, 16)
+	sheetMask := SpriteMap new("popcorn_mask", 16, 16)
+	
 	motion := Motion new()
 	
 	init: func {
@@ -122,21 +124,23 @@ Popcorn: class extends Enemy {
 		hitbox set(16, 8) .center()
 		addComp(motion)
 		sheet center()
-		graphic = sheet
+		sheetMask center()
+		sheetMask alpha = 0
+		graphic = GraphicList new([sheet, sheetMask])
 	}
 	
 	configure: func (data:HashBag) {
 		super(data)
 		
 		if (data contains?("style"))
-			sheet frame = frame(data getString("style"))
+			style(data getString("style"))
 		
 		motion configure(data)
 	}
 	
 	damage: func (amount:Int) {
 		super(amount)
-		addComp(Tween new(0.3, |n| sheet color set(1,1,n,n)))
+		addComp(Tween new(0.3, |n| sheetMask alpha = Tween cosineOut(255, 0, n)))
 	}
 	
 	die: func {
@@ -145,8 +149,8 @@ Popcorn: class extends Enemy {
 		state remove(this)
 	}
 	
-	frame: func (style:String) -> Int {
-		match style {
+	style: func (style:String) {
+		sheet frame = match style {
 			case "dark" => 0
 			case "blue" => 1
 			case "green" => 2
@@ -159,6 +163,7 @@ Popcorn: class extends Enemy {
 			case "paleblue" => 9
 			case => 0
 		}
+		sheetMask frame = sheet frame
 	}
 }
 

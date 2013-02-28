@@ -17,7 +17,7 @@ StateRenderer: class {
 	
 	camX, camY:Double
 	
-	init: func (=target, =state)
+	init: func (=target)
 	
 	drawTexture: inline func(texture:Texture, sourceRect, destRect:SdlRect*) {
 		SDL renderCopy(target, texture data, sourceRect, destRect)
@@ -34,6 +34,8 @@ StateRenderer: class {
 	
 	
 	draw: func {
+		if (!state) return
+		
 		col := state color
 		SDL setRenderDrawColor(target, col r, col g, col b, col a)
 		SDL renderClear(target)

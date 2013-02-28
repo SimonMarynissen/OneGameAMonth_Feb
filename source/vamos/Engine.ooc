@@ -1,7 +1,7 @@
 use sdl2
 import sdl2/Core
 import vamos/[Util, Input, AssetCache, State, StateManager]
-import vamos/display/StateRenderer
+import vamos/display/[StateRenderer, Bitmap]
 import vamos/audio/Mixer
 
 engine:Engine
@@ -13,9 +13,8 @@ Engine: class {
 	
 	running := false
 	width, height: Int
-	caption := "Untitled Vamos Game"
 	frameRate:Double = 60
-	dt:Double // Seconds elapsed since last frame
+	dt:Double
 	
 	window: SdlWindow
 	renderer: SdlRenderer
@@ -31,14 +30,20 @@ Engine: class {
 		}
 	}
 	
-	init: func (=width, =height, =frameRate)
+	caption: String {
+		get { SDL getWindowTitle(window) as String}
+		set (v) { SDL setWindowTitle(window, v) }
+	}
 	
-	
-	start: func (startState:State) {
+	init: func (=width, =height, =frameRate) {
+		
+		if (engine)
+			raise("Only one engine can exist at a time!")
+		
 		SDL init(SDL_INIT_EVERYTHING)
 		
 		window = SDL createWindow(
-			caption,
+			"Vamos",
 			SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED,
 			width, height, SDL_WINDOW_SHOWN)
@@ -49,8 +54,13 @@ Engine: class {
 		
 		assets = AssetCache new(this)
 		mixer = Mixer new() .open()
-		stateManager = StateManager new(startState)
-		stateRenderer = StateRenderer new(renderer, startState)
+		stateManager = StateManager new()
+		stateRenderer = StateRenderer new(renderer)
+	}
+	
+	
+	start: func (state:State) {
+		this state = state
 		
 		running = true
 		Input onQuit add(|| running = false)
@@ -85,8 +95,8 @@ Engine: class {
 		SDL delay(seconds*1000)
 	}
 	
-	setIcon: func (icon:SdlSurface*) {
-		SDL setWindowIcon(window, icon)
+	setIcon: func (bitmap:Bitmap) {
+		SDL setWindowIcon(window, bitmap surface)
 	}
 	
 	cleanup: func {

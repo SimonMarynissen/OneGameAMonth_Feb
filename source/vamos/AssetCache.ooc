@@ -1,3 +1,4 @@
+import io/File
 use sdl2
 import sdl2/Core
 import structs/HashMap
@@ -29,7 +30,7 @@ AssetCache: class {
 	getTexture: func (key:String) -> Texture {
 		
 		if (engine renderer == null)
-			raise("Can't obtain texture when StateRenderer is not initialised!")
+			raise("Can't obtain textures when the renderer is not initialised!")
 		
 		texture:Texture = textureCache[key]
 		
@@ -39,7 +40,7 @@ AssetCache: class {
 		}
 		
 		if (texture == null) {
-			texture = Texture new(engine renderer, key)
+			texture = Texture new(key)
 			register(key, texture)
 		}
 		

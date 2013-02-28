@@ -3,9 +3,7 @@ import vamos/State
 StateManager: class {
 	
 	state: State {
-		get {
-			return state
-		}
+		get
 		set (newState) {
 			if (state != null) {
 				state onLeave dispatch(newState)
@@ -18,7 +16,7 @@ StateManager: class {
 		}
 	}
 	
-	init: func (=state)
+	init: func
 	
 	update: func (dt:Double) {
 		if (state) state update(dt)
