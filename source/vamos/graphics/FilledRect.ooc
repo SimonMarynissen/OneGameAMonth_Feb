@@ -1,7 +1,7 @@
 use sdl2
 import sdl2/Core
-import vamos/[Graphic, Entity, Util]
-import vamos/display/StateRenderer
+import vamos/[Graphic, Entity]
+import vamos/display/[StateRenderer, Color]
 
 FilledRect: class extends Graphic {
 	

@@ -1,5 +1,6 @@
 import structs/HashBag
 import vamos/State
+import vamos/display/Color
 import Player, Enemy, Fleet
 
 PlayState: class extends State {

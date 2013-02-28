@@ -1,5 +1,6 @@
 import structs/[ArrayList, LinkedList, HashMap]
-import vamos/[Engine, Signal, Entity, Util]
+import vamos/[Engine, Signal, Entity]
+import vamos/display/Color
 
 // TODO: replace the current ArrayList system with linked lists
 

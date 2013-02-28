@@ -1,6 +1,7 @@
 import structs/[ArrayList, HashBag], BagUtil
 import vamos/Engine
 import vamos/comps/[Physics, Tween]
+import vamos/display/Color
 import vamos/graphics/[Image, SpriteMap]
 import Actor, Level, Bullet, Explosion
 import ai/[Motion, EnemyGun]

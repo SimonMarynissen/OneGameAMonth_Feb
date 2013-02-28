@@ -2,6 +2,7 @@ import Fleet, Player, Explosion
 import structs/[ArrayList, Bag, HashBag], BagUtil
 import vamos/[Engine, State]
 import vamos/audio/Music
+import vamos/display/Color
 
 use sdl2
 import sdl2/Event

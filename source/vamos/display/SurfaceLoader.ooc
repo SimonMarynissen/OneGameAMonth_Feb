@@ -31,21 +31,21 @@ SurfaceLoader: class {
 		return surface
 	}
 	
-}
-
-getChannelMasks: static func -> (UInt32,UInt32,UInt32,UInt32) {
-	r,g,b,a : UInt32
-	
-	if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
-		r = 0xff000000
-		g = 0x00ff0000
-		b = 0x0000ff00
-		a = 0x000000ff
-	} else {
-		r = 0x000000ff
-		g = 0x0000ff00
-		b = 0x00ff0000
-		a = 0xff000000
+	getChannelMasks: static func -> (UInt32,UInt32,UInt32,UInt32) {
+		r,g,b,a : UInt32
+		
+		if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+			r = 0xff000000
+			g = 0x00ff0000
+			b = 0x0000ff00
+			a = 0x000000ff
+		} else {
+			r = 0x000000ff
+			g = 0x0000ff00
+			b = 0x00ff0000
+			a = 0xff000000
+		}
+		return (r,g,b,a)
 	}
-	return (r,g,b,a)
+	
 }

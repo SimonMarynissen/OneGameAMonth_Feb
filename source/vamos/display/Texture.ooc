@@ -1,7 +1,6 @@
 use sdl2
 import sdl2/Core
-import vamos/Util
-import ./[SurfaceLoader, BlendMode]
+import ./[SurfaceLoader, Color]
 
 Texture: class {
 	
@@ -52,7 +51,7 @@ Texture: class {
 	//
 	//color: C
 	
-	destroy: func {
+	free: func {
 		SDL destroyTexture(data)
 		width = 0
 		height = 0

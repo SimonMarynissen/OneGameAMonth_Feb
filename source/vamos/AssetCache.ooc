@@ -2,34 +2,79 @@ use sdl2
 import sdl2/Core
 import structs/HashMap
 import vamos/Engine
-import vamos/display/Texture
+import vamos/display/[Texture, Bitmap]
 
 AssetCache: class {
 	
 	engine: Engine
 	textureCache := HashMap<String, Texture> new()
+	bitmapCache := HashMap<String, Bitmap> new()
 	
 	init: func (=engine)
 	
+	/**
+	 * Clean up everything, including assets that weren't created by the cache itself.
+	 * Will be called automatically when the engine quits.
+	 */
 	free: func {
-		for (image in textureCache)
-			image destroy()
+		for (texture in textureCache) texture free()
 		textureCache clear()
+		for (bitmap in bitmapCache) bitmap free()
+		bitmapCache clear()
 	}
 	
-	getTexture: func (path:String) -> Texture {
+	/**
+	 * Retrieve a texture from a path (relative to the assets folder), or from a manually assigned key.
+	 */
+	getTexture: func (key:String) -> Texture {
 		
 		if (engine renderer == null)
 			raise("Can't obtain texture when StateRenderer is not initialised!")
-			
-		path = "assets/" + path
-		image:Texture = textureCache[path]
 		
-		if (image == null) {
-			image = Texture new(engine renderer, path)
-			textureCache[path] = image
+		texture:Texture = textureCache[key]
+		
+		if (texture == null) {
+			key = "assets/" + key
+			texture = textureCache[key]
 		}
-		return image
+		
+		if (texture == null) {
+			texture = Texture new(engine renderer, key)
+			register(key, texture)
+		}
+		
+		return texture
 	}
 	
+	
+	/**
+	 * Retrieve a bitmap from a path (relative to the assets folder), or from a manually assigned key.
+	 */
+	getBitmap: func (key:String) -> Bitmap {
+		
+		if (engine == null)
+			raise("Can't obtain bitmaps when the engine is not active!")
+		
+		bitmap:Bitmap = bitmapCache[key]
+		
+		if (bitmap == null) {
+			key = "assets/" + key
+			bitmap = bitmapCache[key]
+		}
+		
+		if (bitmap == null) {
+			bitmap = Bitmap new(key)
+			register(key, bitmap)
+		}
+		
+		return bitmap
+	}
+	
+	
+	register: func ~texture (key:String, texture:Texture) {
+		textureCache[key] = texture
+	}
+	register: func ~bitmap (key:String, bitmap:Bitmap) {
+		bitmapCache[key] = bitmap
+	}
 }
