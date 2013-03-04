@@ -24,13 +24,13 @@ Enemy: class extends Actor {
 	
 	init: func {
 		super()
-		physics handle(|e|
-			if (e type == "player") {
-				// damage
-				return false
-			}
-			return true
-		)
+		//physics handle(|e|
+		//	if (e type == "player") {
+		//		// damage
+		//		return false
+		//	}
+		//	return true
+		//)
 	}
 	
 	update: func (dt:Double) {
@@ -119,7 +119,7 @@ Popcorn: class extends Enemy {
 	
 	init: func {
 		super()
-		health = maxHealth = 2
+		health = maxHealth = 1
 		type = "popcorn"
 		hitbox set(16, 8) .center()
 		addComp(motion)
@@ -140,7 +140,7 @@ Popcorn: class extends Enemy {
 	
 	damage: func (amount:Int) {
 		super(amount)
-		addComp(Tween new(0.3, |n| sheetMask alpha = Tween cosineOut(255, 0, n)))
+		addComp(Tween new~start(0.3, |n| sheetMask alpha = Tween cosineOut(255, 0, n)))
 	}
 	
 	die: func {

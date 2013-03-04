@@ -2,6 +2,34 @@
 	"name": "level 1",
 	"color": "#ccccff",
 	"fleets": [
+		{"after":3, "type":"popcorn", "style":"white", "x":0, "y": 0.4, "amount":70, "interval":0.2, "angle":0, "speed":100,
+		 "event": [
+			{"after":1, "turn":40},
+			{"after":6, "remove":true}
+		]},
+		{"after":6, "type":"popcorn", "style":"white", "x":0, "y": 0.3, "amount":50, "interval":0.2, "angle":0, "speed":100,
+		 "event": [
+			{"after":1, "turn":64},
+			{"after":4, "remove":true}
+		]},
+		{"after":10, "type":"popcorn", "style":"white", "x":0.7, "y": 0, "amount":20, "interval":0.4, "angle":270, "speed":80,
+		 "event": [
+			{"after":2, "turn":90},
+			{"after":3, "turn":0},
+			{"after":6, "remove":true}
+		]},
+		{"after":10.2, "type":"popcorn", "style":"white", "x":0.7, "y": 0, "amount":20, "interval":0.4, "angle":270, "speed":80,
+		 "event": [
+			{"after":2, "turn":-90},
+			{"after":3, "turn":0, "accel":20},
+			{"after":8, "remove":true}
+		]},
+		{"after":14, "type":"popcorn", "style":"white", "x":1, "y": 0.5, "amount":20, "interval":0.3, "angle":180, "speed":100,
+		 "event": [
+			{"after":4, "remove":true}
+		]},
+	],
+	"unused": [
 		{"after":0, "type":"popcorn", "style":"orange", "x":0, "y": 0.1, "amount":10, "interval":0.16, "angle":0, "speed":180,
 		 "event": [
 			{"after":0.5, "turn":-180},
@@ -11,6 +39,6 @@
 			{"after":4.1, "accel":2000, "angle":270},
 			{"after":4.4, "accel":0},
 			{"after":6, "remove":true}
-		]}
+		]},
 	]
 }

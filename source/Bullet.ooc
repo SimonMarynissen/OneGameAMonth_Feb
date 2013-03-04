@@ -10,7 +10,7 @@ Bullet: class extends Entity {
 	
 	level: Level
 	damage: Int = 0
-	speed: Double = 100
+	speed: Double = 60
 	angle: Double
 	target: Actor
 	hitbox: Hitbox
@@ -37,7 +37,6 @@ Bullet: class extends Entity {
 		y += velY * dt
 		if (damageTypes) {
 			e := collide(damageTypes)
-			if (e==null) e = collide(damageTypes, x-velX*0.5, y-velY*0.5)
 			if (e && e instanceOf?(Actor)) {
 				e as Actor damage(damage)
 				state remove(this)
@@ -79,7 +78,7 @@ PlayerBullet: class extends Bullet {
 	init: func {
 		super()
 		type = "player_bullet"
-		damage = 1
+		damage = 100
 		hitbox set(6, 6) .center()
 		image := Image new("bullets.png") .center()
 		graphic = image

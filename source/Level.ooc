@@ -13,6 +13,7 @@ Level: class extends State {
 	data: HashBag
 	name: String
 	player: Player
+	shipType: Int
 	fleets := ArrayList<Fleet> new()
 	
 	padding := const 20
@@ -36,11 +37,10 @@ Level: class extends State {
 		right = width + padding
 		
 		for (fleet in fleets) add(fleet)
-		add(Player new(100, 100))
-		add(Explosion new(150, 150))
+		add(Player new(192, 380, shipType))
 		
-		//music := Music new("assets/music/geckojsc - Mothership.ogg")
-		//engine mixer add(music)
+		music := Music new("assets/music/geckojsc - Mothership.ogg")
+		engine mixer add(music)
 		
 		if (data contains?("backdrop")) {
 			//add backdrop

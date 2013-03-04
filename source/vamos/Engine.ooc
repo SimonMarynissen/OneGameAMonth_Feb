@@ -81,7 +81,7 @@ Engine: class {
 		mixer update(dt)
 		
 		sleep(1.0/frameRate - dt)
-		dt = min(time()-startTime, 1.0/(2.0*frameRate))
+		dt = min(time()-startTime, 2.0/frameRate)
 	}
 	
 	/// number of seconds since the program began

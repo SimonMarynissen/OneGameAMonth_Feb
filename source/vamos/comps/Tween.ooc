@@ -17,7 +17,7 @@ Tween: class extends Component {
 	
 	init: func (=duration, =f)
 	
-	added: func {
+	init: func~start (=duration, =f) {
 		playing = true
 	}
 	

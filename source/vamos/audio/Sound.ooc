@@ -1,58 +1,71 @@
-import vamos/Vamos
-import vamos/Signal
-import vamos/audio/AudioSource
-import vamos/SoundLoader
+use sdl2
+import sdl2/Audio
+import vamos/[Engine, AssetCache, Signal]
+import vamos/audio/[Sample, Mixer, AudioSource]
 
 /**
- * A sample that can be loaded from a .wav or .ogg file
+ * Can load sound from a .wav or .ogg file
  * If your file is large, consider using a streaming 'Music' object instead.
  */
 Sound: class extends AudioSource {
 	
-	data: UInt8*
-	size: UInt32
+	sample: Sample
 	position: UInt32
 	
 	playing := false
 	looping := false
-	volume: Double = 1.0
-	pan: Double = 0.0
+	volume: Double = 1
+	pan: Double = 0
 	onComplete := VoidSignal new()
 	
-	init: func (path:String) {
-		SoundLoader load("path")
+	init: func (key:String) {
+		sample = engine assets getSample(key)
 	}
+	
+	play: func (restart := true) {
+		if (restart) position = 0
+		playing = true
+		if (!mixer) addSelf()
+	}
+	//play: func {
+	//	play(volume, pan)
+	//}
+	//
+	//play: func ~withVolumeAndPan (volume, pan: Double) {
+	//	// play the sound with the arguments
+	//	if (playing) stop()
+	//	position = 0
+	//}
 	
 	complete: func {
 		stop()
-		if (looping) {
-			play(true)
-		}
-	}
-	
-	play: func {
-		play(volume, pan)
-	}
-	
-	play: func ~withVolumeAndPan (volume, pan: Double) {
-		// play the sound with the arguments
-		if (playing) stop()
-		position = 0.0
+		removeSelf()
 	}
 	
 	stop: func {
-		if (!playing) return
 		pause()
-		position = 0.0
+		position = 0
 	}
 	
 	pause: func {
-		if (!playing) return
 		playing = false
 	}
 	
 	resume: func {
-		if (playing) return
 		playing = true
+	}
+	
+	mixInto: func (stream:UInt8*, len:Int) {
+		if (playing) {
+			remaining := sample size - position
+			if (remaining == 0) {
+				complete()
+				return
+			}
+			if (remaining < len) len = remaining
+			
+			SdlAudio mix(stream, sample data[position]&, len, volume*SDL_MIX_MAXVOLUME)
+			position += len
+		}
 	}
 }

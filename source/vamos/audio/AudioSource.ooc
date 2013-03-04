@@ -1,3 +1,4 @@
+import vamos/Engine
 import vamos/audio/Mixer
 
 /**
@@ -18,6 +19,13 @@ AudioSource: abstract class {
 	
 	// Do whatever you like in here!
 	update: func (dt:Double)
+	
+	addSelf: func {
+		engine mixer add(this)
+	}
+	removeSelf: func {
+		engine mixer remove(this)
+	}
 	
 	_removed := false
 	

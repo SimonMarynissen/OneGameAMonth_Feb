@@ -1,4 +1,4 @@
-import vamos/Entity
+import vamos/[Engine, Entity]
 import vamos/graphics/Image
 import vamos/masks/Hitbox
 import vamos/comps/Physics
@@ -10,9 +10,9 @@ Player: class extends Actor {
 	
 	input := PlayerInput new()
 	gun := PlayerGun new()
-	image := ShipGraphic new(9)
+	image: ShipGraphic
 	
-	init: func(=x, =y) {
+	init: func(=x, =y, shipFrame:Int) {
 		super()
 		
 		physics maxVelX = 360
@@ -26,6 +26,7 @@ Player: class extends Actor {
 		hitbox set(12, 10) .center()
 		type = "player"
 		
+		image := ShipGraphic new(shipFrame)
 		image center()
 		graphic = image
 	}

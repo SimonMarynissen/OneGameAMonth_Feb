@@ -11,6 +11,10 @@ Timer: class extends Component {
 	init: func (=interval, =callback) {
 		name = "timer"
 	}
+	init: func~start(=interval, =callback) {
+		name = "timer"
+		start()
+	}
 	
 	update: func (dt: Double) {
 		if (running) {

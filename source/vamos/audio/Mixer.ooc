@@ -40,7 +40,10 @@ Mixer: class {
 		iter := sources iterator()
 		while (iter hasNext?()) {
 			source := iter next()
-			if (source _removed) iter remove()
+			if (source _removed) {
+				source mixer = null
+				iter remove()
+			}
 			else source update(dt)
 		}
 	}
@@ -83,7 +86,6 @@ _mix: static func (userdata:Pointer, stream:UInt8*, len:Int) {
 		return
 	
 	i := 0
-	
 	while (i < _currentSources size) {
 		source := _currentSources[i]
 		source mixInto(stream, len)
