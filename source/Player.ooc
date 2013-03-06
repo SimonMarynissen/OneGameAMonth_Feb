@@ -15,10 +15,10 @@ Player: class extends Actor {
 	init: func(=x, =y, shipFrame:Int) {
 		super()
 		
-		physics maxVelX = 360
-		physics maxVelY = 280
+		physics maxVelX = 300
+		physics maxVelY = 220
 		physics dragX = physics dragY = 2000
-		accel = 4000
+		accel = 3000
 		
 		addComp(input)
 		addComp(gun)
